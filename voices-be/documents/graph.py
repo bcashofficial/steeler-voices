@@ -165,8 +165,10 @@ def build_graph(deps: Dependencies, checkpointer: Any):
 @transaction.atomic
 def store_document(state: GenerationState) -> Document:
     """The draft as rows: the document (published, unpublishing the arm's
-    previous one), its sections in order, and a citation per cited voice."""
+    previous one), its sections in order, and a citation per cited voice.
+    A run executed again writes its document again, not twice."""
     run = GenerationRun.objects.select_related("week", "arm").get(pk=state["run_id"])
+    Document.objects.filter(generation_run=run).delete()
     Document.objects.filter(week=run.week, arm=run.arm, is_published=True).update(is_published=False)
     document = Document.objects.create(
         generation_run=run, week=run.week, arm=run.arm, title=state["draft"]["title"], is_published=True

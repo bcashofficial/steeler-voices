@@ -172,3 +172,16 @@ def test_the_command_reports_its_batch_as_a_pipeline_run():
     record = PipelineRun.objects.get(pipeline__key="generate")
     assert record.host == "rig" and record.exit_code == 0
     assert record.counts["succeeded"] == 2 and record.counts["retrievals"] >= 1
+
+
+def test_a_claimed_run_is_taken_once_and_a_rerun_rewrites_its_document():
+    seed_vocab()
+    week, _ = seed_week()
+    run = GenerationRunFactory(week=week, arm=ArmFactory(key="rag", label="rag", uses_retrieval=True))
+    assert generator.claim_next() == run
+    assert generator.claim_next() is None  # running now, not pending
+    with generator.memory_checkpointer() as checkpointer:
+        deps = Dependencies(model=FakeModel(), embed=lambda _: UNIT)
+        generator.execute_run(run, deps, checkpointer)
+        generator.execute_run(run, deps, checkpointer)
+    assert Document.objects.filter(generation_run=run).count() == 1
