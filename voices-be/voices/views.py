@@ -13,9 +13,7 @@ def _validated(serializer_class, data):
 @voices_internal_api_view(["POST"])
 def ingest_voices(request):
     data = _validated(serializers.IngestVoicesSerializer, request.data)
-    counts = services.ingest_voices(data["source"], data.get("run"), data["items"])
-    counts["authors_recounted"] = services.refresh_author_counts(data["source"])
-    return Response(counts)
+    return Response(services.ingest_voices(data["source"], data.get("run"), data["items"]))
 
 
 @voices_internal_api_view(["GET"])

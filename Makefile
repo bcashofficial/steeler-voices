@@ -20,6 +20,7 @@ help:
 dev: doctor
 	@echo "design system  http://localhost:5301"
 	@echo "backend        http://localhost:8300/health/"
+	@echo "pipelines      docker compose -f infra/docker-compose.yml logs -f voices-de"
 	$(COMPOSE) up --build
 
 infra:

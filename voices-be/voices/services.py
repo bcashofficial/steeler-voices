@@ -7,7 +7,7 @@ from collections import Counter
 from datetime import date, datetime
 
 from django.db import transaction
-from django.db.models import Q
+from django.db.models import Count, Q
 from django.utils import timezone
 
 from lookups.models import LKSources
@@ -28,9 +28,29 @@ def content_hash(title: str, body_text: str) -> str:
     return hashlib.sha256(f"{title}\n{body_text}".encode()).hexdigest()
 
 
-def _author(source: LKSources, handle: str, seen_at: datetime) -> Author:
-    author, _ = Author.objects.get_or_create(source=source, handle=handle, defaults={"first_seen_at": seen_at})
-    return author
+def _authors_for(source: LKSources, items: list[dict]) -> dict[str, Author]:
+    """Every author in the batch, created where new, in two queries."""
+    handles = {item["author"] for item in items}
+    known = {a.handle: a for a in Author.objects.filter(source=source, handle__in=handles)}
+    first_seen = {}
+    for item in items:
+        if item["author"] not in known:
+            first_seen.setdefault(item["author"], item["posted_at"])
+    Author.objects.bulk_create(
+        [Author(source=source, handle=h, first_seen_at=seen) for h, seen in first_seen.items()], ignore_conflicts=True
+    )
+    if first_seen:
+        known.update({a.handle: a for a in Author.objects.filter(source=source, handle__in=first_seen)})
+    return known
+
+
+def _weeks_for(items: list[dict]) -> dict[date, Week]:
+    weeks = {}
+    for item in items:
+        starts_on = week_start_for(item["posted_at"])
+        if starts_on not in weeks:
+            weeks[starts_on] = week_for(item["posted_at"])
+    return weeks
 
 
 def _apply_item(voice: Voice, item: dict, now: datetime) -> bool:
@@ -43,38 +63,57 @@ def _apply_item(voice: Voice, item: dict, now: datetime) -> bool:
     return changed
 
 
+UPDATED_FIELDS = [
+    "title",
+    "body_text",
+    "body_html",
+    "flair",
+    "score",
+    "reply_count",
+    "external_url",
+    "content_hash",
+    "last_seen_at",
+]
+
+
 @transaction.atomic
 def ingest_voices(source: LKSources, run: PipelineRun | None, items: list[dict]) -> dict:
-    """Upsert a batch of posts and comments by (source, external_id), then
-    resolve every thread and parent reference the batch or the table can
-    satisfy. A parent that has not arrived yet is left null and picked up
-    by a later batch."""
+    """Upsert a batch of posts and comments by (source, external_id) in a
+    handful of queries, then resolve every thread and parent reference the
+    batch or the table can satisfy. A parent that has not arrived yet is
+    left null and picked up by a later batch."""
     counts: Counter = Counter(received=len(items))
     now = timezone.now()
+    authors, weeks = _authors_for(source, items), _weeks_for(items)
+    existing = {
+        v.external_id: v for v in Voice.objects.filter(source=source, external_id__in=[i["external_id"] for i in items])
+    }
+    fresh, changed, untouched = [], [], []
     for item in items:
-        voice = Voice.objects.filter(source=source, external_id=item["external_id"]).first()
+        voice = existing.get(item["external_id"])
         if voice is None:
             voice = Voice(
                 source=source,
                 external_id=item["external_id"],
                 voice_type=item["voice_type"],
-                author=_author(source, item["author"], item["posted_at"]),
+                author=authors[item["author"]],
                 posted_at=item["posted_at"],
                 first_seen_at=now,
-                week=week_for(item["posted_at"]),
+                week=weeks[week_start_for(item["posted_at"])],
                 ingest_run=run,
             )
             _apply_item(voice, item, now)
-            voice.save()
-            counts["new"] += 1
-        elif _apply_item(voice, item, now):
-            voice.save()
-            counts["updated"] += 1
+            fresh.append(voice)
+        elif not item.get("weak") and _apply_item(voice, item, now):
+            changed.append(voice)
         else:
-            voice.last_seen_at = now
-            voice.save(update_fields=["last_seen_at", "updated_at"])
-            counts["unchanged"] += 1
+            untouched.append(voice)
+    Voice.objects.bulk_create(fresh, batch_size=500)
+    Voice.objects.bulk_update(changed, UPDATED_FIELDS, batch_size=500)
+    Voice.objects.filter(pk__in=[v.pk for v in untouched]).update(last_seen_at=now)
+    counts.update(new=len(fresh), updated=len(changed), unchanged=len(untouched))
     counts["orphans"] = _link_threads(source, items)
+    counts["authors_recounted"] = _recount_authors(source, {item["author"] for item in items})
     return dict(counts)
 
 
@@ -82,21 +121,23 @@ def _link_threads(source: LKSources, items: list[dict]) -> int:
     """Point each comment at its thread root and its parent; returns how
     many parents are still unknown."""
     by_external = {
-        v.external_id: v for v in Voice.objects.filter(source=source, external_id__in=_referenced_ids(items))
+        v.external_id: v
+        for v in Voice.objects.filter(source=source, external_id__in=_referenced_ids(items)).select_related(
+            "voice_type"
+        )
     }
-    orphans = 0
+    orphans, linked = 0, []
     for item in items:
         voice = by_external.get(item["external_id"])
         if voice is None or voice.voice_type.key == "post":
             continue
         thread = by_external.get(item.get("thread_external_id") or "")
         parent = by_external.get(item.get("parent_external_id") or "")
-        voice.thread = thread
-        voice.parent = parent
+        voice.thread, voice.parent = thread, parent
         voice.depth = None if parent is None else (parent.depth or 0) + 1
-        if parent is None:
-            orphans += 1
-        voice.save(update_fields=["thread", "parent", "depth", "updated_at"])
+        orphans += parent is None
+        linked.append(voice)
+    Voice.objects.bulk_update(linked, ["thread", "parent", "depth"], batch_size=500)
     return orphans
 
 
@@ -110,16 +151,14 @@ def _referenced_ids(items: list[dict]) -> set[str]:
     return ids
 
 
-def refresh_author_counts(source: LKSources) -> int:
-    """Recount voices per author; returns authors touched."""
-    touched = 0
-    for author in Author.objects.filter(source=source):
-        count = author.voices.count()
-        if count != author.voice_count:
-            author.voice_count = count
-            author.save(update_fields=["voice_count", "updated_at"])
-            touched += 1
-    return touched
+def _recount_authors(source: LKSources, handles: set[str]) -> int:
+    """Recount voices for the authors this batch touched, in one query."""
+    counted = Author.objects.filter(source=source, handle__in=handles).annotate(n=Count("voices"))
+    stale = [a for a in counted if a.voice_count != a.n]
+    for author in stale:
+        author.voice_count = author.n
+    Author.objects.bulk_update(stale, ["voice_count"], batch_size=500)
+    return len(stale)
 
 
 def voice_text(voice: Voice) -> str:

@@ -13,16 +13,6 @@ SOURCES = [
         "url": "https://www.reddit.com/r/steelers",
         "posts_feed_url": "https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=steelers",
         "comments_feed_url": "https://arctic-shift.photon-reddit.com/api/comments/search?subreddit=steelers",
-        "adapter": "archive",
-    },
-    {
-        "label": "r/steelers (rss)",
-        "platform": "reddit",
-        "community": "steelers",
-        "url": "https://www.reddit.com/r/steelers",
-        "posts_feed_url": "https://www.reddit.com/r/steelers/new.rss",
-        "comments_feed_url": "https://www.reddit.com/r/steelers/comments.rss",
-        "adapter": "rss",
     },
 ]
 

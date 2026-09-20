@@ -14,7 +14,6 @@ class SourceFactory(factory.django.DjangoModelFactory):
     url = "https://www.reddit.com/r/steelers"
     posts_feed_url = "https://example.test/posts"
     comments_feed_url = "https://example.test/comments"
-    adapter = "archive"
 
 
 class VoiceTypeFactory(factory.django.DjangoModelFactory):

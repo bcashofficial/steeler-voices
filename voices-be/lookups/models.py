@@ -6,11 +6,10 @@ from django.db import models
 
 from shared.models import LookupModel, uuid_pk
 
-ADAPTER_CHOICES = [("archive", "archive"), ("rss", "rss")]
-
 
 class LKSources(LookupModel):
-    """Where voices come from: one row per community feed we read."""
+    """Where voices come from: one row per community. The archive feeds are
+    named here; reddit.com's own RSS feeds are derived from `url`."""
 
     source_id = uuid_pk()
     platform = models.CharField(max_length=40)
@@ -18,7 +17,6 @@ class LKSources(LookupModel):
     url = models.URLField()
     posts_feed_url = models.URLField()
     comments_feed_url = models.URLField()
-    adapter = models.CharField(max_length=16, choices=ADAPTER_CHOICES)
 
 
 class LKVoiceTypes(LookupModel):

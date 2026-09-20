@@ -24,6 +24,8 @@ class VoiceItemSerializer(serializers.Serializer):
     score = serializers.IntegerField(required=False, allow_null=True, default=None)
     reply_count = serializers.IntegerField(required=False, allow_null=True, default=None)
     posted_at = serializers.DateTimeField()
+    # A weak item (from a feed without scores) creates a voice but never overwrites one.
+    weak = serializers.BooleanField(default=False)
 
 
 class IngestVoicesSerializer(serializers.Serializer):

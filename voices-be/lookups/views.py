@@ -16,6 +16,6 @@ def vocab(_request):
             "moods": _rows(LKMoods.objects.all(), "key", "label", "color_token"),
             "targets": _rows(LKTargets.objects.all(), "key", "label"),
             "section_kinds": _rows(LKSectionKinds.objects.all(), "key", "label"),
-            "sources": _rows(LKSources.objects.all(), "label", "platform", "community", "url", "adapter"),
+            "sources": _rows(LKSources.objects.all(), "label", "platform", "community", "url"),
         }
     )

@@ -8,7 +8,7 @@ from lookups.models import LKArms, LKMoods, LKPipelines, LKSources, LKTargets
 def test_seed_is_idempotent():
     call_command("seed_lookups")
     call_command("seed_lookups")
-    assert LKSources.objects.count() == 2
+    assert LKSources.objects.count() == 1
     assert LKTargets.objects.count() == 8
     assert LKPipelines.objects.count() == 9
     assert LKMoods.objects.count() == 7

@@ -76,6 +76,14 @@ def test_ingest_is_idempotent_and_detects_edits(internal_client, seeded):
     assert Voice.objects.count() == 1
 
 
+def test_a_weak_item_never_overwrites_a_known_voice(internal_client, seeded):
+    internal_client.post("/api/internal/voices/", {"source": "r/steelers", "items": [post_item()]}, format="json")
+    weak = post_item(score=None, body_text="rendered differently", weak=True)
+    response = internal_client.post("/api/internal/voices/", {"source": "r/steelers", "items": [weak]}, format="json")
+    assert response.data["unchanged"] == 1
+    assert Voice.objects.get().score == 1900
+
+
 def test_a_reply_whose_parent_arrives_later_is_linked_then(internal_client, seeded):
     reply_first = {"source": "r/steelers", "items": [comment_item("c2", "c1", "Yeah agreed.")]}
     orphaned = internal_client.post("/api/internal/voices/", reply_first, format="json")

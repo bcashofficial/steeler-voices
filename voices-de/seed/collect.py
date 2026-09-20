@@ -28,12 +28,12 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 BASE_URL = "https://arctic-shift.photon-reddit.com/api"
 SUBREDDIT = "steelers"
-SINCE = datetime(2026, 8, 11, tzinfo=timezone.utc)  # the Tuesday five weeks before the Patriots week
+SINCE = datetime(2026, 8, 11, tzinfo=UTC)  # the Tuesday five weeks before the Patriots week
 PAGE_SIZE = 100
 POLITE_PAUSE_SECONDS = 1.0
 FOLLOW_MINUTES = 10
@@ -70,9 +70,7 @@ def load_seen_ids(kind: str) -> set[str]:
 
 
 def fetch_page(kind: str, after_epoch: int) -> list[dict]:
-    query = urllib.parse.urlencode(
-        {"subreddit": SUBREDDIT, "after": after_epoch, "limit": PAGE_SIZE, "sort": "asc"}
-    )
+    query = urllib.parse.urlencode({"subreddit": SUBREDDIT, "after": after_epoch, "limit": PAGE_SIZE, "sort": "asc"})
     request = urllib.request.Request(f"{BASE_URL}/{kind}/search?{query}", headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(request, timeout=60) as response:
         return json.load(response)["data"]
@@ -123,8 +121,13 @@ def main() -> None:
     while True:
         for kind in KINDS:
             added = drain(kind, cursor, seen[kind])
-            log.info("%s +%d (total %d, cursor %s)", kind, added, len(seen[kind]),
-                     datetime.fromtimestamp(cursor[kind], tz=timezone.utc).isoformat())
+            log.info(
+                "%s +%d (total %d, cursor %s)",
+                kind,
+                added,
+                len(seen[kind]),
+                datetime.fromtimestamp(cursor[kind], tz=UTC).isoformat(),
+            )
         time.sleep(FOLLOW_MINUTES * 60)
 
 
