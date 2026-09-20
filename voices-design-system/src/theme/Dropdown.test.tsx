@@ -22,7 +22,7 @@ test("shows the current choice, opens to a listbox, and picks by click", async (
   await userEvent.click(field);
   expect(screen.getByRole("listbox")).toBeInTheDocument();
   expect(screen.getByRole("option", { name: /Board/ })).toHaveAttribute("aria-selected", "true");
-  expect(screen.getByRole("img", { name: "4,212" })).toBeInTheDocument();
+  expect(screen.getByText("4,212")).toBeInTheDocument();
   await userEvent.click(screen.getByRole("option", { name: /Map/ }));
   expect(onChange).toHaveBeenCalledWith("map");
   expect(screen.queryByRole("listbox")).toBeNull();

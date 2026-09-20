@@ -1,14 +1,14 @@
 /**
  * Dropdown — a soft field showing the current choice with a chevron; open,
  * a lifted sheet of options, the chosen one marked with a gold square and
- * set in 600, a drawn count at the right when an option carries one. An
+ * set in 600, a count at the right when an option carries one. An
  * optional small label sits above the field. Arrow keys move, Enter picks,
  * Esc and a click away close.
  */
 
 import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 
-import { StencilNumber } from "./StencilNumber";
+import { formatCount } from "./format";
 import { mountStyle } from "./styles";
 import { motion, typography } from "./tokens";
 
@@ -46,8 +46,10 @@ const CSS = `
 .sv-dd-option{display:grid;grid-template-columns:10px 1fr auto;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;color:var(--sv-ink);font-family:${typography.body};font-size:13px;font-weight:500}
 .sv-dd-option:hover,.sv-dd-option[data-active="true"]{background:var(--sv-hover)}
 .sv-dd-option[aria-selected="true"]{font-weight:600}
+.sv-dd-count{font-size:12px;color:var(--sv-ink-3);font-variant-numeric:tabular-nums}
 .sv-dd-mark{width:8px;height:8px;border-radius:2px;background:var(--sv-gold);box-shadow:inset 0 0 0 1px var(--sv-ink);opacity:0}
-.sv-dd-option[aria-selected="true"] .sv-dd-mark{opacity:1}
+.sv-dd-option[aria-selected="true"] .sv-dd-count{font-size:12px;color:var(--sv-ink-3);font-variant-numeric:tabular-nums}
+.sv-dd-mark{opacity:1}
 @keyframes sv-dd-open{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion: reduce){.sv-dd-sheet{animation:none}.sv-dd-chevron,.sv-dd-field{transition:none}}
 `;
