@@ -5,7 +5,7 @@
 COMPOSE := docker compose -f infra/docker-compose.yml
 ENV_NAME := steeler-voices
 
-.PHONY: help dev infra stop env check-env test-be lint-be generate test-fe lint-fe test-ds lint-ds migrate makemigrations doctor
+.PHONY: help dev infra stop env check-env test-be lint-be generate test-de pipeline test-fe lint-fe test-ds lint-ds migrate makemigrations doctor
 
 help:
 	@echo "make dev             boot the whole stack in Docker"
@@ -15,6 +15,8 @@ help:
 	@echo "make migrate         apply backend migrations (needs: conda activate $(ENV_NAME))"
 	@echo "make test-be         run the backend tests against the compose Postgres"
 	@echo "make lint-be         ruff check + format --check on the backend"
+	@echo "make test-de         run the pipeline tests (no network)"
+	@echo "make pipeline P=key ARGS=--dry-run   run one pipeline natively against the running backend"
 	@echo "make test-fe         run the app's tests (voices-fe)"
 	@echo "make lint-fe         eslint + prettier + tsc on the app"
 	@echo "make test-ds         run the design system's tests"
@@ -60,6 +62,13 @@ lint-be: check-env
 # WEEK is the week's Tuesday; OLLAMA_BASE_URL may point at the rig.
 generate: check-env infra
 	cd voices-be && python manage.py run_generations --week $(WEEK)
+
+test-de: check-env
+	cd voices-de && python -m pytest -q
+
+# P is the pipeline key (ingest, embed, tag, ...); OLLAMA_BASE_URL may point at the rig.
+pipeline: check-env
+	cd voices-de && python -m pipelines.$(P).main $(ARGS)
 
 test-fe:
 	cd voices-fe && npm install --no-audit --no-fund --silent && npm test

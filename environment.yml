@@ -14,3 +14,4 @@ dependencies:
   - pip
   - pip:
       - -r voices-be/requirements.txt
+      - -r voices-de/requirements.txt
