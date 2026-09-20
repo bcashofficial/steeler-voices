@@ -158,3 +158,17 @@ def test_brief_names_and_queries():
     assert {"joey porter jr.", "omar khan", "joey", "porter", "patriots"} <= brief.entities()
     assert "the" not in brief.entities()
     assert brief.queries()[:2] == ["Joey Porter Jr.", "Omar Khan"]
+
+
+def test_the_command_reports_its_batch_as_a_pipeline_run():
+    from documents.management.commands.run_generations import report
+    from lookups.tests.factories import PipelineFactory
+    from pipelines.models import PipelineRun
+
+    seed_vocab()
+    week, _ = seed_week()
+    PipelineFactory(key="generate")
+    report([run_arm("rag", True, week), run_arm("baseline", False, week)], host="rig")
+    record = PipelineRun.objects.get(pipeline__key="generate")
+    assert record.host == "rig" and record.exit_code == 0
+    assert record.counts["succeeded"] == 2 and record.counts["retrievals"] >= 1
