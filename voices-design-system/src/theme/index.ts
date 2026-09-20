@@ -64,3 +64,4 @@ export { GroupTabs, type GroupTabsProps } from "./GroupTabs";
 export { SubjectRow, type SubjectRowProps } from "./SubjectRow";
 export { DoubleRule, type DoubleRuleProps } from "./DoubleRule";
 export { Dropdown, type DropdownProps, type DropdownOption } from "./Dropdown";
+export { Football, type FootballProps } from "./Football";

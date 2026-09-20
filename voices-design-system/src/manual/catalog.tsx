@@ -30,7 +30,7 @@ import {
   DropdownPlate,
   VoiceMessagePlate,
 } from "./plates/BoardPlates";
-import { DoubleRulePlate } from "./plates/ChromePlates";
+import { DoubleRulePlate, FootballPlate } from "./plates/ChromePlates";
 import { MasonryPlate, PostCardPlate, StatusDotPlate } from "./plates/RailPlates";
 
 export type PlateStatus = "built" | "planned";
@@ -148,12 +148,7 @@ export const PARTS: PartEntry[] = [
         "Steeler Voices in Anton 46 with the gold offset, the Football beside it, a 3px ink rule under the whole line; a right slot for the SectionMenu and ThemeSwitch.",
         ["onFootball", "children (right slot)"],
       ),
-      planned(
-        "football",
-        "Football",
-        "An ink ball with gold laces and seams, 34×22; tilts 8° on hover.",
-        ["onClick", "label"],
-      ),
+      { key: "football", label: "Football", status: "built", Component: FootballPlate },
       planned(
         "section-menu",
         "SectionMenu",

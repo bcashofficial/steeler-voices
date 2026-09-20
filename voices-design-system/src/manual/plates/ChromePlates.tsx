@@ -1,4 +1,4 @@
-import { DoubleRule } from "../../theme";
+import { DoubleRule, Football } from "../../theme";
 import { Figure } from "./shared";
 
 export function DoubleRulePlate() {
@@ -6,6 +6,18 @@ export function DoubleRulePlate() {
     <Figure label="Rule">
       <div style={{ maxWidth: 560 }}>
         <DoubleRule />
+      </div>
+    </Figure>
+  );
+}
+
+export function FootballPlate() {
+  return (
+    <Figure label="Sizes">
+      <div style={{ display: "flex", gap: 24, alignItems: "flex-end" }}>
+        <Football />
+        <Football size={51} />
+        <Football size={68} />
       </div>
     </Figure>
   );
