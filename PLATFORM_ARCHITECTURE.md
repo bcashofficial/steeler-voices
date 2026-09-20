@@ -59,18 +59,23 @@ browser ── voices-fe (Module Federation host, :5300)
 | Projection | PCA / t-SNE from scikit-learn, computed in DE | No UMAP/numba build cost |
 | Module Federation | Minimum honest depth: DS remote + one host | Over-engineering counts against us |
 | Chart libraries | Live in `voices-fe`, never in the DS remote | CJS transitive deps across the MF boundary break shared-scope init |
-| Rig | Optional remote GPU box running the same compose; the Mac tunnels ports | Makes Ollama fast for development and demos; never required |
+| Rig | A rented RunPod GPU running only Ollama (`infra/rig/`); pipelines point `OLLAMA_BASE_URL` at it | This laptop's CPU reads two tokens a second; the rig reads a few thousand voices an hour. Never required for `make dev` |
 | Pipelines and the DB | `voices-de` POSTs to `voices-be` internal endpoints | One writer; the DE repo can move anywhere |
+| Too much data | Seed = every post + per thread the top 120 comments and anything scoring 5+, longer than a shrug (34,841 of 56,760); readings for the seed computed once on the rig and committed; live ingest reads a two-hour window | The first boot is full in a minute; the tagger only has to keep up with new voices |
+| Sources | One `LKSources` row per community; RSS voices are *weak* (create, never overwrite) | The feeds carry no score; the archive is the record |
 
 ## Ports
 
 A block nobody else on this machine uses: backend 83xx, frontends 53xx,
 Postgres 5445, Ollama on its default 11434.
 
-## Open (decided together, in order)
+## Done / open
 
-1. Vocabulary and data model
-2. Design system: look, feel, and every component
-3. Screens of `voices-fe`
-4. Pipeline cadence and the batch-tagging taxonomy
-5. The generator graph and the A/B rubric
+Done: the data model and internal API (`voices-be`), the design system
+through part 03 with parts 04–05 landing, the pipelines, scheduler, seed
+and rig (`voices-de`, `infra/`). Open, in order:
+
+1. Tag the seed on the rig; commit `seed/readings.jsonl.gz`
+2. `voices-fe`: the board, the flyer, the map, the A/B view, the pipelines view
+3. The generator graph (LangGraph, Postgres checkpointer) and the A/B rubric
+4. `README.md`, `DEMO.md`, `docs/INSIGHTS.md`, CI workflow
