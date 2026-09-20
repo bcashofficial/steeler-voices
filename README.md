@@ -49,6 +49,10 @@ Then open the app's **Document** and **A/B** sections. `OLLAMA_BASE_URL`
 may point at a remote Ollama (see `infra/rig/`) for both `make dev` and
 `make generate`.
 
+The long form — every prerequisite, every environment variable
+(`.env.example`), what fills in when, and what to do if something's off —
+is `SETUP.md`.
+
 ## How it answers the challenge
 
 | asked | here |

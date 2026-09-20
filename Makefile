@@ -2,7 +2,9 @@
 #
 # Running services natively (tests, migrations, runserver) uses the conda env
 # from environment.yml; every native target checks it is active first.
-COMPOSE := docker compose -f infra/docker-compose.yml
+# A root `.env` (see .env.example) is passed to compose when it exists.
+ENV_FILE := $(wildcard .env)
+COMPOSE := docker compose $(if $(ENV_FILE),--env-file $(ENV_FILE)) -f infra/docker-compose.yml
 ENV_NAME := steeler-voices
 
 .PHONY: help dev infra stop env check-env test-be lint-be generate test-de pipeline test-fe lint-fe test-ds lint-ds migrate makemigrations doctor
