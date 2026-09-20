@@ -7,6 +7,7 @@ embedding, so the map can show which voices the generator leans on.
 import functools
 from dataclasses import dataclass
 
+from django.db import connection, transaction
 from django.db.models import F
 from pgvector.django import CosineDistance
 
@@ -40,13 +41,26 @@ class Hit:
     distance: float
 
 
+def _widen_index_scan() -> None:
+    """A week is a sliver of the index, and an HNSW scan hands back its
+    candidates before the week filter drops most of them. Iterative scans
+    keep walking the graph until the limit is met; the settings only exist
+    once the extension's library is loaded, hence the cast first."""
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT '[0]'::vector")
+        cursor.execute("SET LOCAL hnsw.iterative_scan = 'relaxed_order'")
+        cursor.execute("SET LOCAL hnsw.ef_search = 200")
+
+
 def nearest(week: Week, vector: list[float], limit: int = HITS_PER_QUERY) -> list[Hit]:
-    rows = (
-        Embedding.objects.filter(voice__week=week, voice__is_active=True)
-        .select_related("voice__author")
-        .annotate(distance=CosineDistance("vector", vector))
-        .order_by("distance")[:limit]
-    )
+    with transaction.atomic():
+        _widen_index_scan()
+        rows = list(
+            Embedding.objects.filter(voice__week=week, voice__is_active=True)
+            .select_related("voice__author")
+            .annotate(distance=CosineDistance("vector", vector))
+            .order_by("distance")[:limit]
+        )
     return [Hit(str(e.voice_id), e.voice.author.handle, e.source_text, e.voice.score, float(e.distance)) for e in rows]
 
 
