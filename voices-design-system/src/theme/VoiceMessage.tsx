@@ -3,7 +3,8 @@
  * handle, the time, the points right-aligned, an OP tag on the poster, the
  * title for a post, the body, and its pulse. A reply indents under a
  * rounded connector. Hover and focus report the reading upward so the
- * scoreboard can play it.
+ * scoreboard can play it. A voice not yet read has no pulse and reports
+ * nothing.
  */
 
 import { useEffect, type CSSProperties } from "react";
@@ -28,7 +29,8 @@ export interface Voice {
 
 export interface VoiceMessageProps {
   voice: Voice;
-  reading: Reading;
+  /** The voice's newest reading; absent until the tagger has read it. */
+  reading?: Reading | null;
   reply?: boolean;
   onFocusReading?: (reading: Reading) => void;
   style?: CSSProperties;
@@ -58,7 +60,9 @@ export function VoiceMessage({
   style,
 }: VoiceMessageProps) {
   useEffect(() => mountStyle(STYLE_ID, CSS), []);
-  const report = () => onFocusReading?.(reading);
+  const report = () => {
+    if (reading) onFocusReading?.(reading);
+  };
   return (
     <article
       className="sv-voice"
@@ -82,14 +86,16 @@ export function VoiceMessage({
         </div>
         {voice.title ? <p className="sv-voice-title">{voice.title}</p> : null}
         <p>{voice.body}</p>
-        <div style={{ maxWidth: 520 }}>
-          <PulseBar
-            mood={reading.mood}
-            yards={reading.yards}
-            sarcasm={reading.sarcasm}
-            animate={false}
-          />
-        </div>
+        {reading ? (
+          <div style={{ maxWidth: 520 }}>
+            <PulseBar
+              mood={reading.mood}
+              yards={reading.yards}
+              sarcasm={reading.sarcasm}
+              animate={false}
+            />
+          </div>
+        ) : null}
       </div>
     </article>
   );

@@ -50,3 +50,18 @@ test("a post shows its title and the OP tag; a reply indents", () => {
   expect(screen.getByText("Joey Porter Jr leaves steelers practice")).toBeInTheDocument();
   expect(screen.getByRole("article")).toHaveAttribute("data-reply", "true");
 });
+
+test("a voice not yet read has no pulse and reports nothing", async () => {
+  const onFocusReading = vi.fn();
+  render(
+    <VoicesTheme mode="light">
+      <VoiceMessage
+        voice={{ handle: "u/SlyCooper007", time: "Thu 1:22 PM", body: "Just trade him." }}
+        onFocusReading={onFocusReading}
+      />
+    </VoicesTheme>,
+  );
+  expect(screen.queryByRole("meter")).toBeNull();
+  await userEvent.hover(screen.getByRole("article"));
+  expect(onFocusReading).not.toHaveBeenCalled();
+});
