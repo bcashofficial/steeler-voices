@@ -1,7 +1,10 @@
+from rest_framework import serializers as drf
+from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 
-from shared.decorators import voices_internal_api_view
-from voices import serializers, services
+from shared.decorators import voices_api_view, voices_internal_api_view
+from voices import reads, serializers, services
+from voices.models import Voice, Week
 
 
 def _validated(serializer_class, data):
@@ -64,3 +67,47 @@ def upsert_games(request):
 @voices_internal_api_view(["GET"])
 def export_readings(_request):
     return Response({"readings": services.export_readings()})
+
+
+def _week_date(starts_on: str):
+    try:
+        return drf.DateField().to_internal_value(starts_on)
+    except drf.ValidationError as error:
+        raise NotFound from error
+
+
+@voices_api_view(["GET"])
+def list_weeks(_request):
+    return Response({"weeks": reads.list_weeks()})
+
+
+@voices_api_view(["GET"])
+def week_detail(_request, starts_on):
+    try:
+        return Response(reads.week_detail(_week_date(starts_on)))
+    except Week.DoesNotExist as error:
+        raise NotFound from error
+
+
+@voices_api_view(["GET"])
+def week_posts(_request, starts_on):
+    try:
+        return Response({"posts": reads.week_posts(_week_date(starts_on))})
+    except Week.DoesNotExist as error:
+        raise NotFound from error
+
+
+@voices_api_view(["GET"])
+def week_map(_request, starts_on):
+    try:
+        return Response(reads.week_map(_week_date(starts_on)))
+    except Week.DoesNotExist as error:
+        raise NotFound from error
+
+
+@voices_api_view(["GET"])
+def thread(_request, voice_id):
+    try:
+        return Response(reads.thread(voice_id))
+    except Voice.DoesNotExist as error:
+        raise NotFound from error

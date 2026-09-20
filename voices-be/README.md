@@ -28,6 +28,22 @@ app's `tests/`; ruff for lint and format.
 Pipelines never write the database directly — they POST to
 `/api/internal/...` endpoints gated by `X-Internal-API-Key`.
 
+## What the app reads
+
+Public, unauthenticated, read-only; each app's `reads.py` does the work.
+
+| endpoint | for |
+|---|---|
+| `GET /api/status/` | how full the store is |
+| `GET /api/vocab/` | the words |
+| `GET /api/weeks/` | every week with voices, newest first, with its counts and games |
+| `GET /api/weeks/<YYYY-MM-DD>/` | the flyer: the week, its counts, its top subjects |
+| `GET /api/weeks/<YYYY-MM-DD>/posts/` | the rail: the week's posts with each thread's mood mix |
+| `GET /api/threads/<voice_id>/` | one thread in reading order, each voice with its newest reading and topic |
+| `GET /api/weeks/<YYYY-MM-DD>/map/` | the projected embeddings, the week's topics, the most-retrieved voices |
+| `GET /api/weeks/<YYYY-MM-DD>/documents/` | one row per arm: the published document (else the newest), its run, its outcomes |
+| `GET /api/pipelines/` | every pipeline with its schedules and last run |
+
 ## Run
 
 ```bash
