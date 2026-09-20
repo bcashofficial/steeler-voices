@@ -29,8 +29,8 @@ export function MoodSwatch({ mood, on = false, style }: MoodSwatchProps) {
       style={{
         display: "grid",
         gridTemplateRows: "auto 1fr auto",
-        width: 78,
-        height: 48,
+        width: 96,
+        height: 52,
         padding: "5px 7px",
         borderRadius: 4,
         background: `linear-gradient(90deg, ${from}, ${to})`,
