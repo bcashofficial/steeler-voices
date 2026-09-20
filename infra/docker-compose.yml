@@ -42,6 +42,11 @@ services:
           && python manage.py seed_lookups
           && gunicorn steeler_voices.wsgi:application --bind 0.0.0.0:8300 --workers 2 --timeout 120"
 
+  design-system:
+    build: ../voices-design-system
+    ports:
+      - "5301:5301"
+
   ollama:
     image: ollama/ollama:latest
     profiles: ["bundled-ollama"]

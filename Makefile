@@ -11,6 +11,8 @@ help:
 	@echo "make doctor     check the tools the reviewer's machine needs"
 
 dev: doctor
+	@echo "design system  http://localhost:5301"
+	@echo "backend        http://localhost:8300/health/"
 	$(COMPOSE) up --build
 
 infra:
