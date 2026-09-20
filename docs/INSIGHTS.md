@@ -1,8 +1,6 @@
 # How this was built
 
-The challenge's optional step asks for the `/insights` report and anything
-unusual about the coding workflow. The report is below; first, the parts
-of the workflow that shaped the code.
+The parts of the workflow that shaped the code.
 
 ## The look came first, as a spec
 
@@ -60,8 +58,3 @@ Ollama for every model call, fastembed on the CPU for vectors, pgvector
 in the one Postgres, a committed seed so the first boot is full. No keys.
 A rented GPU (`infra/rig/`) makes the same pipelines fast when there is a
 season to read, and is never required.
-
-## The `/insights` report
-
-Run `/insights` in the Claude Code session that built this and paste the
-report here.

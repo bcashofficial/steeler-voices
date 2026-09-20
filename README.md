@@ -81,7 +81,7 @@ One repo, one folder per service, each with its own `README.md`,
 
 ## How it was built
 
-`docs/INSIGHTS.md` — the workflow behind the code, and the `/insights` report.
+`docs/INSIGHTS.md` — the workflow behind the code.
 
 ## Tests
 
