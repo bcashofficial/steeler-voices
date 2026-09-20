@@ -26,7 +26,7 @@ split into its own repo without changing a line inside it.
 browser ── voices-fe (Module Federation host, :5300)
              └─ remote design_system (voices-design-system, :5301)  primitives + tokens
            voices-fe ─REST─▶ voices-be :8300 (Django + DRF)
-                                 └─▶ Postgres 16 + pgvector :5443   (the only database)
+                                 └─▶ Postgres 16 + pgvector :5445   (the only database)
                                  └─▶ Ollama :11434                 (the only LLM; local)
            voices-de ─REST + X-Internal-API-Key─▶ voices-be         (pipelines never touch the DB)
              └─ reads reddit.com/r/steelers/*.rss, ESPN core API, Ollama
@@ -62,7 +62,7 @@ browser ── voices-fe (Module Federation host, :5300)
 ## Ports
 
 A block nobody else on this machine uses: backend 83xx, frontends 53xx,
-Postgres 5443, Ollama on its default 11434.
+Postgres 5445, Ollama on its default 11434.
 
 ## Open (decided together, in order)
 

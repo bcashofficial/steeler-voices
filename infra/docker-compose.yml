@@ -1,0 +1,55 @@
+# Steeler Voices — the whole stack. `make dev` at the repo root runs this.
+#
+# Ollama: on a Mac the host's own Ollama uses the GPU (Metal) and a container
+# cannot, so the default OLLAMA_BASE_URL points at the host. A machine without
+# Ollama runs `make dev` with the `bundled-ollama` profile and gets the
+# container instead (CPU only — slower, but nothing to install).
+name: steeler-voices
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: steeler_voices
+      POSTGRES_USER: steeler_voices
+      POSTGRES_PASSWORD: steeler_voices
+    ports:
+      - "5445:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U steeler_voices -d steeler_voices"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  voices-be:
+    build: ../voices-be
+    env_file: ../voices-be/.env.development
+    environment:
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8300:8300"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      sh -c "python manage.py migrate --noinput
+          && python manage.py seed_lookups
+          && gunicorn steeler_voices.wsgi:application --bind 0.0.0.0:8300 --workers 2 --timeout 120"
+
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["bundled-ollama"]
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+
+volumes:
+  postgres:
+  ollama:
