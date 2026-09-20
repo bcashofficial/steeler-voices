@@ -15,6 +15,6 @@ test("seven moods, each with a unique key and word", () => {
   expect(new Set(MOODS.map((m) => m.key)).size).toBe(7);
   expect(new Set(MOODS.map((m) => m.label)).size).toBe(7);
   expect(moodByKey.heated.to).toBe("var(--sv-mood-heated-to)");
-  expect(moodStops.light.heated.from).toBe(palette.ink);
-  expect(moodStops.dark.heated.from).toBe(palette.mist);
+  expect(moodStops.light.heated.from).toBe("#FF0000");
+  expect(moodStops.dark.heated.from).toBe("#FF0000");
 });
