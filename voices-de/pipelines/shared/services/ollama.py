@@ -5,7 +5,7 @@ import json
 
 import requests
 
-TIMEOUT = 600
+TIMEOUT = 95  # under the rig proxy's 100-second ceiling; a longer call is a batch that is too big
 USER_AGENT = "Mozilla/5.0 steeler-voices/0.1"  # the rig's proxy rejects bare tool agents
 
 

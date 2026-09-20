@@ -9,6 +9,8 @@ TAG_WORKERS batches run at once — one on a laptop, more on the rig."""
 import os
 from concurrent.futures import ThreadPoolExecutor
 
+import requests
+
 from pipelines.shared.services.ollama import OllamaClient
 from pipelines.shared.services.reddit import batched
 from pipelines.shared.services.runner import Context
@@ -118,6 +120,6 @@ def read_batch(client: OllamaClient, batch: list[dict], moods: list[str], target
         try:
             answer = client.chat_json(SYSTEM, prompt_for(batch), schema(moods, targets))
             return validate(answer, batch, set(moods), set(targets))
-        except (ValueError, KeyError, TypeError) as error:
-            context.log.warning("batch failed to parse (attempt %d): %s", attempt, error)
+        except (ValueError, KeyError, TypeError, requests.RequestException) as error:
+            context.log.warning("batch failed (attempt %d): %s", attempt, str(error)[:200])
     return None
