@@ -1,0 +1,212 @@
+<title>Steeler Voices Type Sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&family=Alfa+Slab+One&family=Big+Shoulders+Display:wght@700;900&family=Big+Shoulders+Text:wght@400;500;700&family=Bebas+Neue&family=Ultra&family=Archivo:wght@400;500;700&family=Archivo+Narrow:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --ground: #E8F1F1;
+    --ink: #1D201D;
+    --gold: #F5E571;
+    --blue: #2374AB;
+    --olive: #697A21;
+    --panel: #ffffff;
+    --line: rgba(29, 32, 29, 0.18);
+    --muted: rgba(29, 32, 29, 0.62);
+    --field: rgba(29, 32, 29, 0.08);
+    --gold-ink: #1D201D;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #1D201D;
+      --ink: #E8F1F1;
+      --panel: #242824;
+      --line: rgba(232, 241, 241, 0.18);
+      --muted: rgba(232, 241, 241, 0.62);
+      --field: rgba(232, 241, 241, 0.08);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #1D201D;
+    --ink: #E8F1F1;
+    --panel: #242824;
+    --line: rgba(232, 241, 241, 0.18);
+    --muted: rgba(232, 241, 241, 0.62);
+    --field: rgba(232, 241, 241, 0.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    padding-block: 28px 56px;
+    padding-inline: 16px;
+    max-width: 1180px;
+    margin-inline: auto;
+  }
+  header {
+    display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px;
+    border-bottom: 3px solid var(--ink); padding-bottom: 14px; margin-bottom: 22px;
+  }
+  header h1 { font: 500 15px/1.3 "Archivo", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; margin: 0; }
+  header p { margin: 4px 0 0; color: var(--muted); font-size: 14px; max-width: 62ch; }
+  .toggle {
+    display: inline-flex; border: 1.5px solid var(--ink); border-radius: 999px; overflow: hidden;
+  }
+  .toggle button {
+    background: none; border: 0; color: var(--ink); font: 500 13px "Archivo", sans-serif; padding: 7px 14px; cursor: pointer;
+  }
+  .toggle button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+  .toggle button:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; }
+  .swatches { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
+  .sw { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+  .sw i { display: inline-block; width: 22px; height: 22px; border-radius: 4px; border: 1px solid var(--line); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; }
+  .candidate {
+    background: var(--panel); border: 1px solid var(--line); padding: 18px 18px 16px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .num { font: 700 12px "Archivo", sans-serif; letter-spacing: 0.08em; color: var(--muted); display: flex; justify-content: space-between; }
+  .num b { color: var(--ink); }
+  .masthead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 2px solid var(--ink); padding-bottom: 8px; }
+  .masthead .name { font-size: 44px; line-height: 0.95; letter-spacing: 0.005em; margin: 0; text-wrap: balance; }
+  .masthead .week { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .comment { display: grid; gap: 8px; }
+  .meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+  .body { font-size: 15px; line-height: 1.45; margin: 0; }
+  .pulse { display: grid; gap: 4px; }
+  .pulse .lab { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
+  .field { position: relative; height: 14px; background: var(--field); border: 1px solid var(--line); overflow: hidden; }
+  .field .yards { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), var(--line) calc(10% - 1px) 10%); }
+  .field .fill { position: absolute; inset: 0 auto 0 0; background: var(--gold); }
+  .field .fill.blue { background: var(--blue); }
+  .field .fill.olive { background: var(--olive); }
+  .note { font-size: 12.5px; color: var(--muted); line-height: 1.45; margin: 0; border-top: 1px dashed var(--line); padding-top: 10px; }
+  .note b { color: var(--ink); font-weight: 600; }
+
+  /* the candidates */
+  .c1 .name { font-family: "Anton", Impact, sans-serif; font-weight: 400; }
+  .c1 .body { font-family: "Archivo", sans-serif; }
+  .c2 .name { font-family: "Oswald", "Arial Narrow", sans-serif; font-weight: 700; }
+  .c2 .body { font-family: "Oswald", sans-serif; font-weight: 400; }
+  .c3 .name { font-family: "Alfa Slab One", "Rockwell", serif; font-weight: 400; }
+  .c3 .body { font-family: "Archivo", sans-serif; }
+  .c4 .name { font-family: "Big Shoulders Display", "Arial Narrow", sans-serif; font-weight: 900; }
+  .c4 .body { font-family: "Big Shoulders Text", sans-serif; font-weight: 500; font-size: 16px; }
+  .c5 .name { font-family: "Bebas Neue", Impact, sans-serif; font-weight: 400; letter-spacing: 0.02em; }
+  .c5 .body { font-family: "Archivo Narrow", sans-serif; font-size: 16px; }
+  .c6 .name { font-family: "Ultra", "Rockwell Extra Bold", serif; font-weight: 400; font-size: 38px; }
+  .c6 .body { font-family: "Archivo", sans-serif; }
+
+  .legend { margin-top: 26px; border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; color: var(--muted); max-width: 70ch; }
+  .legend b { color: var(--ink); }
+  @media (max-width: 420px) { .masthead .name { font-size: 36px; } }
+  @media (prefers-reduced-motion: no-preference) { .field .fill { transition: width 400ms ease; } }
+</style>
+
+<header>
+  <div>
+    <h1>Steeler Voices — type candidates</h1>
+    <p>Six open-licence faces with 1960s program-cover and broadcast-graphics character, each set as the same masthead, a real r/steelers comment, and a pulse bar. Palette is the coolors.co scheme. Flip the theme to judge both grounds.</p>
+  </div>
+  <div class="toggle" role="group" aria-label="Theme">
+    <button id="t-light" type="button" aria-pressed="false">Light</button>
+    <button id="t-dark" type="button" aria-pressed="false">Dark</button>
+    <button id="t-system" type="button" aria-pressed="true">System</button>
+  </div>
+</header>
+
+<div class="swatches">
+  <span class="sw"><i style="background:#1D201D"></i>#1D201D</span>
+  <span class="sw"><i style="background:#F5E571"></i>#F5E571</span>
+  <span class="sw"><i style="background:#E8F1F1"></i>#E8F1F1</span>
+  <span class="sw"><i style="background:#2374AB"></i>#2374AB alt</span>
+  <span class="sw"><i style="background:#697A21"></i>#697A21 alt</span>
+</div>
+
+<div class="grid">
+
+  <section class="candidate c1">
+    <div class="num"><span>1 · <b>Anton</b> + Archivo</span><span>display + body</span></div>
+    <div class="masthead"><h2 class="name">Steeler Voices</h2><span class="week">Week of Sep 15</span></div>
+    <div class="comment">
+      <div class="meta"><b>u/TJWattsBurnerAcct</b><span>535 points · Post</span></div>
+      <p class="body">There is a reason guys liked playing with Tomlin. There is a reason guys stepped up for him. He was a father figure. He loved his players like his family.</p>
+      <div class="pulse"><div class="lab"><span>Pulse</span><span>72 yd</span></div><div class="field"><div class="yards"></div><div class="fill" style="width:72%"></div></div></div>
+    </div>
+    <p class="note"><b>Era:</b> the heavy condensed grotesque of 1960s program covers and scoreboard lettering. Display only — Archivo carries the body.</p>
+  </section>
+
+  <section class="candidate c2">
+    <div class="num"><span>2 · <b>Oswald</b></span><span>one family</span></div>
+    <div class="masthead"><h2 class="name">Steeler Voices</h2><span class="week">Week of Sep 15</span></div>
+    <div class="comment">
+      <div class="meta"><b>u/soils_rock</b><span>518 points · Comment</span></div>
+      <p class="body">We only reset the market for guys whose best days are behind them around these parts</p>
+      <div class="pulse"><div class="lab"><span>Pulse</span><span>58 yd</span></div><div class="field"><div class="yards"></div><div class="fill blue" style="width:58%"></div></div></div>
+    </div>
+    <p class="note"><b>Era:</b> a reworking of Alternate Gothic (1903), the face of mid-century American signage and sports pages. Has real text weights, so masthead and body are one family.</p>
+  </section>
+
+  <section class="candidate c3">
+    <div class="num"><span>3 · <b>Alfa Slab One</b> + Archivo</span><span>display + body</span></div>
+    <div class="masthead"><h2 class="name">Steeler Voices</h2><span class="week">Week of Sep 15</span></div>
+    <div class="comment">
+      <div class="meta"><b>u/TributeToStupidity</b><span>492 points · Comment</span></div>
+      <p class="body">Not gonna overreact, but we’re watching a dynasty be born in real time. Brb gotta call my tattoo guy</p>
+      <div class="pulse"><div class="lab"><span>Pulse</span><span>91 yd</span></div><div class="field"><div class="yards"></div><div class="fill" style="width:91%"></div></div></div>
+    </div>
+    <p class="note"><b>Era:</b> the fat slab serif of 1960s posters, pennants and ticket stubs. Display only — Archivo carries the body.</p>
+  </section>
+
+  <section class="candidate c4">
+    <div class="num"><span>4 · <b>Big Shoulders</b> Display + Text</span><span>one superfamily</span></div>
+    <div class="masthead"><h2 class="name">Steeler Voices</h2><span class="week">Week of Sep 15</span></div>
+    <div class="comment">
+      <div class="meta"><b>u/snipermark91</b><span>388 points · Comment</span></div>
+      <p class="body">Beanie is a good kid, I’ll always root for him unless he plays for another team in the AFC North</p>
+      <div class="pulse"><div class="lab"><span>Pulse</span><span>44 yd</span></div><div class="field"><div class="yards"></div><div class="fill olive" style="width:44%"></div></div></div>
+    </div>
+    <p class="note"><b>Era:</b> drawn from Chicago’s industrial lettering — steel-town condensed. Display and Text cuts share one skeleton, so headers and comments match.</p>
+  </section>
+
+  <section class="candidate c5">
+    <div class="num"><span>5 · <b>Bebas Neue</b> + Archivo Narrow</span><span>display + body</span></div>
+    <div class="masthead"><h2 class="name">Steeler Voices</h2><span class="week">Week of Sep 15</span></div>
+    <div class="comment">
+      <div class="meta"><b>u/luisba92</b><span>342 points · Comment</span></div>
+      <p class="body">Sucks for him. Will never forget how badly he cooked that Ravens corner last year.</p>
+      <div class="pulse"><div class="lab"><span>Pulse</span><span>63 yd</span></div><div class="field"><div class="yards"></div><div class="fill blue" style="width:63%"></div></div></div>
+    </div>
+    <p class="note"><b>Era:</b> broadcast lower-thirds and stadium boards. Caps only — every heading will be uppercase; Archivo Narrow carries the body.</p>
+  </section>
+
+  <section class="candidate c6">
+    <div class="num"><span>6 · <b>Ultra</b> + Archivo</span><span>display + body</span></div>
+    <div class="masthead"><h2 class="name">Steeler Voices</h2><span class="week">Week of Sep 15</span></div>
+    <div class="comment">
+      <div class="meta"><b>u/dukebucco</b><span>304 points · Comment</span></div>
+      <p class="body">Pete is perfect for the Steelers. I don’t know what everyone is talking about. I see at least 12 yinzer Petes on my way to work everyday in Pittsburgh.</p>
+      <div class="pulse"><div class="lab"><span>Pulse</span><span>80 yd</span></div><div class="field"><div class="yards"></div><div class="fill" style="width:80%"></div></div></div>
+    </div>
+    <p class="note"><b>Era:</b> the ultra-bold slab of 1960s team wordmarks and pennant felt. Display only — Archivo carries the body.</p>
+  </section>
+
+</div>
+
+<p class="legend"><b>The pulse bar</b> is the placeholder form of the sentiment reading: a 100-yard field with ten-yard hashes, filled to the reading’s intensity, in the mood’s color. Gold, blue and olive are shown only to test the palette against each face — the mood-to-color mapping is a later decision.</p>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var buttons = { light: document.getElementById('t-light'), dark: document.getElementById('t-dark'), system: document.getElementById('t-system') };
+    function apply(mode) {
+      if (mode === 'system') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', mode);
+      Object.keys(buttons).forEach(function (k) { buttons[k].setAttribute('aria-pressed', String(k === mode)); });
+      try { localStorage.setItem('type-sheet-theme', mode); } catch (e) {}
+    }
+    Object.keys(buttons).forEach(function (k) { buttons[k].addEventListener('click', function () { apply(k); }); });
+    var saved = null; try { saved = localStorage.getItem('type-sheet-theme'); } catch (e) {}
+    if (saved && buttons[saved]) apply(saved);
+  })();
+</script>

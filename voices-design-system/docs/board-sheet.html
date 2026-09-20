@@ -1,0 +1,606 @@
+<title>Steeler Voices Board</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --ground: #FFFFFF;
+    --surface: #FFFFFF;
+    --mist: #E8F1F1;
+    --ink: #1D201D;
+    --ink-2: rgba(29, 32, 29, 0.64);
+    --ink-3: rgba(29, 32, 29, 0.42);
+    --line: rgba(29, 32, 29, 0.16);
+    --line-strong: rgba(29, 32, 29, 0.32);
+    --gold: #F5E571;
+    --gold-ink: #1D201D;
+    --blue: #2374AB;
+    --olive: #697A21;
+    --field: #E8F1F1;
+    --hover: rgba(29, 32, 29, 0.05);
+    --shadow: 0 1px 2px rgba(29, 32, 29, 0.06), 0 6px 20px rgba(29, 32, 29, 0.10);
+    --shadow-lift: 0 2px 4px rgba(29, 32, 29, 0.08), 0 14px 32px rgba(29, 32, 29, 0.16);
+    --grain: 0.5;
+    --ink-solid: #1D201D;
+    --leather: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><circle cx='20.7' cy='9.7' r='2.2' fill='%231D201D' opacity='0.5'/><circle cx='20.2' cy='9.2' r='1.2' fill='%231D201D' opacity='0.35'/><circle cx='4.6' cy='34.3' r='1.8' fill='%231D201D' opacity='0.5'/><circle cx='4.1' cy='33.8' r='1.0' fill='%231D201D' opacity='0.35'/><circle cx='3.7' cy='32.5' r='1.4' fill='%231D201D' opacity='0.5'/><circle cx='3.2' cy='32.0' r='0.8' fill='%231D201D' opacity='0.35'/><circle cx='27.8' cy='4.5' r='1.5' fill='%231D201D' opacity='0.5'/><circle cx='27.3' cy='4.0' r='0.8' fill='%231D201D' opacity='0.35'/><circle cx='27.2' cy='52.9' r='1.5' fill='%231D201D' opacity='0.5'/><circle cx='26.7' cy='52.4' r='0.9' fill='%231D201D' opacity='0.35'/><circle cx='14.3' cy='40.2' r='2.5' fill='%231D201D' opacity='0.5'/><circle cx='13.8' cy='39.7' r='1.4' fill='%231D201D' opacity='0.35'/><circle cx='36.9' cy='25.4' r='2.6' fill='%231D201D' opacity='0.5'/><circle cx='36.4' cy='24.9' r='1.4' fill='%231D201D' opacity='0.35'/><circle cx='3.0' cy='54.9' r='1.7' fill='%231D201D' opacity='0.5'/><circle cx='2.5' cy='54.4' r='1.0' fill='%231D201D' opacity='0.35'/><circle cx='9.2' cy='7.5' r='1.8' fill='%231D201D' opacity='0.5'/><circle cx='8.7' cy='7.0' r='1.0' fill='%231D201D' opacity='0.35'/><circle cx='52.2' cy='11.6' r='2.1' fill='%231D201D' opacity='0.5'/><circle cx='51.7' cy='11.1' r='1.2' fill='%231D201D' opacity='0.35'/><circle cx='40.9' cy='23.8' r='2.1' fill='%231D201D' opacity='0.5'/><circle cx='40.4' cy='23.3' r='1.1' fill='%231D201D' opacity='0.35'/><circle cx='4.0' cy='3.8' r='1.6' fill='%231D201D' opacity='0.5'/><circle cx='3.5' cy='3.3' r='0.9' fill='%231D201D' opacity='0.35'/><circle cx='43.5' cy='27.4' r='1.8' fill='%231D201D' opacity='0.5'/><circle cx='43.0' cy='26.9' r='1.0' fill='%231D201D' opacity='0.35'/><circle cx='37.5' cy='29.0' r='1.8' fill='%231D201D' opacity='0.5'/><circle cx='37.0' cy='28.5' r='1.0' fill='%231D201D' opacity='0.35'/><circle cx='50.8' cy='44.7' r='1.7' fill='%231D201D' opacity='0.5'/><circle cx='50.3' cy='44.2' r='0.9' fill='%231D201D' opacity='0.35'/><circle cx='36.8' cy='33.6' r='2.5' fill='%231D201D' opacity='0.5'/><circle cx='36.3' cy='33.1' r='1.3' fill='%231D201D' opacity='0.35'/><circle cx='46.7' cy='18.4' r='2.6' fill='%231D201D' opacity='0.5'/><circle cx='46.2' cy='17.9' r='1.4' fill='%231D201D' opacity='0.35'/><circle cx='7.6' cy='26.8' r='2.3' fill='%231D201D' opacity='0.5'/><circle cx='7.1' cy='26.3' r='1.3' fill='%231D201D' opacity='0.35'/><circle cx='9.7' cy='31.3' r='1.4' fill='%231D201D' opacity='0.5'/><circle cx='9.2' cy='30.8' r='0.8' fill='%231D201D' opacity='0.35'/><circle cx='42.8' cy='48.9' r='2.1' fill='%231D201D' opacity='0.5'/><circle cx='42.3' cy='48.4' r='1.1' fill='%231D201D' opacity='0.35'/><circle cx='56.0' cy='20.1' r='2.2' fill='%231D201D' opacity='0.5'/><circle cx='55.5' cy='19.6' r='1.2' fill='%231D201D' opacity='0.35'/><circle cx='38.0' cy='37.1' r='1.9' fill='%231D201D' opacity='0.5'/><circle cx='37.5' cy='36.6' r='1.1' fill='%231D201D' opacity='0.35'/><circle cx='53.8' cy='60.5' r='2.0' fill='%231D201D' opacity='0.5'/><circle cx='53.3' cy='60.0' r='1.1' fill='%231D201D' opacity='0.35'/><circle cx='42.5' cy='3.9' r='2.2' fill='%231D201D' opacity='0.5'/><circle cx='42.0' cy='3.4' r='1.2' fill='%231D201D' opacity='0.35'/><circle cx='41.4' cy='63.6' r='2.4' fill='%231D201D' opacity='0.5'/><circle cx='40.9' cy='63.1' r='1.3' fill='%231D201D' opacity='0.35'/><circle cx='18.2' cy='24.7' r='2.2' fill='%231D201D' opacity='0.5'/><circle cx='17.7' cy='24.2' r='1.2' fill='%231D201D' opacity='0.35'/></svg>");
+    --leather-opacity: 0.06;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #1D201D; --surface: #262A26; --ink: #E8F1F1;
+      --ink-2: rgba(232, 241, 241, 0.66); --ink-3: rgba(232, 241, 241, 0.42);
+      --line: rgba(232, 241, 241, 0.14); --line-strong: rgba(232, 241, 241, 0.3);
+      --field: rgba(232, 241, 241, 0.08); --hover: rgba(232, 241, 241, 0.06);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 6px 20px rgba(0,0,0,0.35);
+      --shadow-lift: 0 2px 4px rgba(0,0,0,0.4), 0 14px 32px rgba(0,0,0,0.5);
+      --grain: 0.35; --ink-solid: #E8F1F1; --mist: #2E332E;
+      --leather: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><circle cx='1.4' cy='29.5' r='1.6' fill='%23E8F1F1' opacity='0.5'/><circle cx='0.9' cy='29.0' r='0.9' fill='%23E8F1F1' opacity='0.35'/><circle cx='7.5' cy='3.8' r='2.3' fill='%23E8F1F1' opacity='0.5'/><circle cx='7.0' cy='3.3' r='1.3' fill='%23E8F1F1' opacity='0.35'/><circle cx='8.3' cy='15.8' r='1.9' fill='%23E8F1F1' opacity='0.5'/><circle cx='7.8' cy='15.3' r='1.0' fill='%23E8F1F1' opacity='0.35'/><circle cx='55.8' cy='5.2' r='1.9' fill='%23E8F1F1' opacity='0.5'/><circle cx='55.3' cy='4.7' r='1.1' fill='%23E8F1F1' opacity='0.35'/><circle cx='35.2' cy='56.5' r='2.4' fill='%23E8F1F1' opacity='0.5'/><circle cx='34.7' cy='56.0' r='1.3' fill='%23E8F1F1' opacity='0.35'/><circle cx='55.3' cy='17.8' r='1.9' fill='%23E8F1F1' opacity='0.5'/><circle cx='54.8' cy='17.3' r='1.0' fill='%23E8F1F1' opacity='0.35'/><circle cx='23.0' cy='56.6' r='2.5' fill='%23E8F1F1' opacity='0.5'/><circle cx='22.5' cy='56.1' r='1.4' fill='%23E8F1F1' opacity='0.35'/><circle cx='9.7' cy='11.3' r='1.7' fill='%23E8F1F1' opacity='0.5'/><circle cx='9.2' cy='10.8' r='0.9' fill='%23E8F1F1' opacity='0.35'/><circle cx='14.9' cy='31.0' r='2.1' fill='%23E8F1F1' opacity='0.5'/><circle cx='14.4' cy='30.5' r='1.2' fill='%23E8F1F1' opacity='0.35'/><circle cx='16.8' cy='0.3' r='1.9' fill='%23E8F1F1' opacity='0.5'/><circle cx='16.3' cy='-0.2' r='1.0' fill='%23E8F1F1' opacity='0.35'/><circle cx='23.6' cy='36.2' r='2.5' fill='%23E8F1F1' opacity='0.5'/><circle cx='23.1' cy='35.7' r='1.4' fill='%23E8F1F1' opacity='0.35'/><circle cx='44.2' cy='33.0' r='2.1' fill='%23E8F1F1' opacity='0.5'/><circle cx='43.7' cy='32.5' r='1.2' fill='%23E8F1F1' opacity='0.35'/><circle cx='43.3' cy='3.5' r='2.5' fill='%23E8F1F1' opacity='0.5'/><circle cx='42.8' cy='3.0' r='1.4' fill='%23E8F1F1' opacity='0.35'/><circle cx='49.9' cy='56.0' r='2.4' fill='%23E8F1F1' opacity='0.5'/><circle cx='49.4' cy='55.5' r='1.3' fill='%23E8F1F1' opacity='0.35'/><circle cx='25.1' cy='25.5' r='1.5' fill='%23E8F1F1' opacity='0.5'/><circle cx='24.6' cy='25.0' r='0.8' fill='%23E8F1F1' opacity='0.35'/><circle cx='40.6' cy='4.0' r='1.5' fill='%23E8F1F1' opacity='0.5'/><circle cx='40.1' cy='3.5' r='0.8' fill='%23E8F1F1' opacity='0.35'/><circle cx='13.4' cy='10.4' r='1.8' fill='%23E8F1F1' opacity='0.5'/><circle cx='12.9' cy='9.9' r='1.0' fill='%23E8F1F1' opacity='0.35'/><circle cx='3.4' cy='0.0' r='1.6' fill='%23E8F1F1' opacity='0.5'/><circle cx='2.9' cy='-0.5' r='0.9' fill='%23E8F1F1' opacity='0.35'/><circle cx='6.5' cy='23.3' r='1.4' fill='%23E8F1F1' opacity='0.5'/><circle cx='6.0' cy='22.8' r='0.8' fill='%23E8F1F1' opacity='0.35'/><circle cx='56.0' cy='39.3' r='1.6' fill='%23E8F1F1' opacity='0.5'/><circle cx='55.5' cy='38.8' r='0.9' fill='%23E8F1F1' opacity='0.35'/><circle cx='16.1' cy='22.2' r='1.8' fill='%23E8F1F1' opacity='0.5'/><circle cx='15.6' cy='21.7' r='1.0' fill='%23E8F1F1' opacity='0.35'/><circle cx='7.9' cy='54.3' r='2.6' fill='%23E8F1F1' opacity='0.5'/><circle cx='7.4' cy='53.8' r='1.4' fill='%23E8F1F1' opacity='0.35'/><circle cx='29.8' cy='31.0' r='1.5' fill='%23E8F1F1' opacity='0.5'/><circle cx='29.3' cy='30.5' r='0.8' fill='%23E8F1F1' opacity='0.35'/><circle cx='6.5' cy='21.9' r='1.7' fill='%23E8F1F1' opacity='0.5'/><circle cx='6.0' cy='21.4' r='0.9' fill='%23E8F1F1' opacity='0.35'/><circle cx='53.0' cy='10.3' r='1.4' fill='%23E8F1F1' opacity='0.5'/><circle cx='52.5' cy='9.8' r='0.8' fill='%23E8F1F1' opacity='0.35'/><circle cx='60.9' cy='33.8' r='1.6' fill='%23E8F1F1' opacity='0.5'/><circle cx='60.4' cy='33.3' r='0.9' fill='%23E8F1F1' opacity='0.35'/></svg>"); --leather-opacity: 0.07;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #1D201D; --surface: #262A26; --ink: #E8F1F1;
+    --ink-2: rgba(232, 241, 241, 0.66); --ink-3: rgba(232, 241, 241, 0.42);
+    --line: rgba(232, 241, 241, 0.14); --line-strong: rgba(232, 241, 241, 0.3);
+    --field: rgba(232, 241, 241, 0.08); --hover: rgba(232, 241, 241, 0.06);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 6px 20px rgba(0,0,0,0.35);
+    --shadow-lift: 0 2px 4px rgba(0,0,0,0.4), 0 14px 32px rgba(0,0,0,0.5);
+    --grain: 0.35; --ink-solid: #E8F1F1; --mist: #2E332E;
+    --leather: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><circle cx='1.4' cy='29.5' r='1.6' fill='%23E8F1F1' opacity='0.5'/><circle cx='0.9' cy='29.0' r='0.9' fill='%23E8F1F1' opacity='0.35'/><circle cx='7.5' cy='3.8' r='2.3' fill='%23E8F1F1' opacity='0.5'/><circle cx='7.0' cy='3.3' r='1.3' fill='%23E8F1F1' opacity='0.35'/><circle cx='8.3' cy='15.8' r='1.9' fill='%23E8F1F1' opacity='0.5'/><circle cx='7.8' cy='15.3' r='1.0' fill='%23E8F1F1' opacity='0.35'/><circle cx='55.8' cy='5.2' r='1.9' fill='%23E8F1F1' opacity='0.5'/><circle cx='55.3' cy='4.7' r='1.1' fill='%23E8F1F1' opacity='0.35'/><circle cx='35.2' cy='56.5' r='2.4' fill='%23E8F1F1' opacity='0.5'/><circle cx='34.7' cy='56.0' r='1.3' fill='%23E8F1F1' opacity='0.35'/><circle cx='55.3' cy='17.8' r='1.9' fill='%23E8F1F1' opacity='0.5'/><circle cx='54.8' cy='17.3' r='1.0' fill='%23E8F1F1' opacity='0.35'/><circle cx='23.0' cy='56.6' r='2.5' fill='%23E8F1F1' opacity='0.5'/><circle cx='22.5' cy='56.1' r='1.4' fill='%23E8F1F1' opacity='0.35'/><circle cx='9.7' cy='11.3' r='1.7' fill='%23E8F1F1' opacity='0.5'/><circle cx='9.2' cy='10.8' r='0.9' fill='%23E8F1F1' opacity='0.35'/><circle cx='14.9' cy='31.0' r='2.1' fill='%23E8F1F1' opacity='0.5'/><circle cx='14.4' cy='30.5' r='1.2' fill='%23E8F1F1' opacity='0.35'/><circle cx='16.8' cy='0.3' r='1.9' fill='%23E8F1F1' opacity='0.5'/><circle cx='16.3' cy='-0.2' r='1.0' fill='%23E8F1F1' opacity='0.35'/><circle cx='23.6' cy='36.2' r='2.5' fill='%23E8F1F1' opacity='0.5'/><circle cx='23.1' cy='35.7' r='1.4' fill='%23E8F1F1' opacity='0.35'/><circle cx='44.2' cy='33.0' r='2.1' fill='%23E8F1F1' opacity='0.5'/><circle cx='43.7' cy='32.5' r='1.2' fill='%23E8F1F1' opacity='0.35'/><circle cx='43.3' cy='3.5' r='2.5' fill='%23E8F1F1' opacity='0.5'/><circle cx='42.8' cy='3.0' r='1.4' fill='%23E8F1F1' opacity='0.35'/><circle cx='49.9' cy='56.0' r='2.4' fill='%23E8F1F1' opacity='0.5'/><circle cx='49.4' cy='55.5' r='1.3' fill='%23E8F1F1' opacity='0.35'/><circle cx='25.1' cy='25.5' r='1.5' fill='%23E8F1F1' opacity='0.5'/><circle cx='24.6' cy='25.0' r='0.8' fill='%23E8F1F1' opacity='0.35'/><circle cx='40.6' cy='4.0' r='1.5' fill='%23E8F1F1' opacity='0.5'/><circle cx='40.1' cy='3.5' r='0.8' fill='%23E8F1F1' opacity='0.35'/><circle cx='13.4' cy='10.4' r='1.8' fill='%23E8F1F1' opacity='0.5'/><circle cx='12.9' cy='9.9' r='1.0' fill='%23E8F1F1' opacity='0.35'/><circle cx='3.4' cy='0.0' r='1.6' fill='%23E8F1F1' opacity='0.5'/><circle cx='2.9' cy='-0.5' r='0.9' fill='%23E8F1F1' opacity='0.35'/><circle cx='6.5' cy='23.3' r='1.4' fill='%23E8F1F1' opacity='0.5'/><circle cx='6.0' cy='22.8' r='0.8' fill='%23E8F1F1' opacity='0.35'/><circle cx='56.0' cy='39.3' r='1.6' fill='%23E8F1F1' opacity='0.5'/><circle cx='55.5' cy='38.8' r='0.9' fill='%23E8F1F1' opacity='0.35'/><circle cx='16.1' cy='22.2' r='1.8' fill='%23E8F1F1' opacity='0.5'/><circle cx='15.6' cy='21.7' r='1.0' fill='%23E8F1F1' opacity='0.35'/><circle cx='7.9' cy='54.3' r='2.6' fill='%23E8F1F1' opacity='0.5'/><circle cx='7.4' cy='53.8' r='1.4' fill='%23E8F1F1' opacity='0.35'/><circle cx='29.8' cy='31.0' r='1.5' fill='%23E8F1F1' opacity='0.5'/><circle cx='29.3' cy='30.5' r='0.8' fill='%23E8F1F1' opacity='0.35'/><circle cx='6.5' cy='21.9' r='1.7' fill='%23E8F1F1' opacity='0.5'/><circle cx='6.0' cy='21.4' r='0.9' fill='%23E8F1F1' opacity='0.35'/><circle cx='53.0' cy='10.3' r='1.4' fill='%23E8F1F1' opacity='0.5'/><circle cx='52.5' cy='9.8' r='0.8' fill='%23E8F1F1' opacity='0.35'/><circle cx='60.9' cy='33.8' r='1.6' fill='%23E8F1F1' opacity='0.5'/><circle cx='60.4' cy='33.3' r='0.9' fill='%23E8F1F1' opacity='0.35'/></svg>"); --leather-opacity: 0.07;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; font-size: 14px; line-height: 1.45;
+    padding-inline: 16px; padding-block: 14px 24px; position: relative;
+  }
+  /* the ball's skin: pebbled leather under everything, barely there */
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; background-image: var(--leather); background-size: 64px 64px; opacity: var(--leather-opacity); }
+  body > * { position: relative; z-index: 1; }
+  body > .masthead { z-index: 2; }
+  /* the vintage layer: one film of grain over everything */
+  body::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: calc(var(--grain) * 0.22);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
+  }
+  :root[data-theme="dark"] body::after { mix-blend-mode: screen; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body::after { mix-blend-mode: screen; } }
+
+  .display { font-family: "Anton", Impact, "Arial Narrow Bold", sans-serif; font-weight: 400; letter-spacing: 0.01em; }
+
+  /* masthead */
+  .masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-bottom: 3px solid var(--ink); padding-bottom: 10px; margin-bottom: 14px; }
+  .brand { display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
+  .brand h1 { margin: 0; font-size: 46px; line-height: 0.9; position: relative; color: var(--ink); text-shadow: 3px 3px 0 var(--gold); }
+  .brand .sub { color: var(--ink-2); font-size: 12.5px; letter-spacing: 0.02em; padding-bottom: 3px; }
+  .brand .sub b { color: var(--ink); font-weight: 600; }
+  .nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+  /* every control is text; the only affordance is the gold underline */
+  .textlink { background: none; border: 0; padding: 4px 2px; margin: 0 8px; color: var(--ink-2); font: 500 13px "Archivo", sans-serif; cursor: pointer; text-decoration: none; position: relative; }
+  .textlink::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 160ms ease; }
+  .textlink:hover::after, .textlink:focus-visible::after { transform: scaleX(1); }
+  .textlink[aria-current], .textlink[aria-pressed="true"], .textlink[aria-selected="true"] { color: var(--ink); font-weight: 600; }
+  .textlink[aria-current]::after, .textlink[aria-pressed="true"]::after, .textlink[aria-selected="true"]::after { transform: scaleX(1); }
+  .textlink:focus-visible, .card:focus-visible, .row:focus-visible, .ball:focus-visible, .theme:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  /* the section menu: one word, a chevron, and a lifted sheet of sections with their counts */
+  .menu { position: relative; }
+  .menu .trigger { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; color: var(--ink); font-weight: 600; }
+  .menu .trigger svg { width: 12px; height: 12px; transition: transform 160ms ease; }
+  .menu .trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .sheet { position: absolute; right: 0; top: calc(100% + 8px); min-width: 240px; background: var(--surface); border-radius: 12px; box-shadow: var(--shadow-lift); padding: 8px; z-index: 40; display: grid; gap: 2px; }
+  .sheet::before { content: ""; position: absolute; inset: 0; border-radius: 12px; pointer-events: none; background-image: radial-gradient(rgba(29,32,29,0.18) 1px, transparent 1.2px); background-size: 5px 5px; opacity: .3; mask-image: linear-gradient(180deg, #000, transparent 40%); -webkit-mask-image: linear-gradient(180deg, #000, transparent 40%); }
+  .sheet a { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 14px; padding: 9px 10px; border-radius: 8px; text-decoration: none; color: var(--ink); position: relative; }
+  .sheet a:hover, .sheet a:focus-visible { background: var(--hover); outline: none; }
+  .sheet a .name { font-weight: 600; font-size: 14px; position: relative; }
+  .sheet a .name::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 160ms ease; }
+  .sheet a:hover .name::after, .sheet a:focus-visible .name::after, .sheet a[aria-current] .name::after { transform: scaleX(1); }
+  .sheet a .n { font-family: "Anton", sans-serif; font-size: 18px; line-height: 1; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .sheet a .n small { font-family: "Archivo", sans-serif; font-size: 11px; color: var(--ink-3); margin-left: 4px; font-weight: 500; }
+  .sheet .rule { height: 1px; background: var(--line); margin: 4px 6px; }
+  /* light/dark: one icon that is whichever you are not */
+  .theme { background: none; border: 0; padding: 4px; margin-left: 14px; cursor: pointer; color: var(--ink); display: inline-flex; border-radius: 8px; }
+  .theme:hover { background: var(--hover); }
+  .theme svg { width: 20px; height: 20px; display: block; }
+  .theme .sun { display: none; } .theme .moon { display: block; }
+  :root[data-theme="dark"] .theme .sun { display: block; } :root[data-theme="dark"] .theme .moon { display: none; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .theme .sun { display: block; } :root:not([data-theme="light"]) .theme .moon { display: none; } }
+  .ball { background: none; border: 0; padding: 0 0 4px; cursor: pointer; display: inline-flex; align-items: flex-end; }
+  .ball svg { width: 34px; height: 22px; display: block; }
+  .ball:hover svg { transform: rotate(-8deg); }
+  @media (prefers-reduced-motion: no-preference) { .ball svg { transition: transform 200ms ease; } }
+
+  /* the split: board 75% / rail 25% */
+  .split { display: grid; grid-template-columns: 3fr 1fr; gap: 16px; align-items: start; }
+
+  /* iTerm-style pane group */
+  /* no borders between panes: spacing separates, and the pane being looked at lifts */
+  .panes { display: grid; grid-template-columns: 1.55fr 1fr; gap: 20px; min-height: 640px; align-items: stretch; }
+  .pane { display: flex; flex-direction: column; min-width: 0; border-radius: 12px; background: transparent; transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease; }
+  .pane:hover, .pane:focus-within { background: var(--surface); box-shadow: var(--shadow-lift); transform: translateY(-2px); }
+  .panebar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px 4px; font-size: 12px; color: var(--ink-2); }
+  .panebar .t { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .panebar .t b { color: var(--ink); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .panebar .k { font-family: "Archivo", sans-serif; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .panebar .k.big { font-size: 30px; line-height: 1; color: var(--ink); text-shadow: 2px 2px 0 var(--gold); }
+  .caret { width: 8px; height: 8px; border-radius: 2px; background: var(--gold); border: 1px solid var(--ink); flex: none; }
+  .pane-body { padding: 10px 12px 14px; overflow: auto; display: flex; flex-direction: column; gap: 2px; }
+
+  /* discord-style messages */
+  .msg { display: grid; grid-template-columns: 34px 1fr; gap: 10px; padding: 8px 8px; border-radius: 8px; }
+  .msg:hover { background: var(--hover); }
+  .msg.reply { margin-left: 44px; position: relative; }
+  .msg.reply::before { content: ""; position: absolute; left: -22px; top: -6px; width: 16px; height: 22px; border-left: 1.5px solid var(--line-strong); border-bottom: 1.5px solid var(--line-strong); border-bottom-left-radius: 6px; }
+  .av { width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; font-family: "Anton", sans-serif; font-size: 16px; color: var(--gold-ink); background: var(--gold); border: 1px solid var(--ink); }
+  .av.b { background: var(--blue); color: #fff; } .av.o { background: var(--olive); color: #fff; } .av.i { background: var(--ink-solid); color: var(--ground); }
+  .msg .head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .msg .head b { font-weight: 600; }
+  .msg .head .time { color: var(--ink-3); font-size: 12px; }
+  .msg .head .op { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 4px; background: var(--gold); color: var(--gold-ink); }
+  .msg .head .pts { color: var(--ink-3); font-size: 12px; font-variant-numeric: tabular-nums; margin-left: auto; }
+  .msg p { margin: 2px 0 6px; }
+  .msg p.title { font-weight: 600; font-size: 15px; }
+
+  /* the pulse bar: a 100-yard field */
+  .pulse { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; max-width: 520px; }
+  .field { position: relative; overflow: visible; }
+  .field .yd { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), var(--line) calc(10% - 1px) 10%); }
+  .field .ez { position: absolute; inset: 0 0 0 auto; width: 3px; background: var(--ink-solid); opacity: .5; }
+  .fill { position: absolute; inset: 0 auto 0 0; min-width: 12px; }
+  /* mood fills: one gradient per mood, a soft glow, a bright head at the yard line */
+  .m-hyped { --c: #F5E571; --c2: #FFF6B0; }
+  .m-hopeful { --c: #F5E571; --c2: #697A21; }
+  .m-proud { --c: #2374AB; --c2: #6FB4E8; }
+  .m-level { --c: #2374AB; --c2: #9DB9CC; }
+  .m-uneasy { --c: #697A21; --c2: #AEBF58; }
+  .m-frustrated { --c: #697A21; --c2: #3A3F1A; }
+  .m-heated { --c: var(--ink-solid); --c2: #2374AB; }
+  .fill, .mix i, .lanes i, .moods i, .sw i { background: linear-gradient(90deg, var(--c), var(--c2)); }
+  .field { height: 10px; border-radius: 999px; border: 0; background: var(--field); box-shadow: inset 0 1px 2px rgba(29,32,29,0.10); }
+  .field .yd { background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), rgba(29,32,29,0.14) calc(10% - 1px) 10%); border-radius: 999px; }
+  :root[data-theme="dark"] .field .yd { background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), rgba(232,241,241,0.16) calc(10% - 1px) 10%); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .field .yd { background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 1px), rgba(232,241,241,0.16) calc(10% - 1px) 10%); } }
+  .field .ez { display: none; }
+  .fill { border-radius: 999px; box-shadow: 0 0 10px 0 color-mix(in srgb, var(--c) 55%, transparent); }
+  .fill::after { content: ""; position: absolute; right: -1px; top: 50%; width: 12px; height: 12px; border-radius: 50%; transform: translateY(-50%); background: var(--c2); border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--c), 0 0 8px color-mix(in srgb, var(--c) 70%, transparent); }
+  .mix, .lanes { border-radius: 999px; border: 0; overflow: hidden; }
+  .row .mix i, .cover .lanes i { border-radius: 0; }
+  .moods i, .sw i { border-radius: 999px; border: 0; }
+  .read { font-size: 11.5px; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .read b { color: var(--ink); font-weight: 600; }
+  .sticker { width: 30px; height: 30px; flex: none; filter: drop-shadow(0 0 0 #fff) drop-shadow(0 0 1.5px #fff) drop-shadow(0 1px 2px rgba(0,0,0,0.3)); align-self: center; }
+  .pulse { grid-template-columns: 1fr auto auto; }
+
+  /* readings pane */
+  .gtabs { display: flex; gap: 2px; padding: 12px 4px 0; }
+  .gtabs .textlink { font-size: 12.5px; }
+  .rows { display: flex; flex-direction: column; }
+  .row { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; padding: 9px 8px; border-radius: 8px; cursor: pointer; border: 0; background: none; text-align: left; color: var(--ink); font: inherit; }
+  .row:hover { background: var(--hover); }
+  .row[aria-pressed="true"] { background: var(--hover); box-shadow: inset 3px 0 0 var(--gold); }
+  .row .n { font-weight: 600; }
+  .row .c { color: var(--ink-3); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .row .mix { grid-column: 1 / -1; position: relative; height: 8px; background: var(--field); display: flex; overflow: hidden; border-radius: 999px; }
+  .row .mix i { display: block; height: 100%; }
+
+  /* legend */
+  .legend { margin-top: auto; padding: 16px 12px 12px; font-size: 11.5px; color: var(--ink-2); display: grid; gap: 8px; }
+  /* the scoreboard: the legend that plays back whichever voice you're on */
+  .scoreboard { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-items: end; padding: 6px 12px 14px; }
+  .scoreboard .yds { font-family: "Anton", sans-serif; font-size: 54px; line-height: 0.85; font-variant-numeric: tabular-nums; color: var(--ink); text-shadow: 2px 2px 0 var(--gold); min-width: 2.2ch; }
+  .scoreboard .yds small { font-family: "Archivo", sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); text-shadow: none; display: block; margin-top: 4px; font-weight: 600; }
+  .scoreboard .who { grid-column: 2; display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; color: var(--ink-2); }
+  .scoreboard .who b { color: var(--ink); font-weight: 600; font-size: 14px; }
+  .scoreboard .bigfield { grid-column: 2; position: relative; height: 18px; background: var(--field); overflow: visible; border-radius: 999px; box-shadow: inset 0 1px 3px rgba(29,32,29,0.12); }
+  .scoreboard .bigfield .fill::after { width: 18px; height: 18px; }
+
+  .scoreboard .bigfield .fill { transition: width 420ms cubic-bezier(.2,.8,.2,1); }
+
+  .scoreboard .marks { grid-column: 2; display: flex; justify-content: space-between; font-family: "Anton", sans-serif; font-size: 11px; color: var(--ink-3); letter-spacing: 0.04em; padding: 0 1px; }
+  .scoreboard .moods { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 11.5px; color: var(--ink-2); padding-top: 4px; }
+  .scoreboard .moods span { display: inline-flex; align-items: center; gap: 6px; padding-bottom: 2px; border-bottom: 3px solid transparent; }
+  .scoreboard .moods span[data-on="true"] { color: var(--ink); font-weight: 600; border-bottom-color: var(--gold); }
+  .scoreboard .moods i { width: 26px; height: 8px; display: inline-block; }
+  @media (prefers-reduced-motion: reduce) { .scoreboard .bigfield .fill { transition: none; } }
+  @media (max-width: 520px) { .scoreboard { grid-template-columns: 1fr; } .scoreboard .who, .scoreboard .bigfield, .scoreboard .marks { grid-column: 1; } }
+  .legend .sw { display: flex; flex-wrap: wrap; gap: 6px 12px; }
+  .legend .sw span { display: inline-flex; align-items: center; gap: 5px; }
+  .legend .sw i { width: 22px; height: 9px; border: 1px solid var(--line); display: inline-block; }
+  .legend .yards { display: flex; justify-content: space-between; max-width: 520px; font-variant-numeric: tabular-nums; color: var(--ink-3); }
+
+  /* rail: the property-card anatomy */
+  .rail { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .rail .lab { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; }
+  .rail h2 { margin: 2px 0 0; font-size: 26px; line-height: 1; }
+  .count { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--ink-2); align-items: center; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; border: 1px solid var(--ink); }
+  .masonry { column-width: 200px; column-gap: 12px; }
+  .card { break-inside: avoid; margin-bottom: 14px; overflow: hidden; cursor: pointer; background: var(--surface); border-radius: 12px; box-shadow: var(--shadow); border: 1px solid var(--line); transition: transform 160ms ease, box-shadow 160ms ease; }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+  .card[aria-current="true"] { box-shadow: 0 0 0 2px var(--ink), var(--shadow); }
+  .cover { position: relative; display: grid; place-items: center; overflow: hidden; }
+  .cover .num { font-size: 44px; line-height: 1; color: var(--gold-ink); position: relative; text-shadow: 2px 2px 0 rgba(232,241,241,0.9); }
+  .cover.gold { background: var(--gold); } .cover.blue { background: var(--blue); } .cover.olive { background: var(--olive); } .cover.ink { background: var(--ink-solid); }
+  .cover.blue .num, .cover.olive .num { color: #fff; text-shadow: 2px 2px 0 rgba(29,32,29,0.6); }
+  .cover.ink .num { color: var(--ground); text-shadow: 2px 2px 0 var(--gold); }
+  .cover::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(29,32,29,0.28) 1px, transparent 1.2px); background-size: 6px 6px; opacity: .55; mask-image: linear-gradient(180deg, transparent, #000); -webkit-mask-image: linear-gradient(180deg, transparent, #000); }
+  .cover .tag { position: absolute; left: 8px; top: 8px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; padding: 2px 6px; background: var(--ground); color: var(--ink); border-radius: 4px; }
+  .cover .lanes { position: absolute; inset: auto 8px 8px 8px; height: 6px; display: flex; border-radius: 999px; overflow: hidden; }
+  .cover .lanes i { display: block; height: 100%; }
+  .card .txt { padding: 10px 12px 12px; }
+  .card .ttl { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .card .ttl span { font-weight: 600; font-size: 13.5px; line-height: 1.3; }
+  .card .meta { color: var(--ink-3); font-size: 12px; margin-top: 3px; }
+  .card .meta b { color: var(--ink-2); font-weight: 500; }
+
+  @media (max-width: 980px) {
+    .split { grid-template-columns: 1fr; }
+    .panes { grid-template-columns: 1fr; }
+    .pane + .pane { border-left: 0; border-top: 1px solid var(--line-strong); }
+    .masonry { column-width: 180px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .card, .pane, .textlink::after { transition: none; } }
+
+  /* the week flyer */
+  .scrim { position: fixed; inset: 0; background: rgba(29, 32, 29, 0.55); backdrop-filter: blur(2px); z-index: 60; display: grid; place-items: center; padding: 16px; }
+  .flyer { position: relative; width: min(560px, 100%); background: var(--surface); color: var(--ink); border-radius: 6px; box-shadow: var(--shadow-lift); padding: 26px 28px 22px; overflow: hidden; display: grid; gap: 14px; }
+  .flyer::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(29,32,29,0.22) 1px, transparent 1.2px); background-size: 5px 5px; opacity: .35; mask-image: linear-gradient(180deg, #000, transparent 55%); -webkit-mask-image: linear-gradient(180deg, #000, transparent 55%); }
+  .flyer .rule { height: 3px; background: var(--ink); position: relative; }
+  .flyer .rule::after { content: ""; position: absolute; left: 0; right: 0; top: 5px; height: 1px; background: var(--ink); }
+  .flyer .eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600; color: var(--ink-2); text-align: center; }
+  .flyer h2 { margin: 0; text-align: center; font-size: 58px; line-height: 0.9; text-shadow: 3px 3px 0 var(--gold); }
+  .flyer .match { text-align: center; display: grid; gap: 2px; }
+  .flyer .match .teams { font-size: 34px; line-height: 1; }
+  .flyer .match .teams i { font-style: normal; color: var(--ink-2); font-size: 18px; margin: 0 10px; font-family: "Archivo", sans-serif; font-weight: 500; }
+  .flyer .match .when { font-size: 13px; color: var(--ink-2); }
+  .flyer .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
+  .flyer .stats b { display: block; font-size: 40px; line-height: 1; font-family: "Anton", sans-serif; font-weight: 400; font-variant-numeric: tabular-nums; }
+  .flyer .stats span { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+  .flyer .loud { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center; font-size: 12.5px; color: var(--ink-2); }
+  .flyer .loud .field { height: 14px; }
+  .flyer .subjects { display: flex; justify-content: center; gap: 6px 18px; flex-wrap: wrap; font-size: 13px; }
+  .flyer .subjects b { font-weight: 600; }
+  .flyer .foot { display: flex; justify-content: flex-end; align-items: center; font-size: 11px; color: var(--ink-3); letter-spacing: 0.04em; }
+  .flyer .foot .textlink { font-size: 13px; margin: 0; color: var(--ink); }
+  @media (max-width: 480px) { .flyer h2 { font-size: 44px; } .flyer .match .teams { font-size: 26px; } .flyer .stats b { font-size: 30px; } }
+</style>
+
+<div class="scrim" id="flyer" role="dialog" aria-modal="true" aria-labelledby="flyer-title">
+  <article class="flyer">
+    <h2 class="display" id="flyer-title">Steeler Voices</h2>
+    <div class="rule"></div>
+    <div class="match">
+      <div class="teams display">Steelers <i>at</i> Patriots</div>
+    </div>
+    <div class="stats">
+      <div><b>61</b><span>Posts</span></div>
+      <div><b>4,212</b><span>Comments</span></div>
+      <div><b>7</b><span>Subjects</span></div>
+    </div>
+    <div class="subjects"><span><b>Joey Porter Jr.</b> 1,204</span><span><b>Omar Khan</b> 318</span><span><b>Aaron Rodgers</b> 296</span><span><b>Pittman</b> 141</span></div>
+    <div class="rule"></div>
+    <div class="foot"><span></span><button class="textlink" id="close-flyer" type="button">Open the board</button></div>
+  </article>
+</div>
+
+<header class="masthead">
+  <div class="brand">
+    <h1 class="display">Steeler Voices</h1>
+    <button class="ball" id="open-flyer" type="button" aria-label="Open this week's flyer" title="This week">
+      <svg viewBox="0 0 68 44" aria-hidden="true">
+        <ellipse cx="34" cy="22" rx="31" ry="18" fill="var(--ink)" />
+        <ellipse cx="34" cy="22" rx="31" ry="18" fill="none" stroke="var(--gold)" stroke-width="2" />
+        <path d="M6 22 Q34 4 62 22" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity=".6" />
+        <path d="M6 22 Q34 40 62 22" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity=".6" />
+        <path d="M23 22 H45" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" />
+        <path d="M27 18 V26 M32 18 V26 M37 18 V26 M42 18 V26" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+  <nav class="nav" aria-label="Sections">
+    <div class="menu">
+      <button class="textlink trigger" id="menu-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="menu-sheet">
+        Board
+        <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="sheet" id="menu-sheet" role="menu" hidden>
+        <a role="menuitem" href="#" aria-current="page"><span class="name">Board</span><span class="n">61<small>posts</small></span></a>
+        <a role="menuitem" href="#"><span class="name">Document</span><span class="n">2<small>versions</small></span></a>
+        <a role="menuitem" href="#"><span class="name">Map</span><span class="n">4,212<small>points</small></span></a>
+        <a role="menuitem" href="#"><span class="name">A/B</span><span class="n">3<small>runs</small></span></a>
+        <div class="rule"></div>
+        <a role="menuitem" href="#"><span class="name">Pipelines</span><span class="n">8<small>scheduled</small></span></a>
+      </div>
+    </div>
+    <button class="theme" id="theme" type="button" aria-label="Switch to dark">
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="currentColor"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></g></svg>
+    </button>
+  </nav>
+</header>
+
+<div class="split">
+
+  <!-- 75%: the pane group -->
+  <section class="panes" aria-label="Board">
+
+    <div class="pane">
+      <div class="panebar">
+        <div class="t"><span class="caret"></span><b>Thread — Joey Porter Jr leaves steelers practice</b></div>
+        <span class="k big display">601</span>
+      </div>
+      <div class="scoreboard" id="scoreboard" aria-live="polite">
+        <div class="yds"><span id="sb-yds">66</span><small>yards</small></div>
+        <div class="who"><b id="sb-mood">Uneasy</b><span id="sb-who">u/Stealth_Well_worn</span></div>
+        <div class="bigfield"><div class="yd"></div><div class="fill m-uneasy" id="sb-fill" style="width:66%"></div><div class="ez"></div></div>
+        <div class="marks"><span>G</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>40</span><span>30</span><span>20</span><span>10</span><span>G</span></div>
+        <div class="moods" id="sb-moods">
+          <span data-mood="hyped"><i class="m-hyped"></i>Hyped</span><span data-mood="hopeful"><i class="m-hopeful"></i>Hopeful</span><span data-mood="proud"><i class="m-proud"></i>Proud</span><span data-mood="level"><i class="m-level"></i>Level</span><span data-mood="uneasy" data-on="true"><i class="m-uneasy"></i>Uneasy</span><span data-mood="frustrated"><i class="m-frustrated"></i>Frustrated</span><span data-mood="heated"><i class="m-heated"></i>Heated</span>
+        </div>
+      </div>
+      <div class="pane-body">
+
+        <div class="msg" data-mood="uneasy" data-yd="66" data-who="u/Stealth_Well_worn">
+          <div class="av">S</div>
+          <div>
+            <div class="head"><b>u/Stealth_Well_worn</b><span class="op">OP</span><span class="time">Thu 1:16 PM</span><span class="pts">1.9k pts</span></div>
+            <p class="title">Joey Porter Jr leaves steelers practice</p>
+            <div class="pulse"><div class="field"><div class="yd"></div><div class="fill m-uneasy" style="width:66%"></div><div class="ez"></div></div><span class="read"><b>Uneasy</b> · 66 yd</span></div>
+          </div>
+        </div>
+
+        <div class="msg" data-mood="uneasy" data-yd="54" data-who="u/swampthingsden">
+          <div class="av b">S</div>
+          <div>
+            <div class="head"><b>u/swampthingsden</b><span class="time">Thu 1:19 PM</span><span class="pts">313 pts</span></div>
+            <p>Really can’t believe it got to this point.</p>
+            <div class="pulse"><div class="field"><div class="yd"></div><div class="fill m-uneasy" style="width:54%"></div><div class="ez"></div></div><span class="read"><b>Uneasy</b> · 54 yd</span></div>
+          </div>
+        </div>
+
+        <div class="msg" data-mood="frustrated" data-yd="78" data-who="u/liquidgrill">
+          <div class="av o">L</div>
+          <div>
+            <div class="head"><b>u/liquidgrill</b><span class="time">Thu 1:27 PM</span><span class="pts">170 pts</span></div>
+            <p>An “injury” that only a bag of money can cure</p>
+            <div class="pulse"><div class="field"><div class="yd"></div><div class="fill m-frustrated" style="width:78%"></div><div class="ez"></div></div><span class="read"><b>Frustrated</b> · 78 yd</span><svg class="sticker" viewBox="0 0 40 40" role="img" aria-label="read as sarcasm"><g transform="rotate(-14 20 20)"><circle cx="20" cy="21" r="14" fill="#F5E571" stroke="#1D201D" stroke-width="2"/><path d="M13 18c1.5-2.5 4-2.5 5.5 0M21.5 18c1.5-2.5 4-2.5 5.5 0" fill="none" stroke="#1D201D" stroke-width="2" stroke-linecap="round"/><path d="M12.5 24c2 6 13 6 15 0z" fill="#1D201D"/><path d="M15.5 27.5c3 1.5 6 1.5 9 0" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/><path d="M8 22c-1.5 1.5-1.5 4 0 4.5 1.5.5 2.2-2.5 0-4.5z" fill="#2374AB"/><path d="M32 22c1.5 1.5 1.5 4 0 4.5-1.5.5-2.2-2.5 0-4.5z" fill="#2374AB"/></g></svg></div>
+          </div>
+        </div>
+        <div class="msg reply" data-mood="frustrated" data-yd="61" data-who="u/Stealth_Well_worn">
+          <div class="av">S</div>
+          <div>
+            <div class="head"><b>u/Stealth_Well_worn</b><span class="op">OP</span><span class="time">Thu 1:30 PM</span><span class="pts">24 pts</span></div>
+            <p>Yeah agreed we pay him his back will magically heal.</p>
+            <div class="pulse"><div class="field"><div class="yd"></div><div class="fill m-frustrated" style="width:61%"></div><div class="ez"></div></div><span class="read"><b>Frustrated</b> · 61 yd</span><svg class="sticker" viewBox="0 0 40 40" role="img" aria-label="read as sarcasm"><g transform="rotate(-14 20 20)"><circle cx="20" cy="21" r="14" fill="#F5E571" stroke="#1D201D" stroke-width="2"/><path d="M13 18c1.5-2.5 4-2.5 5.5 0M21.5 18c1.5-2.5 4-2.5 5.5 0" fill="none" stroke="#1D201D" stroke-width="2" stroke-linecap="round"/><path d="M12.5 24c2 6 13 6 15 0z" fill="#1D201D"/><path d="M15.5 27.5c3 1.5 6 1.5 9 0" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/><path d="M8 22c-1.5 1.5-1.5 4 0 4.5 1.5.5 2.2-2.5 0-4.5z" fill="#2374AB"/><path d="M32 22c1.5 1.5 1.5 4 0 4.5-1.5.5-2.2-2.5 0-4.5z" fill="#2374AB"/></g></svg></div>
+          </div>
+        </div>
+
+        <div class="msg" data-mood="frustrated" data-yd="83" data-who="u/RudolphsJockStrap">
+          <div class="av i">R</div>
+          <div>
+            <div class="head"><b>u/RudolphsJockStrap</b><span class="time">Thu 1:21 PM</span><span class="pts">137 pts</span></div>
+            <p>Genuinely frustrating to see some of the contracts we have handed out but won’t pay him.</p>
+            <div class="pulse"><div class="field"><div class="yd"></div><div class="fill m-frustrated" style="width:83%"></div><div class="ez"></div></div><span class="read"><b>Frustrated</b> · 83 yd</span></div>
+          </div>
+        </div>
+        <div class="msg reply" data-mood="level" data-yd="38" data-who="u/swampthingsden">
+          <div class="av b">S</div>
+          <div>
+            <div class="head"><b>u/swampthingsden</b><span class="time">Thu 1:24 PM</span><span class="pts">87 pts</span></div>
+            <p>They gave out some fair contracts this offseason. I doubt they did not offer Porter a fair contract as well.</p>
+            <div class="pulse"><div class="field"><div class="yd"></div><div class="fill m-level" style="width:38%"></div><div class="ez"></div></div><span class="read"><b>Level</b> · 38 yd</span></div>
+          </div>
+        </div>
+        <div class="msg reply" data-mood="level" data-yd="31" data-who="u/ecg_tsp">
+          <div class="av o">E</div>
+          <div>
+            <div class="head"><b>u/ecg_tsp</b><span class="time">Thu 1:21 PM</span><span class="pts">20 pts</span></div>
+            <p>How do you know they don’t want to pay him.</p>
+            <div class="pulse"><div class="field"><div class="yd"></div><div class="fill m-level" style="width:31%"></div><div class="ez"></div></div><span class="read"><b>Level</b> · 31 yd</span></div>
+          </div>
+        </div>
+
+        <div class="msg" data-mood="heated" data-yd="91" data-who="u/Passw0rd-Is-Tac0">
+          <div class="av">P</div>
+          <div>
+            <div class="head"><b>u/Passw0rd-Is-Tac0</b><span class="time">Thu 1:19 PM</span><span class="pts">61 pts</span></div>
+            <p>Faking another injury I see. He’s gonna milk this and we know the Steelers don’t negotiate in season so I personally don’t see Joey playing for the Steelers again.</p>
+            <div class="pulse"><div class="field"><div class="yd"></div><div class="fill m-heated" style="width:91%"></div><div class="ez"></div></div><span class="read"><b>Heated</b> · 91 yd</span></div>
+          </div>
+        </div>
+
+        <div class="msg" data-mood="heated" data-yd="74" data-who="u/DaRealSphonx">
+          <div class="av b">D</div>
+          <div>
+            <div class="head"><b>u/DaRealSphonx</b><span class="time">Thu 1:37 PM</span><span class="pts">31 pts</span></div>
+            <p>Am I missing something, why is any fan on his side? He has a contract. He outperformed, but he’s got a full year. Of course he deserves to get paid a bag. and he will. But this just makes him look pathetic</p>
+            <div class="pulse"><div class="field"><div class="yd"></div><div class="fill m-heated" style="width:74%"></div><div class="ez"></div></div><span class="read"><b>Heated</b> · 74 yd</span></div>
+          </div>
+        </div>
+
+        <div class="msg" data-mood="uneasy" data-yd="22" data-who="u/SlyCooper007">
+          <div class="av o">S</div>
+          <div>
+            <div class="head"><b>u/SlyCooper007</b><span class="time">Thu 1:22 PM</span><span class="pts">15 pts</span></div>
+            <p>Just trade him. Idc anymore tbh.</p>
+            <div class="pulse"><div class="field"><div class="yd"></div><div class="fill m-uneasy" style="width:22%"></div><div class="ez"></div></div><span class="read"><b>Uneasy</b> · 22 yd</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="pane">
+      <div class="gtabs" role="tablist">
+        <button class="textlink gtab" role="tab" aria-selected="true" type="button">By subject</button>
+        <button class="textlink gtab" role="tab" aria-selected="false" type="button">By topic</button>
+        <button class="textlink gtab" role="tab" aria-selected="false" type="button">By mood</button>
+      </div>
+      <div class="pane-body rows">
+        <button class="row" type="button" aria-pressed="true"><span class="n">Joey Porter Jr.</span><span class="c">412</span>
+          <span class="mix"><i class="m-heated" style="width:31%"></i><i class="m-frustrated" style="width:27%"></i><i class="m-uneasy" style="width:22%"></i><i class="m-level" style="width:14%"></i><i class="m-hopeful" style="width:6%"></i></span></button>
+        <button class="row" type="button"><span class="n">Omar Khan</span><span class="c">138</span>
+          <span class="mix"><i class="m-frustrated" style="width:44%"></i><i class="m-level" style="width:30%"></i><i class="m-heated" style="width:16%"></i><i class="m-proud" style="width:10%"></i></span></button>
+        <button class="row" type="button"><span class="n">Le’Veon Bell</span><span class="c">57</span>
+          <span class="mix"><i class="m-frustrated" style="width:52%"></i><i class="m-heated" style="width:28%"></i><i class="m-level" style="width:20%"></i></span></button>
+        <button class="row" type="button"><span class="n">The front office</span><span class="c">49</span>
+          <span class="mix"><i class="m-level" style="width:46%"></i><i class="m-frustrated" style="width:34%"></i><i class="m-proud" style="width:20%"></i></span></button>
+        <button class="row" type="button"><span class="n">DK Metcalf</span><span class="c">33</span>
+          <span class="mix"><i class="m-heated" style="width:40%"></i><i class="m-uneasy" style="width:35%"></i><i class="m-level" style="width:25%"></i></span></button>
+        <button class="row" type="button"><span class="n">Mike McCarthy</span><span class="c">28</span>
+          <span class="mix"><i class="m-level" style="width:58%"></i><i class="m-hopeful" style="width:24%"></i><i class="m-uneasy" style="width:18%"></i></span></button>
+        <button class="row" type="button"><span class="n">The refs</span><span class="c">11</span>
+          <span class="mix"><i class="m-frustrated" style="width:70%"></i><i class="m-heated" style="width:30%"></i></span></button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 25%: the rail -->
+  <aside class="rail" aria-label="This week's posts">
+    <div>
+      <div class="lab">This week</div>
+      <h2 class="display">Posts</h2>
+    </div>
+
+    <div class="masonry">
+
+      <article class="card" tabindex="0" aria-current="true">
+        <div class="cover olive" style="height:132px"><span class="tag">Photo</span><span class="num display">601</span>
+          <div class="lanes"><i class="m-heated" style="width:31%"></i><i class="m-frustrated" style="width:27%"></i><i class="m-uneasy" style="width:22%"></i><i class="m-level" style="width:14%"></i><i class="m-hopeful" style="width:6%"></i></div></div>
+        <div class="txt"><div class="ttl"><span>Joey Porter Jr leaves steelers practice</span><i class="dot" style="background:var(--olive)"></i></div><div class="meta"><b>u/Stealth_Well_worn</b> · Thu 1:16 PM</div></div>
+      </article>
+
+      <article class="card" tabindex="0">
+        <div class="cover blue" style="height:96px"><span class="num display">276</span>
+          <div class="lanes"><i class="m-level" style="width:38%"></i><i class="m-frustrated" style="width:30%"></i><i class="m-uneasy" style="width:32%"></i></div></div>
+        <div class="txt"><div class="ttl"><span>Rapoport on the McAfee show confirms the Steelers are shopping JPJ</span><i class="dot" style="background:var(--blue)"></i></div><div class="meta"><b>u/BAMBAMBAKLAVA11</b> · Tue 12:52 PM</div></div>
+      </article>
+
+      <article class="card" tabindex="0">
+        <div class="cover ink" style="height:110px"><span class="tag">Link</span><span class="num display">252</span>
+          <div class="lanes"><i class="m-heated" style="width:35%"></i><i class="m-frustrated" style="width:40%"></i><i class="m-level" style="width:25%"></i></div></div>
+        <div class="txt"><div class="ttl"><span>Inside the saga around Joey Porter Jr.’s future with Steelers — ESPN</span><i class="dot" style="background:var(--ink-solid)"></i></div><div class="meta"><b>u/Stealth_Well_worn</b> · Fri 10:06 AM</div></div>
+      </article>
+
+      <article class="card" tabindex="0">
+        <div class="cover gold" style="height:88px"><span class="tag">Photo</span><span class="num display">171</span>
+          <div class="lanes"><i class="m-hyped" style="width:44%"></i><i class="m-hopeful" style="width:30%"></i><i class="m-uneasy" style="width:26%"></i></div></div>
+        <div class="txt"><div class="ttl"><span>NFL YouTube channel predictors are 9-1 in favor of the Patriots this week</span><i class="dot" style="background:var(--gold)"></i></div><div class="meta"><b>u/DizEthan414</b> · Wed 5:39 PM</div></div>
+      </article>
+
+      <article class="card" tabindex="0">
+        <div class="cover blue" style="height:120px"><span class="num display">170</span>
+          <div class="lanes"><i class="m-level" style="width:52%"></i><i class="m-proud" style="width:28%"></i><i class="m-uneasy" style="width:20%"></i></div></div>
+        <div class="txt"><div class="ttl"><span>How many CBs are better than JPJ, now or going forward?</span><i class="dot" style="background:var(--blue)"></i></div><div class="meta"><b>u/WinesburgOhio</b> · Fri 7:46 AM</div></div>
+      </article>
+
+      <article class="card" tabindex="0">
+        <div class="cover olive" style="height:84px"><span class="tag">Photo</span><span class="num display">115</span>
+          <div class="lanes"><i class="m-uneasy" style="width:58%"></i><i class="m-level" style="width:42%"></i></div></div>
+        <div class="txt"><div class="ttl"><span>Porter out, Pittman and Fautanu questionable for Patriots</span><i class="dot" style="background:var(--olive)"></i></div><div class="meta"><b>u/patrick66</b> · Fri 3:40 PM</div></div>
+      </article>
+
+      <article class="card" tabindex="0">
+        <div class="cover gold" style="height:104px"><span class="tag">Photo</span><span class="num display">104</span>
+          <div class="lanes"><i class="m-proud" style="width:50%"></i><i class="m-hyped" style="width:32%"></i><i class="m-level" style="width:18%"></i></div></div>
+        <div class="txt"><div class="ttl"><span>Aaron Rodgers is one win away from tying Ben Roethlisberger for 5th…</span><i class="dot" style="background:var(--gold)"></i></div><div class="meta"><b>u/pfref</b> · Thu 11:56 AM</div></div>
+      </article>
+
+    </div>
+  </aside>
+</div>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var themeButton = document.getElementById('theme');
+    function currentTheme() {
+      var stamped = root.getAttribute('data-theme');
+      if (stamped) return stamped;
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    function apply(mode) {
+      root.setAttribute('data-theme', mode);
+      themeButton.setAttribute('aria-label', mode === 'dark' ? 'Switch to light' : 'Switch to dark');
+      try { localStorage.setItem('board-theme', mode); } catch (e) {}
+    }
+    themeButton.addEventListener('click', function () { apply(currentTheme() === 'dark' ? 'light' : 'dark'); });
+    var saved = null; try { saved = localStorage.getItem('board-theme'); } catch (e) {}
+    apply(saved === 'dark' || saved === 'light' ? saved : currentTheme());
+
+    var trigger = document.getElementById('menu-trigger');
+    var sheet = document.getElementById('menu-sheet');
+    function showMenu(on) { sheet.hidden = !on; trigger.setAttribute('aria-expanded', String(on)); if (on) sheet.querySelector('a').focus(); }
+    trigger.addEventListener('click', function () { showMenu(sheet.hidden); });
+    document.addEventListener('click', function (e) { if (!sheet.hidden && !e.target.closest('.menu')) showMenu(false); });
+    sheet.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        sheet.querySelectorAll('a').forEach(function (x) { x.removeAttribute('aria-current'); });
+        a.setAttribute('aria-current', 'page');
+        trigger.childNodes[0].nodeValue = a.querySelector('.name').textContent + ' ';
+        showMenu(false); trigger.focus();
+      });
+    });
+
+    var flyer = document.getElementById('flyer');
+    var opener = document.getElementById('open-flyer');
+    function showFlyer(on) { flyer.hidden = !on; if (on) document.getElementById('close-flyer').focus(); else opener.focus(); }
+    document.getElementById('close-flyer').addEventListener('click', function () { showFlyer(false); });
+    opener.addEventListener('click', function () { showFlyer(true); });
+    flyer.addEventListener('click', function (e) { if (e.target === flyer) showFlyer(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { if (!flyer.hidden) showFlyer(false); else if (!sheet.hidden) { showMenu(false); trigger.focus(); } } });
+
+    var sb = { yds: document.getElementById('sb-yds'), mood: document.getElementById('sb-mood'), who: document.getElementById('sb-who'), fill: document.getElementById('sb-fill'), moods: document.getElementById('sb-moods') };
+    var MOOD_WORDS = { hyped: 'Hyped', hopeful: 'Hopeful', proud: 'Proud', level: 'Level', uneasy: 'Uneasy', frustrated: 'Frustrated', heated: 'Heated' };
+    var tween = null;
+    function rollTo(target) {
+      var from = parseInt(sb.yds.textContent, 10) || 0, t0 = performance.now(), dur = 420;
+      if (tween) cancelAnimationFrame(tween);
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) { sb.yds.textContent = target; return; }
+      (function step(now) {
+        var k = Math.min(1, (now - t0) / dur); k = 1 - Math.pow(1 - k, 3);
+        sb.yds.textContent = Math.round(from + (target - from) * k);
+        if (k < 1) tween = requestAnimationFrame(step);
+      })(t0);
+    }
+    function playReading(mood, yd, who) {
+      rollTo(parseInt(yd, 10));
+      sb.mood.textContent = MOOD_WORDS[mood] || mood;
+      sb.who.textContent = who;
+      sb.fill.className = 'fill m-' + mood;
+      sb.fill.style.width = yd + '%';
+      sb.moods.querySelectorAll('span').forEach(function (el) { el.setAttribute('data-on', String(el.getAttribute('data-mood') === mood)); });
+    }
+    var resting = document.querySelector('.msg[data-mood]');
+    document.querySelectorAll('.msg[data-mood]').forEach(function (msg) {
+      var show = function () { playReading(msg.dataset.mood, msg.dataset.yd, msg.dataset.who); };
+      msg.addEventListener('mouseenter', show);
+      msg.addEventListener('focusin', show);
+    });
+    document.querySelector('.pane-body').addEventListener('mouseleave', function () {
+      playReading(resting.dataset.mood, resting.dataset.yd, resting.dataset.who);
+    });
+
+    document.querySelectorAll('.card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        document.querySelectorAll('.card').forEach(function (c) { c.removeAttribute('aria-current'); });
+        card.setAttribute('aria-current', 'true');
+      });
+    });
+    document.querySelectorAll('.row').forEach(function (row) {
+      row.addEventListener('click', function () {
+        var on = row.getAttribute('aria-pressed') === 'true';
+        document.querySelectorAll('.row').forEach(function (r) { r.setAttribute('aria-pressed', 'false'); });
+        row.setAttribute('aria-pressed', String(!on));
+      });
+    });
+    document.querySelectorAll('.gtab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.gtab').forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
+        tab.setAttribute('aria-selected', 'true');
+      });
+    });
+  })();
+</script>
