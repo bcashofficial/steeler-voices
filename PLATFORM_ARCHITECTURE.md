@@ -71,11 +71,13 @@ Postgres 5445, Ollama on its default 11434.
 
 ## Done / open
 
-Done: the data model and internal API (`voices-be`), the design system
-through part 03 with parts 04–05 landing, the pipelines, scheduler, seed
-and rig (`voices-de`, `infra/`). Open, in order:
+Done: the data model, internal API and public reads (`voices-be`), the
+design system (every plate built), the pipelines, scheduler, seed and rig
+(`voices-de`, `infra/`), and `voices-fe` — the board with the flyer, the
+document, the map, the A/B and the pipelines, wired end to end over Module
+Federation and `make dev`. Open, in order:
 
 1. Tag the seed on the rig; commit `seed/readings.jsonl.gz`
-2. `voices-fe`: the board, the flyer, the map, the A/B view, the pipelines view
-3. The generator graph (LangGraph, Postgres checkpointer) and the A/B rubric
-4. `README.md`, `DEMO.md`, `docs/INSIGHTS.md`, CI workflow
+2. The generator graph (LangGraph, Postgres checkpointer) and the A/B rubric —
+   the Document and A/B sections read its rows and show nothing until it runs
+3. `README.md`, `DEMO.md`, `docs/INSIGHTS.md`, CI workflow

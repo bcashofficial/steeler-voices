@@ -5,7 +5,7 @@
 COMPOSE := docker compose -f infra/docker-compose.yml
 ENV_NAME := steeler-voices
 
-.PHONY: help dev infra stop env check-env test-be lint-be migrate makemigrations doctor
+.PHONY: help dev infra stop env check-env test-be lint-be test-fe lint-fe test-ds lint-ds migrate makemigrations doctor
 
 help:
 	@echo "make dev             boot the whole stack in Docker"
@@ -15,9 +15,14 @@ help:
 	@echo "make migrate         apply backend migrations (needs: conda activate $(ENV_NAME))"
 	@echo "make test-be         run the backend tests against the compose Postgres"
 	@echo "make lint-be         ruff check + format --check on the backend"
+	@echo "make test-fe         run the app's tests (voices-fe)"
+	@echo "make lint-fe         eslint + prettier + tsc on the app"
+	@echo "make test-ds         run the design system's tests"
+	@echo "make lint-ds         eslint + prettier + tsc on the design system"
 	@echo "make doctor          check the tools the reviewer's machine needs"
 
 dev: doctor
+	@echo "app            http://localhost:5300"
 	@echo "design system  http://localhost:5301"
 	@echo "backend        http://localhost:8300/health/"
 	@echo "pipelines      docker compose -f infra/docker-compose.yml logs -f voices-de"
@@ -50,6 +55,18 @@ test-be: check-env infra
 
 lint-be: check-env
 	cd voices-be && ruff check . && ruff format --check .
+
+test-fe:
+	cd voices-fe && npm install --no-audit --no-fund --silent && npm test
+
+lint-fe:
+	cd voices-fe && npm install --no-audit --no-fund --silent && npm run lint && npm run format:check && npm run typecheck
+
+test-ds:
+	cd voices-design-system && npm install --no-audit --no-fund --silent && npm test
+
+lint-ds:
+	cd voices-design-system && npm install --no-audit --no-fund --silent && npm run lint && npm run format:check && npm run typecheck
 
 doctor:
 	@command -v docker >/dev/null || { echo "docker is required: https://docs.docker.com/get-docker/"; exit 1; }

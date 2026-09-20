@@ -63,6 +63,18 @@ services:
     ports:
       - "5301:5301"
 
+  # The app. The browser loads the design_system remote from :5301 and reads
+  # the backend on :8300, so both URLs are the host's, baked in at build.
+  voices-fe:
+    build: ../voices-fe
+    ports:
+      - "5300:5300"
+    depends_on:
+      design-system:
+        condition: service_started
+      voices-be:
+        condition: service_started
+
   ollama:
     image: ollama/ollama:latest
     profiles: ["bundled-ollama"]
