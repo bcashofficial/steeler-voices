@@ -1,4 +1,4 @@
-import { DoubleRule, Football } from "../../theme";
+import { DoubleRule, Football, ThemeSwitch } from "../../theme";
 import { Figure } from "./shared";
 
 export function DoubleRulePlate() {
@@ -18,6 +18,16 @@ export function FootballPlate() {
         <Football />
         <Football size={51} />
         <Football size={68} />
+      </div>
+    </Figure>
+  );
+}
+
+export function ThemeSwitchPlate() {
+  return (
+    <Figure label="Icon">
+      <div>
+        <ThemeSwitch />
       </div>
     </Figure>
   );

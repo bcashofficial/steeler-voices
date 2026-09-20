@@ -30,7 +30,7 @@ import {
   DropdownPlate,
   VoiceMessagePlate,
 } from "./plates/BoardPlates";
-import { DoubleRulePlate, FootballPlate } from "./plates/ChromePlates";
+import { DoubleRulePlate, FootballPlate, ThemeSwitchPlate } from "./plates/ChromePlates";
 import { MasonryPlate, PostCardPlate, StatusDotPlate } from "./plates/RailPlates";
 
 export type PlateStatus = "built" | "planned";
@@ -155,12 +155,7 @@ export const PARTS: PartEntry[] = [
         "The current section as a TextLink with a chevron; the sheet lists every section from vocab.SECTIONS with its count as a Numeral, a hairline before Pipelines, halftone fading from its top edge. Esc and click-away close it.",
         ["current: SectionKey", "counts", "onSelect"],
       ),
-      planned(
-        "theme-switch",
-        "ThemeSwitch",
-        "One icon; click swaps the theme through useVoicesTheme. Its accessible name says which way it will switch.",
-        [],
-      ),
+      { key: "theme-switch", label: "ThemeSwitch", status: "built", Component: ThemeSwitchPlate },
       planned(
         "flyer",
         "Flyer",

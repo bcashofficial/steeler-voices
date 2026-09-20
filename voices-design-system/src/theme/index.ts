@@ -65,3 +65,4 @@ export { SubjectRow, type SubjectRowProps } from "./SubjectRow";
 export { DoubleRule, type DoubleRuleProps } from "./DoubleRule";
 export { Dropdown, type DropdownProps, type DropdownOption } from "./Dropdown";
 export { Football, type FootballProps } from "./Football";
+export { ThemeSwitch, type ThemeSwitchProps } from "./ThemeSwitch";
