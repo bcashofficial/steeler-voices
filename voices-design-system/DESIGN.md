@@ -153,7 +153,9 @@ All of them are in `src/theme/vocab.ts`, mirrored from voices-be
 
 ## 9. Component inventory
 
-Built one at a time, each with a section in voices-fe's playground:
+Built one at a time, each a plate in the manual on the design system's own
+URL (`make dev` → http://localhost:5301); a planned plate shows the spec it
+will be built to:
 
 `PulseBar` · `MoodMix` · `MoodSwatch` · `Scoreboard` · `LaughSticker` ·
 `Numeral` · `TextLink` · `Avatar` · `VoiceMessage` · `Pane` · `PaneBar` ·

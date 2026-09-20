@@ -22,7 +22,10 @@ jsdom. ESLint + Prettier.
 
 ```
 src/
-  main.tsx · Preview.tsx      standalone smoke preview on this remote's own URL
+  main.tsx · Preview.tsx      this remote's own URL renders the manual
+  manual/                     the design system read as a book: catalog.tsx (every part and
+                              plate, built or planned), Manual.tsx (the index rail + the plate),
+                              plates/ (foundations and one plate per primitive)
   test-setup.ts               jest-dom matchers, an in-memory localStorage
   theme/
     index.ts                  THE barrel — the one surface MF exposes
@@ -53,8 +56,9 @@ npm run lint && npm run format:check && npm run typecheck
 
 - One barrel. Adding a primitive is adding an export to `src/theme/index.ts`;
   never a `remotes` block.
-- Every barrel export gets a section in `voices-fe/src/pages/Playground/` in
-  the same change.
+- Every barrel export gets a plate in `src/manual/catalog.tsx` in the same
+  change. The manual on this remote's own URL is the playground — with one
+  consumer, a second copy in voices-fe would only drift; voices-fe links here.
 - Consumers import primitives; never copy a render, keyframe or class into
   a consumer. If a consumer needs a case, add a prop or variant here.
 - Colors, faces, spacing come from `tokens.ts`; words from `vocab.ts`. No

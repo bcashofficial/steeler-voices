@@ -10,7 +10,8 @@ holds only the rules.
   Bryan, not a gap to fill.
 - **Nothing looks like a button.** Text + the gold underline, or an icon.
 - **No borders for separation.** Spacing and lift.
-- **One primitive at a time**, approved before the next.
+- **One primitive at a time**, approved before the next. Each lands as a
+  plate in the manual (`src/manual/catalog.tsx`), replacing its planned spec.
 - **Design-system only.** No consumer changes from here; a needed consumer
   change is one line to Bryan.
 - Run after every change: `npm run format && npm run lint && npm run typecheck && npm test && npm run build`.
