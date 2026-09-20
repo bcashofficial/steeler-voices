@@ -44,6 +44,26 @@ services:
       && python manage.py seed_lookups
       && gunicorn steeler_voices.wsgi:application --bind 0.0.0.0:8300 --workers 2 --timeout 120"
 
+  # The generator: the API's image running the graph as its own process, so
+  # a document taking minutes never holds a web worker. It shares the models
+  # volume with the pipelines (the query embedder is the same model).
+  voices-generator:
+    build: ../voices-be
+    env_file: ../voices-be/.env.development
+    environment:
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      FASTEMBED_CACHE_PATH: /models
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - models:/models
+    depends_on:
+      voices-be:
+        condition: service_healthy
+    command: python manage.py run_generations --watch
+
   voices-de:
     build: ../voices-de
     env_file: ../voices-de/.env.development

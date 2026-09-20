@@ -16,7 +16,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --no-index --find-links=/wheels -r requirements.txt \
     && rm -rf /wheels
 COPY . .
-RUN useradd --create-home --uid 10001 appuser && chown -R appuser /app
+RUN useradd --create-home --uid 10001 appuser && mkdir -p /models && chown -R appuser /app /models
 USER appuser
 EXPOSE 8300
 HEALTHCHECK --interval=30s --timeout=3s --start-period=20s --retries=3 \

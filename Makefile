@@ -5,7 +5,7 @@
 COMPOSE := docker compose -f infra/docker-compose.yml
 ENV_NAME := steeler-voices
 
-.PHONY: help dev infra stop env check-env test-be lint-be test-fe lint-fe test-ds lint-ds migrate makemigrations doctor
+.PHONY: help dev infra stop env check-env test-be lint-be generate test-fe lint-fe test-ds lint-ds migrate makemigrations doctor
 
 help:
 	@echo "make dev             boot the whole stack in Docker"
@@ -19,6 +19,7 @@ help:
 	@echo "make lint-fe         eslint + prettier + tsc on the app"
 	@echo "make test-ds         run the design system's tests"
 	@echo "make lint-ds         eslint + prettier + tsc on the design system"
+	@echo "make generate WEEK=YYYY-MM-DD   write the week's document on both arms, natively"
 	@echo "make doctor          check the tools the reviewer's machine needs"
 
 dev: doctor
@@ -55,6 +56,10 @@ test-be: check-env infra
 
 lint-be: check-env
 	cd voices-be && ruff check . && ruff format --check .
+
+# WEEK is the week's Tuesday; OLLAMA_BASE_URL may point at the rig.
+generate: check-env infra
+	cd voices-be && python manage.py run_generations --week $(WEEK)
 
 test-fe:
 	cd voices-fe && npm install --no-audit --no-fund --silent && npm test

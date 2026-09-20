@@ -1,8 +1,8 @@
 """The words of the platform, in one place. `seed_lookups` writes these rows;
 the design system's `vocab.ts` mirrors them.
 
-SECTION_KINDS is intentionally empty until its words are chosen — the document
-template reads from that table, so the taxonomy is data, not code.
+SECTION_KINDS is what the document is made of — the template reads from that
+table, so the taxonomy is data, not code.
 """
 
 SOURCES = [
@@ -44,7 +44,20 @@ TARGETS = [
     {"key": "none", "label": "none"},
 ]
 
-SECTION_KINDS: list[dict] = []
+# The document's two halves: what the community talked about, and what it
+# will talk about. `question` is what the generator is asked for each.
+SECTION_KINDS = [
+    {
+        "key": "this_week",
+        "label": "This week",
+        "question": "What did the community talk about this week, and how did it feel about it?",
+    },
+    {
+        "key": "next_week",
+        "label": "Next week",
+        "question": "What will the community talk about in the week to come?",
+    },
+]
 
 ARMS = [
     {"key": "rag", "label": "rag", "uses_retrieval": True},

@@ -42,8 +42,12 @@ class LKTargets(LookupModel):
 
 
 class LKSectionKinds(LookupModel):
+    """The document's sections. `question` is what the generator is asked
+    to answer in each."""
+
     section_kind_id = uuid_pk()
     key = models.CharField(max_length=32, unique=True)
+    question = models.TextField(blank=True, default="")
 
 
 class LKArms(LookupModel):
