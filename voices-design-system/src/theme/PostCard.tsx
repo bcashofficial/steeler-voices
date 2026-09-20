@@ -8,6 +8,8 @@
  * strip along the bottom. When the post has an image it sits under the
  * halftone in place of the plate. Below: the title at 600 with a StatusDot
  * for the loudest mood on its baseline, then the handle and time, muted.
+ * A thread no reading has reached yet makes no claim: a plain plate in the
+ * field color, no dot, no lanes.
  *
  * It always carries the card shadow — the one object meant to read as an
  * object. It lifts and rises 2px on hover; the selected card wears a 2px
@@ -88,11 +90,15 @@ export function PostCard({
 }: PostCardProps) {
   useEffect(() => mountStyle(STYLE_ID, CSS), []);
   const { mode } = useVoicesTheme();
-  const mood = loudestMood(shares);
-  const { from } = moodStops[mode][mood];
+  const mood = shares.length ? loudestMood(shares) : null;
   // Over an image the plate is unknown, so the digits go mist with the gold
-  // offset; over the plate they follow its luminance, the offset the other way.
-  const ink = post.image ? palette.mist : inkFor(from);
+  // offset; over a mood's plate they follow its luminance, the offset the
+  // other way; over the plain field plate they are the theme's ink.
+  const ink = post.image
+    ? palette.mist
+    : mood
+      ? inkFor(moodStops[mode][mood].from)
+      : "var(--sv-ink)";
   const offset = ink === palette.ink ? palette.mist : palette.gold;
 
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
@@ -107,13 +113,13 @@ export function PostCard({
       className={["sv-postcard", className].filter(Boolean).join(" ")}
       tabIndex={0}
       aria-current={selected ? "true" : undefined}
-      data-mood={mood}
+      data-mood={mood ?? undefined}
       onClick={onSelect}
       onKeyDown={onKeyDown}
       style={
         {
-          "--sv-postcard-from": moodByKey[mood].from,
-          "--sv-postcard-to": moodByKey[mood].to,
+          "--sv-postcard-from": mood ? moodByKey[mood].from : "var(--sv-field)",
+          "--sv-postcard-to": mood ? moodByKey[mood].to : "var(--sv-field)",
           ...style,
         } as CSSProperties
       }
@@ -131,12 +137,12 @@ export function PostCard({
           </span>
           <StencilNumber value={count} height={44} offset={0} color={ink} />
         </span>
-        <MoodMix shares={shares} size="sm" style={LANES} />
+        {mood ? <MoodMix shares={shares} size="sm" style={LANES} /> : null}
       </div>
       <div className="sv-postcard-txt">
         <div className="sv-postcard-ttl">
           <span>{post.title}</span>
-          <StatusDot mood={mood} />
+          {mood ? <StatusDot mood={mood} /> : null}
         </div>
         <div className="sv-postcard-meta">
           <b>{post.who}</b> · {post.when}

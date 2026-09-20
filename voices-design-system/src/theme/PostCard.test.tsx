@@ -59,3 +59,14 @@ test("sits the image under the halftone when the post has one", () => {
   expect(img).toHaveAttribute("src", "cover.jpg");
   expect(img).toHaveAttribute("alt", "");
 });
+
+test("a thread no reading has reached makes no claim: no mood, no dot, no lanes", () => {
+  render(
+    <VoicesTheme mode="light">
+      <PostCard post={post} count={601} shares={[]} />
+    </VoicesTheme>,
+  );
+  expect(screen.getByRole("article")).not.toHaveAttribute("data-mood");
+  expect(screen.queryByRole("img", { name: "Heated" })).toBeNull();
+  expect(screen.getByRole("img", { name: "601" })).toBeInTheDocument();
+});
