@@ -7,6 +7,7 @@ from collections import Counter, defaultdict
 from datetime import date
 
 from django.db.models import Count, F, Q
+from django.db.models.functions import Left
 
 from voices.models import Embedding, Reading, Voice, Week
 
@@ -208,39 +209,49 @@ def thread(voice_id, limit: int = THREAD_LIMIT) -> dict:
     }
 
 
-def _text_of(voice: Voice, length: int = MAP_TEXT_LENGTH) -> str:
-    text = voice.title or voice.body_text
+def _clip(text: str, length: int = MAP_TEXT_LENGTH) -> str:
     return text if len(text) <= length else text[: length - 1] + "…"
+
+
+def _text_of(voice: Voice) -> str:
+    return _clip(voice.title or voice.body_text)
 
 
 def week_map(starts_on: date, limit: int = MAP_LIMIT) -> dict:
     """The flattened embeddings of a week: every projected point with its
     mood and topic, the week's topics, and the most-retrieved voices."""
     week = Week.objects.get(starts_on=starts_on)
-    projected = (
+    # The map needs the point, its mood and topic, and a line of text — never
+    # the 384 dimensions behind it nor the whole voice: plain rows, clipped in SQL.
+    points = list(
         Embedding.objects.filter(voice__week=week, voice__is_active=True, x__isnull=False, y__isnull=False)
-        .select_related("voice__author", "topic")
-        .order_by("-retrieval_count", "voice__posted_at")[:limit]
+        .annotate(
+            title=F("voice__title"),
+            opening=Left("voice__body_text", MAP_TEXT_LENGTH + 1),
+            topic_label=F("topic__label"),
+        )
+        .order_by("-retrieval_count", "voice__posted_at")
+        .values("voice_id", "x", "y", "retrieval_count", "title", "opening", "topic_label")[:limit]
     )
-    points = list(projected)
-    readings = newest_readings([e.voice_id for e in points])
+    readings = newest_readings([point["voice_id"] for point in points])
     most_retrieved = (
         Embedding.objects.filter(voice__week=week, retrieval_count__gt=0)
+        .defer("vector")
         .select_related("voice__author")
         .order_by("-retrieval_count")[:MOST_RETRIEVED_LIMIT]
     )
     return {
         "points": [
             {
-                "voice_id": str(e.voice_id),
-                "x": e.x,
-                "y": e.y,
-                "mood": readings[e.voice_id].mood.key if e.voice_id in readings else None,
-                "topic": e.topic.label if e.topic else None,
-                "text": _text_of(e.voice),
-                "retrievals": e.retrieval_count,
+                "voice_id": str(point["voice_id"]),
+                "x": point["x"],
+                "y": point["y"],
+                "mood": readings[point["voice_id"]].mood.key if point["voice_id"] in readings else None,
+                "topic": point["topic_label"],
+                "text": _clip(point["title"] or point["opening"]),
+                "retrievals": point["retrieval_count"],
             }
-            for e in points
+            for point in points
         ],
         "topics": [{"label": t.label, "summary": t.summary, "size": t.size, "rank": t.rank} for t in week.topics.all()],
         "most_retrieved": [
