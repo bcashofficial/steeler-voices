@@ -7,6 +7,36 @@ same model without retrieval, so the two can be compared.
 
 Built for the Transcendent Endeavors code challenge (Summer 2026).
 
+## What it looks like
+
+The week of September 15, 2026, as the stack shows it after `make dev`.
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/01-flyer.jpg" alt="The flyer over the board"><br><sub><b>The flyer.</b> The week's program cover opens over the board: the matchup from the schedule pipeline, the counts, the top subjects. "Open the board" closes it; the football brings it back.</sub></td>
+<td width="50%"><img src="docs/screenshots/02-board.jpg" alt="The board with the scoreboard playing a hovered voice"><br><sub><b>The board.</b> Every voice is read in yards of mood on a 100-yard pulse. The scoreboard rests on the post and plays whatever you hover — here u/swampthingsden at 70 yards, Frustrated.</sub></td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/03-grouping.jpg" alt="The grouping dropdown open"><br><sub><b>The readings pane</b> groups the thread's voices by subject, topic or mood, each row with a count and its mood mix. Pressing a row keeps only its voices in the thread.</sub></td>
+<td><img src="docs/screenshots/04-by-topic.jpg" alt="The thread grouped by topic"><br><sub><b>By topic.</b> The same thread by the week's clustered topics — "Contract standoff", "Contract Math", "Back injury drama" — named by the model from the vectors.</sub></td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/05-board-dark.jpg" alt="The board on the dark ground"><br><sub><b>The dark ground.</b> One icon switches it; every token has a value for both grounds, the mood gradients included.</sub></td>
+<td><img src="docs/screenshots/06-map.jpg" alt="The embedding map"><br><sub><b>The map.</b> 18,000 embeddings projected to two dimensions, colored by mood, each dot sized by how often the generator retrieved it. The week's topics beside it; the most-retrieved voices below.</sub></td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/07-map-topic.jpg" alt="The map with one topic pressed"><br><sub><b>A topic pressed</b> keeps its dots and fades the rest — "Contract standoff" is a region.</sub></td>
+<td><img src="docs/screenshots/08-document.jpg" alt="The Community Voices Document"><br><sub><b>The document.</b> This week and next week, written by the model with retrieval over the week's voices. Every claim is one sentence with the fans who said it beside it.</sub></td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/09-ab.jpg" alt="The A/B: retrieval beside baseline"><br><sub><b>The A/B.</b> The same model, the same brief, the same judge: with retrieval on the left (81 retrievals, groundedness 0.6, judge 3.4) and without on the right (0, judge 2.3 — and "a divisional rival").</sub></td>
+<td><img src="docs/screenshots/10-pipelines.jpg" alt="The pipelines"><br><sub><b>The pipelines.</b> Every pipeline that fills the store, its local and remote schedules, and its last run's counts, drawn.</sub></td>
+</tr>
+<tr>
+<td colspan="2"><img src="docs/screenshots/11-design-system.jpg" alt="The design system's manual"><br><sub><b>The design system,</b> read as a book on its own URL. Twenty-eight primitives, each a plate; the app composes them over Module Federation and draws nothing of its own.</sub></td>
+</tr>
+</table>
+
 ## Run it
 
 You need Docker Desktop (Compose v2). Then:
