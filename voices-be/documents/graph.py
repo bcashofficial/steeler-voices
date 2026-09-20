@@ -82,59 +82,60 @@ def judge_sample(week: Week, limit: int = JUDGE_SAMPLE) -> list[dict]:
     ]
 
 
-def build_graph(deps: Dependencies, checkpointer: Any):
-    def brief(state: GenerationState) -> dict:
+def claims_of(draft: dict) -> list[dict]:
+    return [claim for section in draft["sections"] for claim in section["claims"]]
+
+
+class Nodes:
+    """The graph's steps, each reading and returning plain state."""
+
+    def __init__(self, deps: Dependencies):
+        self.deps = deps
+
+    def brief(self, state: GenerationState) -> dict:
         return {"brief": build_brief(date.fromisoformat(state["week"])).__dict__}
 
-    def plan(state: GenerationState) -> dict:
+    def plan(self, state: GenerationState) -> dict:
         return {"queries": Brief(**state["brief"]).queries() if state["uses_retrieval"] else []}
 
-    def retrieve(state: GenerationState) -> dict:
+    def retrieve(self, state: GenerationState) -> dict:
         run = GenerationRun.objects.get(pk=state["run_id"])
         week = Week.objects.get(starts_on=state["week"])
         retrieval.forget(run)
         best: dict[str, dict] = {}
         for query in state["queries"]:
-            hits = retrieval.nearest(week, deps.embed(query))
+            hits = retrieval.nearest(week, self.deps.embed(query))
             retrieval.record(run, "retrieve", query, hits)
             for hit in hits:
                 if hit.voice_id not in best or hit.distance < best[hit.voice_id]["distance"]:
-                    best[hit.voice_id] = {
-                        "voice_id": hit.voice_id,
-                        "handle": hit.handle,
-                        "text": hit.text,
-                        "score": hit.score,
-                        "distance": hit.distance,
-                        "query": query,
-                    }
+                    best[hit.voice_id] = {**hit.__dict__, "query": query}
         ranked = sorted(best.values(), key=lambda e: e["distance"])[:EVIDENCE_LIMIT]
         return {"evidence": [{"index": i, **item} for i, item in enumerate(ranked)]}
 
-    def write(state: GenerationState) -> dict:
+    def write(self, state: GenerationState) -> dict:
         sections = section_kinds()
-        draft, usage = deps.model.chat_json(
+        draft, usage = self.deps.model.chat_json(
             prompts.WRITER_SYSTEM,
             prompts.writer_user(state["brief"], sections, state.get("evidence", [])),
             prompts.writer_schema([s["key"] for s in sections]),
         )
         return {"draft": draft, "usage": _usage(state, usage)}
 
-    def store(state: GenerationState) -> dict:
+    def store(self, state: GenerationState) -> dict:
         document = store_document(state)
-        evidence_count = len(state.get("evidence", []))
-        claims = [claim for section in state["draft"]["sections"] for claim in section["claims"]]
+        claims = claims_of(state["draft"])
         return {
             "document_id": str(document.document_id),
             "scores": {
-                "groundedness": scoring.grounded_share(claims, evidence_count),
+                "groundedness": scoring.grounded_share(claims, len(state.get("evidence", []))),
                 "specificity": scoring.specific_share(claims, Brief(**state["brief"]).entities()),
             },
         }
 
-    def judge(state: GenerationState) -> dict:
-        claims = [claim["text"] for section in state["draft"]["sections"] for claim in section["claims"]]
+    def judge(self, state: GenerationState) -> dict:
+        claims = [claim["text"] for claim in claims_of(state["draft"])]
         sample = judge_sample(Week.objects.get(starts_on=state["week"]))
-        verdicts, usage = deps.model.chat_json(
+        verdicts, usage = self.deps.model.chat_json(
             prompts.JUDGE_SYSTEM, prompts.judge_user(claims, sample), prompts.JUDGE_SCHEMA
         )
         supported = sum(1 for v in verdicts["verdicts"] if v["supported"] and 0 <= v["claim"] < len(claims))
@@ -143,16 +144,12 @@ def build_graph(deps: Dependencies, checkpointer: Any):
             "usage": _usage(state, usage),
         }
 
+
+def build_graph(deps: Dependencies, checkpointer: Any):
+    nodes = Nodes(deps)
     graph = StateGraph(GenerationState)
-    for name, node in [
-        ("brief", brief),
-        ("plan", plan),
-        ("retrieve", retrieve),
-        ("write", write),
-        ("store", store),
-        ("judge", judge),
-    ]:
-        graph.add_node(name, node)
+    for name in ("brief", "plan", "retrieve", "write", "store", "judge"):
+        graph.add_node(name, getattr(nodes, name))
     graph.add_edge(START, "brief")
     graph.add_edge("brief", "plan")
     graph.add_conditional_edges("plan", lambda s: "retrieve" if s["uses_retrieval"] else "write")

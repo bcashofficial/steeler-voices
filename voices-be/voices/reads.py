@@ -217,13 +217,11 @@ def _text_of(voice: Voice) -> str:
     return _clip(voice.title or voice.body_text)
 
 
-def week_map(starts_on: date, limit: int = MAP_LIMIT) -> dict:
-    """The flattened embeddings of a week: every projected point with its
-    mood and topic, the week's topics, and the most-retrieved voices."""
-    week = Week.objects.get(starts_on=starts_on)
-    # The map needs the point, its mood and topic, and a line of text — never
-    # the 384 dimensions behind it nor the whole voice: plain rows, clipped in SQL.
-    points = list(
+def _map_points(week: Week, limit: int) -> list[dict]:
+    """Every projected point with its mood and topic and a line of text —
+    never the 384 dimensions behind it nor the whole voice: plain rows,
+    clipped in SQL."""
+    rows = list(
         Embedding.objects.filter(voice__week=week, voice__is_active=True, x__isnull=False, y__isnull=False)
         .annotate(
             title=F("voice__title"),
@@ -233,35 +231,43 @@ def week_map(starts_on: date, limit: int = MAP_LIMIT) -> dict:
         .order_by("-retrieval_count", "voice__posted_at")
         .values("voice_id", "x", "y", "retrieval_count", "title", "opening", "topic_label")[:limit]
     )
-    readings = newest_readings([point["voice_id"] for point in points])
-    most_retrieved = (
+    readings = newest_readings([row["voice_id"] for row in rows])
+    return [
+        {
+            "voice_id": str(row["voice_id"]),
+            "x": row["x"],
+            "y": row["y"],
+            "mood": readings[row["voice_id"]].mood.key if row["voice_id"] in readings else None,
+            "topic": row["topic_label"],
+            "text": _clip(row["title"] or row["opening"]),
+            "retrievals": row["retrieval_count"],
+        }
+        for row in rows
+    ]
+
+
+def _most_retrieved(week: Week, limit: int = MOST_RETRIEVED_LIMIT) -> list[dict]:
+    rows = (
         Embedding.objects.filter(voice__week=week, retrieval_count__gt=0)
         .defer("vector")
         .select_related("voice__author")
-        .order_by("-retrieval_count")[:MOST_RETRIEVED_LIMIT]
+        .order_by("-retrieval_count")[:limit]
     )
-    return {
-        "points": [
-            {
-                "voice_id": str(point["voice_id"]),
-                "x": point["x"],
-                "y": point["y"],
-                "mood": readings[point["voice_id"]].mood.key if point["voice_id"] in readings else None,
-                "topic": point["topic_label"],
-                "text": _clip(point["title"] or point["opening"]),
-                "retrievals": point["retrieval_count"],
-            }
-            for point in points
-        ],
-        "topics": [{"label": t.label, "summary": t.summary, "size": t.size, "rank": t.rank} for t in week.topics.all()],
-        "most_retrieved": [
-            {
-                "voice_id": str(e.voice_id),
-                "handle": e.voice.author.handle,
-                "text": _text_of(e.voice),
-                "external_url": e.voice.external_url,
-                "retrievals": e.retrieval_count,
-            }
-            for e in most_retrieved
-        ],
-    }
+    return [
+        {
+            "voice_id": str(e.voice_id),
+            "handle": e.voice.author.handle,
+            "text": _text_of(e.voice),
+            "external_url": e.voice.external_url,
+            "retrievals": e.retrieval_count,
+        }
+        for e in rows
+    ]
+
+
+def week_map(starts_on: date, limit: int = MAP_LIMIT) -> dict:
+    """The flattened embeddings of a week: every projected point with its
+    mood and topic, the week's topics, and the most-retrieved voices."""
+    week = Week.objects.get(starts_on=starts_on)
+    topics = [{"label": t.label, "summary": t.summary, "size": t.size, "rank": t.rank} for t in week.topics.all()]
+    return {"points": _map_points(week, limit), "topics": topics, "most_retrieved": _most_retrieved(week)}
