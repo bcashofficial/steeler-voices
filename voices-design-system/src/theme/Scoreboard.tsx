@@ -3,16 +3,18 @@
  *
  * Yardage in Anton with the gold offset over `yards`, the mood word and the
  * handle, a large pulse field with the yard lines marked beneath, and the
- * seven swatches. It is controlled: the thread passes the reading under
+ * seven swatches, each opening the mood chips. It is controlled: the thread passes the reading under
  * the cursor as `current`, and `resting` when nothing is; every change of
  * reading replays the field and rolls the digits.
  */
 
-import { useRef, type CSSProperties } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 
+import { MoodChips } from "./MoodChips";
 import { MoodSwatch } from "./MoodSwatch";
 import { PulseBar } from "./PulseBar";
-import { palette, typography } from "./tokens";
+import { StencilNumber } from "./StencilNumber";
+import { typography } from "./tokens";
 import { useRollingNumber } from "./useRollingNumber";
 import { MOODS, moodByKey, WORDS, type MoodKey } from "./vocab";
 
@@ -41,6 +43,7 @@ export function Scoreboard({ resting, current, style }: ScoreboardProps) {
   }
   const replayKey = plays.current;
   const yards = useRollingNumber(Math.round(reading.yards), 420, replayKey);
+  const [chips, setChips] = useState<MoodKey | null>(null);
 
   return (
     <section
@@ -54,19 +57,7 @@ export function Scoreboard({ resting, current, style }: ScoreboardProps) {
       }}
     >
       <div style={{ display: "grid", gap: 4 }}>
-        <span
-          style={{
-            fontFamily: typography.display,
-            fontSize: typography.scale.numeral.fontSize,
-            lineHeight: typography.scale.numeral.lineHeight,
-            color: "var(--sv-ink)",
-            textShadow: `${typography.displayOffsetSmall} ${palette.gold}`,
-            fontVariantNumeric: "tabular-nums",
-            minWidth: "2.2ch",
-          }}
-        >
-          {yards}
-        </span>
+        <StencilNumber value={yards} height={50} offset={4} style={{ minWidth: 84 }} />
         <span
           style={{
             fontFamily: typography.body,
@@ -134,9 +125,15 @@ export function Scoreboard({ resting, current, style }: ScoreboardProps) {
         }}
       >
         {MOODS.map((mood) => (
-          <MoodSwatch key={mood.key} mood={mood.key} on={mood.key === reading.mood} />
+          <MoodSwatch
+            key={mood.key}
+            mood={mood.key}
+            on={mood.key === reading.mood}
+            onClick={() => setChips(mood.key)}
+          />
         ))}
       </div>
+      <MoodChips open={chips !== null} highlight={chips} onClose={() => setChips(null)} />
     </section>
   );
 }

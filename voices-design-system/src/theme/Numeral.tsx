@@ -1,13 +1,13 @@
 /**
- * Numeral — a count in Anton with the gold offset, standing in for a
- * sentence. Three sizes, tabular digits, thousands separated, an optional
- * caption in micro caps beneath, and a roll to its value when asked.
+ * Numeral — a count standing in for a sentence: the stencil digits with the
+ * gold offset, three sizes, an optional caption in micro caps beneath, and
+ * a roll to its value when asked.
  */
 
 import type { CSSProperties } from "react";
 
-import { formatCount } from "./format";
-import { palette, typography } from "./tokens";
+import { StencilNumber } from "./StencilNumber";
+import { typography } from "./tokens";
 import { useRollingNumber } from "./useRollingNumber";
 
 export type NumeralSize = "sm" | "md" | "lg";
@@ -24,11 +24,8 @@ export interface NumeralProps {
   style?: CSSProperties;
 }
 
-const SCALE: Record<NumeralSize, { fontSize: number; lineHeight: number; offset: string }> = {
-  sm: { ...typography.scale.numeralSm, offset: typography.displayOffsetSmall },
-  md: { ...typography.scale.numeralMd, offset: typography.displayOffsetSmall },
-  lg: { ...typography.scale.numeral, offset: typography.displayOffset },
-};
+const HEIGHT: Record<NumeralSize, number> = { sm: 26, md: 36, lg: 50 };
+const OFFSET: Record<NumeralSize, number> = { sm: 2, md: 3, lg: 4 };
 
 export function Numeral({
   value,
@@ -42,22 +39,10 @@ export function Numeral({
 }: NumeralProps) {
   const rolled = useRollingNumber(Math.round(value), 420, replayKey);
   const shown = roll ? rolled : Math.round(value);
-  const { fontSize, lineHeight, offset } = SCALE[size];
+  const justify = align === "center" ? "center" : align === "right" ? "end" : "start";
   return (
-    <div className={className} style={{ display: "grid", gap: 4, textAlign: align, ...style }}>
-      <span
-        style={{
-          fontFamily: typography.display,
-          fontWeight: 400,
-          fontSize,
-          lineHeight,
-          color: "var(--sv-ink)",
-          textShadow: `${offset} ${palette.gold}`,
-          fontVariantNumeric: "tabular-nums",
-        }}
-      >
-        {formatCount(shown)}
-      </span>
+    <div className={className} style={{ display: "grid", gap: 6, justifyItems: justify, ...style }}>
+      <StencilNumber value={shown} height={HEIGHT[size]} offset={OFFSET[size]} />
       {caption ? (
         <span
           style={{

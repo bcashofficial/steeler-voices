@@ -14,7 +14,7 @@ test("rests on the post's reading and lights its swatch", () => {
   );
   expect(screen.getByText("u/Stealth_Well_worn")).toBeInTheDocument();
   expect(screen.getByText("Uneasy", { selector: "b" })).toBeInTheDocument();
-  expect(screen.getByText("Uneasy", { selector: "span" })).toHaveAttribute("data-on", "true");
+  expect(screen.getByRole("button", { name: "Uneasy" })).toHaveAttribute("data-on", "true");
   expect(screen.getByRole("meter")).toHaveAttribute("aria-valuenow", "66");
 });
 
@@ -31,5 +31,5 @@ test("plays the current reading when one is passed", () => {
   );
   expect(screen.getByText("u/Passw0rd-Is-Tac0")).toBeInTheDocument();
   expect(screen.getByRole("meter")).toHaveAttribute("aria-valuenow", "91");
-  expect(screen.getByText("Heated", { selector: "span" })).toHaveAttribute("data-on", "true");
+  expect(screen.getByRole("button", { name: "Heated" })).toHaveAttribute("data-on", "true");
 });

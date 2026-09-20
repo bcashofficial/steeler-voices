@@ -10,7 +10,7 @@ test("separates thousands and shows its caption", () => {
       <Numeral value={4212} caption="Comments" />
     </VoicesTheme>,
   );
-  expect(screen.getByText("4,212")).toBeInTheDocument();
+  expect(screen.getByRole("img", { name: "4,212" })).toBeInTheDocument();
   expect(screen.getByText("Comments")).toBeInTheDocument();
 });
 

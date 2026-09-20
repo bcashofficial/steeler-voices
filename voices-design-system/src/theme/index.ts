@@ -40,3 +40,15 @@ export { formatCount } from "./format";
 export { MoodSwatch, type MoodSwatchProps } from "./MoodSwatch";
 export { MoodMix, type MoodMixProps } from "./MoodMix";
 export { Scoreboard, type ScoreboardProps, type Reading } from "./Scoreboard";
+export { StencilNumber, type StencilNumberProps } from "./StencilNumber";
+export {
+  DIGITS,
+  COMMA,
+  glyphFor,
+  DIGIT_WIDTH,
+  DIGIT_HEIGHT,
+  DIGIT_STROKE,
+  type Stroke,
+} from "./digits";
+export { MoodChips, type MoodChipsProps } from "./MoodChips";
+export { inkFor } from "./contrast";

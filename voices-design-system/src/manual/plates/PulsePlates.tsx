@@ -2,12 +2,15 @@ import { useState } from "react";
 
 import {
   LaughSticker,
+  MoodChips,
   MoodMix,
   MoodSwatch,
   MOODS,
   Numeral,
   PulseBar,
   Scoreboard,
+  StencilNumber,
+  type MoodKey,
   type Reading,
 } from "../../theme";
 import { Figure } from "./shared";
@@ -82,13 +85,20 @@ export function MoodMixPlate() {
 }
 
 export function MoodSwatchPlate() {
+  const [chips, setChips] = useState<MoodKey | null>(null);
   return (
-    <Figure label="On and off">
+    <Figure label="Click one">
       <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px" }}>
         {MOODS.map((mood) => (
-          <MoodSwatch key={mood.key} mood={mood.key} on={mood.key === "uneasy"} />
+          <MoodSwatch
+            key={mood.key}
+            mood={mood.key}
+            on={mood.key === "uneasy"}
+            onClick={() => setChips(mood.key)}
+          />
         ))}
       </div>
+      <MoodChips open={chips !== null} highlight={chips} onClose={() => setChips(null)} />
     </Figure>
   );
 }
@@ -134,6 +144,9 @@ export function ScoreboardPlate() {
 export function NumeralPlate() {
   return (
     <div style={{ display: "grid", gap: 28 }}>
+      <Figure label="Digits">
+        <StencilNumber value={1234567890} height={50} offset={4} />
+      </Figure>
       <Figure label="Sizes">
         <div style={{ display: "flex", gap: 32, alignItems: "flex-end", flexWrap: "wrap" }}>
           <Numeral value={601} size="sm" />

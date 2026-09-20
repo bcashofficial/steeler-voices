@@ -44,8 +44,8 @@ OS, then the choice is remembered.
 
 Two faces — Anton self-hosted (SIL OFL), Helvetica Neue from the system:
 
-- **Anton** — display. The masthead, the flyer title, every big number, the
-  matchup, the count in a pane's corner. One weight. Its signature is the
+- **Anton** — display words: the masthead, the flyer title, the matchup, the
+  plate titles. One weight. Numbers are not Anton — see §5, the stencil digits. Its signature is the
   **gold offset** — `text-shadow: 3px 3px 0 gold` (2px at smaller sizes) —
   a print that slipped a hair.
 - **Helvetica Neue** — everything else. Body 14/1.45; titles 15/600;
@@ -101,7 +101,19 @@ row. The same seven definitions (`tokens.moodStops` → `--sv-mood-*`) paint
 every pulse bar, the scoreboard, the subject mixes, the card lane strips and
 the legend swatches — the mapping lives in one place.
 
-**The scoreboard** heads the thread pane: yardage in Anton 54 with the gold
+**The mood chips.** Clicking any mood swatch opens the seven moods as a
+stack of color chips over a 62% ink scrim: each chip a card in its mood's
+gradient, the product name top-left, the two hex stops as its code and the
+mood word bottom-left, ink or mist text by the chip's luminance. The
+chosen chip lifts and wears an ink ring; the chips deal in one by one; Esc,
+the backdrop and the cross close it.
+
+**Numbers are drawn, not typed.** Every count on the platform is set in the
+stencil digits (`digits.ts`): ten numerals built from circles and straight
+strokes of one weight with a cut wherever two strokes would meet, the gold
+offset painted as a second layer beneath. Anton stays for words.
+
+**The scoreboard** heads the thread pane: yardage in the stencil digits with the gold
 offset, `yards` under it in micro caps, the mood word and handle, a `lg`
 pulse field with G·10·20·30·40·50·40·30·20·10·G marked beneath in Anton 11,
 and the seven swatches. Hovering or focusing any voice plays it: the digits
@@ -139,7 +151,8 @@ Below 980px the grid stacks to one column.
 
 ## 7. The flyer
 
-Shown first, over a dimmed board (55% ink scrim, 2px blur): a 560px sheet
+Shown first, over a dimmed board (62% ink scrim — no blur: a backdrop
+blur over the fixed grain layer mirrors the page in Chrome): a 560px sheet
 on `radius.flyer`, halftone fading from the top edge, the name in Anton 58
 with the offset, a double rule (3px + 1px), the matchup in Anton 34 with
 "at" in Helvetica Neue, three numbers in Anton 40 over micro caps (Posts ·

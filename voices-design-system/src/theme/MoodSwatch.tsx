@@ -1,6 +1,7 @@
 /**
  * MoodSwatch — one mood as a legend entry: a short gradient pill and the
- * word. `on` sets the word to full ink and gives it the gold underline.
+ * word. `on` sets the word to full ink and gives it the gold underline;
+ * with `onClick` it is a text control that opens the chips.
  */
 
 import type { CSSProperties } from "react";
@@ -11,15 +12,23 @@ import { moodByKey, type MoodKey } from "./vocab";
 export interface MoodSwatchProps {
   mood: MoodKey;
   on?: boolean;
+  onClick?: () => void;
   style?: CSSProperties;
 }
 
-export function MoodSwatch({ mood, on = false, style }: MoodSwatchProps) {
+export function MoodSwatch({ mood, on = false, onClick, style }: MoodSwatchProps) {
   const { from, to, label } = moodByKey[mood];
+  const Tag = onClick ? "button" : "span";
   return (
-    <span
+    <Tag
+      type={onClick ? "button" : undefined}
+      onClick={onClick}
       data-on={on}
       style={{
+        background: "none",
+        border: 0,
+        padding: 0,
+        cursor: onClick ? "pointer" : "default",
         display: "inline-flex",
         alignItems: "center",
         gap: 6,
@@ -44,6 +53,6 @@ export function MoodSwatch({ mood, on = false, style }: MoodSwatchProps) {
         }}
       />
       {label}
-    </span>
+    </Tag>
   );
 }
