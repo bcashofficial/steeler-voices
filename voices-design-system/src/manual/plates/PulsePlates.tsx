@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import {
   LaughSticker,
-  MoodChips,
   MoodMix,
   MoodSwatch,
   MOODS,
@@ -10,7 +9,6 @@ import {
   PulseBar,
   Scoreboard,
   StencilNumber,
-  type MoodKey,
   type Reading,
 } from "../../theme";
 import { Figure } from "./shared";
@@ -85,20 +83,13 @@ export function MoodMixPlate() {
 }
 
 export function MoodSwatchPlate() {
-  const [chips, setChips] = useState<MoodKey | null>(null);
   return (
-    <Figure label="Click one">
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px" }}>
+    <Figure label="In a row">
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {MOODS.map((mood) => (
-          <MoodSwatch
-            key={mood.key}
-            mood={mood.key}
-            on={mood.key === "uneasy"}
-            onClick={() => setChips(mood.key)}
-          />
+          <MoodSwatch key={mood.key} mood={mood.key} on={mood.key === "uneasy"} />
         ))}
       </div>
-      <MoodChips open={chips !== null} highlight={chips} onClose={() => setChips(null)} />
     </Figure>
   );
 }

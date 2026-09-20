@@ -53,8 +53,6 @@ export type SectionKey = (typeof SECTIONS)[number]["key"];
 
 export const WORDS = {
   productName: "Steeler Voices",
-  moods: "Moods",
-  close: "Close",
   thread: "Thread",
   posts: "Posts",
   comments: "Comments",

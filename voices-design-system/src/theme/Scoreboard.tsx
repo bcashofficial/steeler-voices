@@ -3,14 +3,13 @@
  *
  * Yardage in Anton with the gold offset over `yards`, the mood word and the
  * handle, a large pulse field with the yard lines marked beneath, and the
- * seven swatches, each opening the mood chips. It is controlled: the thread passes the reading under
+ * seven swatches. It is controlled: the thread passes the reading under
  * the cursor as `current`, and `resting` when nothing is; every change of
  * reading replays the field and rolls the digits.
  */
 
-import { useRef, useState, type CSSProperties } from "react";
+import { useRef, type CSSProperties } from "react";
 
-import { MoodChips } from "./MoodChips";
 import { MoodSwatch } from "./MoodSwatch";
 import { PulseBar } from "./PulseBar";
 import { StencilNumber } from "./StencilNumber";
@@ -43,7 +42,6 @@ export function Scoreboard({ resting, current, style }: ScoreboardProps) {
   }
   const replayKey = plays.current;
   const yards = useRollingNumber(Math.round(reading.yards), 420, replayKey);
-  const [chips, setChips] = useState<MoodKey | null>(null);
 
   return (
     <section
@@ -125,15 +123,9 @@ export function Scoreboard({ resting, current, style }: ScoreboardProps) {
         }}
       >
         {MOODS.map((mood) => (
-          <MoodSwatch
-            key={mood.key}
-            mood={mood.key}
-            on={mood.key === reading.mood}
-            onClick={() => setChips(mood.key)}
-          />
+          <MoodSwatch key={mood.key} mood={mood.key} on={mood.key === reading.mood} />
         ))}
       </div>
-      <MoodChips open={chips !== null} highlight={chips} onClose={() => setChips(null)} />
     </section>
   );
 }

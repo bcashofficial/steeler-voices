@@ -10,6 +10,6 @@ test("shows the word and marks the one that is on", () => {
       <MoodSwatch mood="heated" on />
     </VoicesTheme>,
   );
-  expect(screen.getByText("Proud")).toHaveAttribute("data-on", "false");
-  expect(screen.getByText("Heated")).toHaveAttribute("data-on", "true");
+  expect(screen.getByText("Proud").parentElement).toHaveAttribute("data-on", "false");
+  expect(screen.getByText("Heated").parentElement).toHaveAttribute("data-on", "true");
 });

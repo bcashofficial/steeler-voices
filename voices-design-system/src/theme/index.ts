@@ -50,5 +50,4 @@ export {
   DIGIT_STROKE,
   type Stroke,
 } from "./digits";
-export { MoodChips, type MoodChipsProps } from "./MoodChips";
 export { inkFor } from "./contrast";

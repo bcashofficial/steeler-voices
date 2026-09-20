@@ -101,12 +101,10 @@ row. The same seven definitions (`tokens.moodStops` → `--sv-mood-*`) paint
 every pulse bar, the scoreboard, the subject mixes, the card lane strips and
 the legend swatches — the mapping lives in one place.
 
-**The mood chips.** Clicking any mood swatch opens the seven moods as a
-stack of color chips over a 62% ink scrim: each chip a card in its mood's
-gradient, the product name top-left, the two hex stops as its code and the
-mood word bottom-left, ink or mist text by the chip's luminance. The
-chosen chip lifts and wears an ink ring; the chips deal in one by one; Esc,
-the backdrop and the cross close it.
+**The mood swatches.** A mood's legend entry is a small color chip: a card
+in its gradient, the product name top-left, the mood word bottom-left, text
+in ink or mist by the chip's luminance. Seven in a row make the legend; the
+one that is on lifts and wears an ink ring.
 
 **Numbers are drawn, not typed.** Every count on the platform is set in the
 stencil digits (`digits.ts`): ten numerals built from circles and straight
