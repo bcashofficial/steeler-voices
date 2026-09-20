@@ -54,3 +54,4 @@ export { inkFor } from "./contrast";
 export { StatusDot, type StatusDotProps } from "./StatusDot";
 export { PostCard, type PostCardProps, type Post } from "./PostCard";
 export { loudestMood } from "./loudest";
+export { Masonry, type MasonryProps } from "./Masonry";

@@ -22,7 +22,7 @@ import {
   PulseBarPlate,
   ScoreboardPlate,
 } from "./plates/PulsePlates";
-import { StatusDotPlate } from "./plates/RailPlates";
+import { MasonryPlate, PostCardPlate, StatusDotPlate } from "./plates/RailPlates";
 
 export type PlateStatus = "built" | "planned";
 
@@ -154,18 +154,8 @@ export const PARTS: PartEntry[] = [
     key: "rail",
     label: "The rail",
     plates: [
-      planned(
-        "post-card",
-        "PostCard",
-        "Cover edge to edge (a mood-colored plate with the comment count in Anton 44, a halftone fading down it, a Photo/Link tag, the post's image under the halftone when it has one, and a MoodMix lane strip along the bottom), then title 600 with a StatusDot on one baseline and a muted meta line. Lifts on hover; the selected card wears a 2px ink ring.",
-        ["post", "count", "shares", "selected?", "onSelect"],
-      ),
-      planned(
-        "masonry",
-        "Masonry",
-        "column-width: 200px, gap 12; children avoid breaking. Stacks to one column below 980px with the rest of the board.",
-        ["children"],
-      ),
+      { key: "post-card", label: "PostCard", status: "built", Component: PostCardPlate },
+      { key: "masonry", label: "Masonry", status: "built", Component: MasonryPlate },
       { key: "status-dot", label: "StatusDot", status: "built", Component: StatusDotPlate },
     ],
   },
