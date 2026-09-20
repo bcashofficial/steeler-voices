@@ -1,5 +1,6 @@
 /**
- * Dropdown — a soft field showing the current choice with a chevron; open,
+ * Dropdown — a pill in the ground's opposite (ink on the light ground, mist
+ * on the dark) showing the current choice with a gold chevron; open,
  * a lifted sheet of options, the chosen one marked with a gold square and
  * set in 600, a count at the right when an option carries one. An
  * optional small label sits above the field. Arrow keys move, Enter picks,
@@ -10,7 +11,7 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEv
 
 import { formatCount } from "./format";
 import { mountStyle } from "./styles";
-import { motion, typography } from "./tokens";
+import { motion, radius, typography } from "./tokens";
 
 export interface DropdownOption<K extends string = string> {
   key: K;
@@ -33,14 +34,13 @@ const STYLE_ID = "sv-dropdown";
 const CSS = `
 .sv-dd{position:relative;display:grid;gap:6px;min-width:0}
 .sv-dd-label{font-family:${typography.body};font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--sv-ink-2)}
-.sv-dd-field{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;border:0;border-radius:8px;background:var(--sv-field);color:var(--sv-ink);font-family:${typography.body};font-weight:500;cursor:pointer;text-align:left;transition:box-shadow ${motion.underline},background ${motion.underline}}
-.sv-dd-field[data-size="md"]{height:36px;padding:0 12px;font-size:13.5px}
-.sv-dd-field[data-size="sm"]{height:30px;padding:0 10px;font-size:12.5px}
-.sv-dd-field:hover{box-shadow:inset 0 0 0 1px var(--sv-line-strong)}
+.sv-dd-field{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;border:0;border-radius:${radius.pill}px;background:var(--sv-ink-solid);color:var(--sv-ground);font-family:${typography.body};font-weight:600;cursor:pointer;text-align:left;box-shadow:var(--sv-shadow);transition:box-shadow ${motion.lift},transform ${motion.lift}}
+.sv-dd-field[data-size="md"]{height:40px;padding:0 18px;font-size:13.5px}
+.sv-dd-field[data-size="sm"]{height:34px;padding:0 16px;font-size:12.5px}
+.sv-dd-field:hover,.sv-dd-field[aria-expanded="true"]{box-shadow:var(--sv-shadow-lift);transform:translateY(-1px)}
 .sv-dd-field:focus-visible{outline:2px solid var(--sv-blue);outline-offset:2px}
-.sv-dd-field[aria-expanded="true"]{box-shadow:inset 0 0 0 1px var(--sv-line-strong)}
-.sv-dd-field[data-empty="true"]{color:var(--sv-ink-2)}
-.sv-dd-chevron{width:12px;height:12px;flex:none;color:var(--sv-ink-2);transition:transform ${motion.underline}}
+.sv-dd-field[data-empty="true"]{opacity:.72}
+.sv-dd-chevron{width:12px;height:12px;flex:none;color:var(--sv-gold);transition:transform ${motion.underline}}
 .sv-dd-field[aria-expanded="true"] .sv-dd-chevron{transform:rotate(180deg)}
 .sv-dd-sheet{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:40;margin:0;padding:6px;list-style:none;background:var(--sv-surface);border-radius:12px;box-shadow:var(--sv-shadow-lift);display:grid;gap:2px;animation:sv-dd-open 160ms ease both}
 .sv-dd-option{display:grid;grid-template-columns:10px 1fr auto;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;color:var(--sv-ink);font-family:${typography.body};font-size:13px;font-weight:500}
@@ -48,8 +48,7 @@ const CSS = `
 .sv-dd-option[aria-selected="true"]{font-weight:600}
 .sv-dd-count{font-size:12px;color:var(--sv-ink-3);font-variant-numeric:tabular-nums}
 .sv-dd-mark{width:8px;height:8px;border-radius:2px;background:var(--sv-gold);box-shadow:inset 0 0 0 1px var(--sv-ink);opacity:0}
-.sv-dd-option[aria-selected="true"] .sv-dd-count{font-size:12px;color:var(--sv-ink-3);font-variant-numeric:tabular-nums}
-.sv-dd-mark{opacity:1}
+.sv-dd-option[aria-selected="true"] .sv-dd-mark{opacity:1}
 @keyframes sv-dd-open{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion: reduce){.sv-dd-sheet{animation:none}.sv-dd-chevron,.sv-dd-field{transition:none}}
 `;
