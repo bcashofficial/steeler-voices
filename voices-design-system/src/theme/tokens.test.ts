@@ -1,4 +1,4 @@
-import { themes, palette } from "./tokens";
+import { moodStops, palette, themes } from "./tokens";
 import { MOODS, moodByKey } from "./vocab";
 
 test("light ground is pure white and dark ground is the ink", () => {
@@ -14,5 +14,7 @@ test("seven moods, each with a unique key and word", () => {
   expect(MOODS).toHaveLength(7);
   expect(new Set(MOODS.map((m) => m.key)).size).toBe(7);
   expect(new Set(MOODS.map((m) => m.label)).size).toBe(7);
-  expect(moodByKey.heated.to).toBe(palette.blue);
+  expect(moodByKey.heated.to).toBe("var(--sv-mood-heated-to)");
+  expect(moodStops.light.heated.from).toBe(palette.ink);
+  expect(moodStops.dark.heated.from).toBe(palette.mist);
 });

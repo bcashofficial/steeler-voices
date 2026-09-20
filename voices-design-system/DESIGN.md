@@ -69,35 +69,44 @@ the sun/moon) are the other two controls; they tilt or swap on hover.
 
 ## 5. The pulse
 
-A voice's reading is a **pulse bar**: a pill track (mist in light, 8% mist
-in dark, soft inset), a gradient fill to the yardage, a bright head dot on
-the yard line with a surface-colored ring and the mood's glow. Ten-yard
-hashes on the track. Beside it: the mood word in 600 and the yardage.
+A voice's reading is a **pulse bar**: a 100-yard field of fifty thin ticks
+(two yards each), spread across the width the consumer gives it, every fifth
+tick taller for a ten-yard line. The filled run takes the mood's gradient
+tick by tick; the rest sit in the line color. Above it, on one row: a dot in
+the mood's color, the mood word in micro caps, and the yardage in a gold
+chip that rolls to its value (`66 yd`).
+
+It plays. On mount the ticks rise in sequence, left to right (14ms apart).
+The head tick — the one on the yard line — breathes. The cursor raises a
+wave of ticks as it passes over the field. Under reduced motion it simply
+is. Sizes: `sm` for a thread row, `md`, `lg` for the scoreboard.
 
 Seven moods on five colors — pairs share a hue and differ in where the
-gradient goes:
+gradient goes. The stops are per theme, because a stop that reads on the
+ink vanishes on white:
 
-| Mood | From → to |
-|---|---|
-| Hyped | gold → `#FFF6B0` |
-| Hopeful | gold → olive |
-| Proud | blue → `#6FB4E8` |
-| Level | blue → `#9DB9CC` |
-| Uneasy | olive → `#AEBF58` |
-| Frustrated | olive → `#3A3F1A` |
-| Heated | ink → blue |
+| Mood | Light: from → to | Dark: from → to |
+|---|---|---|
+| Hyped | gold → `#C9B52E` | gold → `#FFF6B0` |
+| Hopeful | gold → olive | gold → olive |
+| Proud | blue → `#6FB4E8` | blue → `#6FB4E8` |
+| Level | blue → `#8FAEC4` | blue → `#9DB9CC` |
+| Uneasy | olive → `#AEBF58` | olive → `#AEBF58` |
+| Frustrated | olive → `#3A3F1A` | olive → `#3A3F1A` |
+| Heated | ink → blue | mist → blue |
 
 Sarcasm is a flag, not a mood: the laughing sticker at the end of the pulse
-row. The same seven definitions paint the per-voice bars, the scoreboard,
-the subject mixes, the card lane strips and the legend swatches — the
-mapping lives in one place (`vocab.ts` → `--sv-mood-*`).
+row. The same seven definitions (`tokens.moodStops` → `--sv-mood-*`) paint
+every pulse bar, the scoreboard, the subject mixes, the card lane strips and
+the legend swatches — the mapping lives in one place.
 
 **The scoreboard** heads the thread pane: yardage in Anton 54 with the gold
-offset, `yards` under it in micro caps, the mood word and handle, a taller
-track (18px) with G·10·20·30·40·50·40·30·20·10·G marked beneath in Anton 11,
+offset, `yards` under it in micro caps, the mood word and handle, a `lg`
+pulse field with G·10·20·30·40·50·40·30·20·10·G marked beneath in Anton 11,
 and the seven swatches. Hovering or focusing any voice plays it: the digits
-roll (420ms, ease-out cubic), the fill slides and takes the mood, the swatch
-takes the gold underline. Leaving the thread settles it back to the post.
+roll (420ms, ease-out cubic), the field re-fills to the voice's yardage in
+its mood, the swatch takes the gold underline. Leaving the thread settles
+it back to the post.
 
 ## 6. The board
 

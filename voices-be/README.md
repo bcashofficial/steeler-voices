@@ -32,10 +32,16 @@ Pipelines never write the database directly — they POST to
 
 ```bash
 make dev                      # from the repo root — everything in Docker
-make infra                    # Postgres only, then:
-python -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/python manage.py migrate && .venv/bin/python manage.py seed_lookups
-.venv/bin/python manage.py runserver 8300
+```
+
+Natively, from the repo root (one conda env serves every Python service):
+
+```bash
+make env                      # once: conda env create -f environment.yml
+conda activate steeler-voices
+make infra                    # Postgres only, then in this folder:
+python manage.py migrate && python manage.py seed_lookups
+python manage.py runserver 8300
 ```
 
 Env is read from `.env` (if present) then the committed `.env.development`.
@@ -44,9 +50,9 @@ Every variable is required; a missing one fails at import.
 ## Test
 
 ```bash
-make test-be                  # or, in this folder:
-.venv/bin/python -m pytest -q
-.venv/bin/ruff check . && .venv/bin/ruff format --check .
+make test-be && make lint-be  # or, with steeler-voices active, in this folder:
+python -m pytest -q
+ruff check . && ruff format --check .
 ```
 
 Tests run against the compose Postgres so vector columns are real.

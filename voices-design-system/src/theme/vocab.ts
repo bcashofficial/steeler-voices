@@ -4,14 +4,11 @@
  * a word changes it changes in both files in the same change.
  */
 
-import { palette } from "./tokens";
-
 export type MoodKey = "hyped" | "hopeful" | "proud" | "level" | "uneasy" | "frustrated" | "heated";
 
-/** A mood is a word and the two stops of its gradient. Pairs share a hue
- *  and differ in where the gradient goes, so seven moods sit on five
- *  colors without hatching. Heated starts on the ink, which is the theme's
- *  ink color — resolved at paint time via `--sv-ink-solid`. */
+/** A mood is a word and the two stops of its gradient. The stops are the
+ *  theme's `--sv-mood-*` variables (hex per theme in `tokens.moodStops`),
+ *  so one primitive paints correctly on either ground. */
 export interface Mood {
   key: MoodKey;
   label: string;
@@ -19,14 +16,19 @@ export interface Mood {
   to: string;
 }
 
+const stops = (key: MoodKey) => ({
+  from: `var(--sv-mood-${key}-from)`,
+  to: `var(--sv-mood-${key}-to)`,
+});
+
 export const MOODS: readonly Mood[] = [
-  { key: "hyped", label: "Hyped", from: palette.gold, to: "#FFF6B0" },
-  { key: "hopeful", label: "Hopeful", from: palette.gold, to: palette.olive },
-  { key: "proud", label: "Proud", from: palette.blue, to: "#6FB4E8" },
-  { key: "level", label: "Level", from: palette.blue, to: "#9DB9CC" },
-  { key: "uneasy", label: "Uneasy", from: palette.olive, to: "#AEBF58" },
-  { key: "frustrated", label: "Frustrated", from: palette.olive, to: "#3A3F1A" },
-  { key: "heated", label: "Heated", from: "var(--sv-ink-solid)", to: palette.blue },
+  { key: "hyped", label: "Hyped", ...stops("hyped") },
+  { key: "hopeful", label: "Hopeful", ...stops("hopeful") },
+  { key: "proud", label: "Proud", ...stops("proud") },
+  { key: "level", label: "Level", ...stops("level") },
+  { key: "uneasy", label: "Uneasy", ...stops("uneasy") },
+  { key: "frustrated", label: "Frustrated", ...stops("frustrated") },
+  { key: "heated", label: "Heated", ...stops("heated") },
 ] as const;
 
 export const moodByKey: Record<MoodKey, Mood> = Object.fromEntries(
@@ -55,6 +57,7 @@ export const WORDS = {
   comments: "Comments",
   subjects: "Subjects",
   yards: "yards",
+  yd: "yd",
   openBoard: "Open the board",
   at: "at",
   op: "OP",

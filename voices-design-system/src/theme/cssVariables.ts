@@ -5,31 +5,30 @@
  */
 
 import { leatherTile } from "./ground";
-import { palette, themes, type ThemeMode, type ThemeTokens } from "./tokens";
-import { MOODS } from "./vocab";
+import { moodStops, palette, themes, type ThemeMode, type ThemeTokens } from "./tokens";
 
 export const BASE_STYLE_ID = "sv-base";
 
 const kebab = (key: string) => key.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
 
-function declarations(tokens: ThemeTokens): string {
+function declarations(mode: ThemeMode, tokens: ThemeTokens): string {
   const lines = Object.entries(tokens).map(([key, value]) => `--sv-${kebab(key)}:${value};`);
   lines.push(`--sv-leather:${leatherTile(tokens.leatherInk)};`);
+  for (const [key, { from, to }] of Object.entries(moodStops[mode])) {
+    lines.push(`--sv-mood-${key}-from:${from};`, `--sv-mood-${key}-to:${to};`);
+  }
   return lines.join("");
 }
 
 function paletteDeclarations(): string {
-  const colors = Object.entries(palette).map(([key, value]) => `--sv-${key}:${value};`);
-  const moods = MOODS.flatMap((mood) => [
-    `--sv-mood-${mood.key}-from:${mood.from};`,
-    `--sv-mood-${mood.key}-to:${mood.to};`,
-  ]);
-  return colors.concat(moods).join("");
+  return Object.entries(palette)
+    .map(([key, value]) => `--sv-${key}:${value};`)
+    .join("");
 }
 
 export function buildBaseCss(): string {
-  const light = declarations(themes.light);
-  const dark = declarations(themes.dark);
+  const light = declarations("light", themes.light);
+  const dark = declarations("dark", themes.dark);
   return (
     `:root{${paletteDeclarations()}${light}}` +
     `:root[data-theme="dark"]{${dark}}` +

@@ -7,5 +7,7 @@ test("base css carries both themes and every mood stop", () => {
   expect(css).toContain("--sv-ground:#FFFFFF;");
   expect(css).toContain("--sv-ground:#1D201D;");
   expect(css).toContain("--sv-mood-hyped-from:#F5E571;");
+  expect(css).toContain("--sv-mood-hyped-to:#C9B52E;");
+  expect(css).toContain("--sv-mood-hyped-to:#FFF6B0;");
   expect(css).toContain("--sv-leather:url(");
 });

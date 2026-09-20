@@ -1,10 +1,10 @@
-import { MOODS, palette, typography, useVoicesTheme, VoicesTheme } from "./theme";
+import { MOODS, palette, PulseBar, typography, useVoicesTheme, VoicesTheme } from "./theme";
 
 /**
  * Standalone preview rendered when the design system's own URL is opened.
- * A smoke test of the theme layers — fonts, variables, grounds, the mode
- * switch. The engineering playground (every primitive + variant) lives in
- * voices-fe at `/playground`.
+ * A smoke test of the theme layers and each primitive as it lands. The
+ * engineering playground (every primitive + variant) lives in voices-fe at
+ * `/playground`.
  */
 export function Preview() {
   return (
@@ -14,11 +14,13 @@ export function Preview() {
   );
 }
 
+const SAMPLE_YARDS = [72, 58, 91, 38, 66, 83, 74];
+
 function PreviewBody() {
   const { mode, toggle } = useVoicesTheme();
   return (
     <main
-      style={{ padding: "24px 16px", maxWidth: 720, margin: "0 auto", display: "grid", gap: 20 }}
+      style={{ padding: "24px 16px", maxWidth: 720, margin: "0 auto", display: "grid", gap: 28 }}
     >
       <h1
         style={{
@@ -50,26 +52,17 @@ function PreviewBody() {
       >
         {mode === "dark" ? "Switch to light" : "Switch to dark"}
       </button>
-      <div style={{ display: "grid", gap: 8 }}>
-        {MOODS.map((mood) => (
-          <div
+
+      <PulseBar mood="uneasy" yards={66} size="lg" />
+
+      <div style={{ display: "grid", gap: 22, maxWidth: 520 }}>
+        {MOODS.map((mood, index) => (
+          <PulseBar
             key={mood.key}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "90px 1fr",
-              gap: 12,
-              alignItems: "center",
-            }}
-          >
-            <span style={{ fontSize: 12, color: "var(--sv-ink-2)" }}>{mood.label}</span>
-            <span
-              style={{
-                height: 10,
-                borderRadius: 999,
-                background: `linear-gradient(90deg, ${mood.from}, ${mood.to})`,
-              }}
-            />
-          </div>
+            mood={mood.key}
+            yards={SAMPLE_YARDS[index]}
+            sarcasm={mood.key === "frustrated"}
+          />
         ))}
       </div>
     </main>

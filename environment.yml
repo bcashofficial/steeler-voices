@@ -1,0 +1,16 @@
+# Steeler Voices — the one Python environment for the platform (voices-be and
+# voices-de). Postgres, Ollama and the design system run in Docker; this env is
+# only for running the Python services natively and for the test suite.
+#
+#   conda env create -f environment.yml
+#   conda activate steeler-voices
+#
+# The reviewer's path (`make dev`) does not need it: Docker builds its own.
+name: steeler-voices
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - pip
+  - pip:
+      - -r voices-be/requirements.txt

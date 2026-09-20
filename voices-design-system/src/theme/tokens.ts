@@ -64,6 +64,31 @@ export const themes = {
 } as const;
 
 export type ThemeTokens = (typeof themes)[ThemeMode];
+
+/** The two stops of each mood's gradient, per theme. Pairs share a hue and
+ *  differ in where the gradient goes; a stop that would vanish on one
+ *  ground (pale gold on white) is deepened there. Heated starts on the
+ *  theme's ink. */
+export const moodStops = {
+  light: {
+    hyped: { from: palette.gold, to: "#C9B52E" },
+    hopeful: { from: palette.gold, to: palette.olive },
+    proud: { from: palette.blue, to: "#6FB4E8" },
+    level: { from: palette.blue, to: "#8FAEC4" },
+    uneasy: { from: palette.olive, to: "#AEBF58" },
+    frustrated: { from: palette.olive, to: "#3A3F1A" },
+    heated: { from: palette.ink, to: palette.blue },
+  },
+  dark: {
+    hyped: { from: palette.gold, to: "#FFF6B0" },
+    hopeful: { from: palette.gold, to: palette.olive },
+    proud: { from: palette.blue, to: "#6FB4E8" },
+    level: { from: palette.blue, to: "#9DB9CC" },
+    uneasy: { from: palette.olive, to: "#AEBF58" },
+    frustrated: { from: palette.olive, to: "#3A3F1A" },
+    heated: { from: palette.mist, to: palette.blue },
+  },
+} as const;
 export type SemanticRole = keyof ThemeTokens;
 
 export const typography = {

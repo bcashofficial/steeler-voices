@@ -6,6 +6,7 @@ export { useVoicesTheme, type VoicesThemeValue } from "./VoicesThemeContext";
 export {
   palette,
   themes,
+  moodStops,
   typography,
   spacing,
   radius,
@@ -29,3 +30,8 @@ export {
 export { FONT_FACE_CSS, FONT_FACE_STYLE_ID, mountFontFaces } from "./fonts";
 export { buildBaseCss, mountBaseCss, applyThemeAttribute, BASE_STYLE_ID } from "./cssVariables";
 export { buildGroundCss, mountGround, leatherTile, grainFilm, GROUND_STYLE_ID } from "./ground";
+export { mountStyle, prefersReducedMotion } from "./styles";
+export { useRollingNumber } from "./useRollingNumber";
+export { LaughSticker, type LaughStickerProps } from "./LaughSticker";
+export { PulseBar, type PulseBarProps, type PulseBarSize } from "./PulseBar";
+export { tickColor, filledTicks, clampYards } from "./pulseMath";

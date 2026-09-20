@@ -14,7 +14,10 @@ side by side.
 
 Built for the Transcendent Endeavors code challenge (Summer 2026). The
 reviewer's path is `git clone` → `make dev` → open the app. Nothing on that
-path needs an API key, a GPU, or an account.
+path needs an API key, a GPU, or an account. To run a Python service
+natively (tests, migrations, a dev server), create the one conda env for the
+platform — `make env`, then `conda activate steeler-voices` — see
+`environment.yml`.
 
 ## The shape
 
