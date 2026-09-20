@@ -52,8 +52,6 @@ export {
 } from "./digits";
 export { inkFor } from "./contrast";
 export { StatusDot, type StatusDotProps } from "./StatusDot";
-export { PostCard, type PostCardProps, type Post } from "./PostCard";
-export { loudestMood } from "./loudest";
 export { Masonry, type MasonryProps } from "./Masonry";
 export { TextLink, type TextLinkProps } from "./TextLink";
 export { Avatar, type AvatarProps } from "./Avatar";
@@ -62,6 +60,8 @@ export { VoiceMessage, type VoiceMessageProps, type Voice } from "./VoiceMessage
 export { Pane, PaneBar, type PaneProps, type PaneBarProps } from "./Pane";
 export { GroupTabs, type GroupTabsProps } from "./GroupTabs";
 export { SubjectRow, type SubjectRowProps } from "./SubjectRow";
+export { PostCard, type PostCardProps, type Post } from "./PostCard";
+export { loudestMood } from "./loudest";
 export { DoubleRule, type DoubleRuleProps } from "./DoubleRule";
 export { Dropdown, type DropdownProps, type DropdownOption } from "./Dropdown";
 export { Football, type FootballProps } from "./Football";

@@ -48,9 +48,7 @@ export function MoodSwatch({ mood, on = false, style }: MoodSwatchProps) {
         {WORDS.productName}
       </span>
       <span />
-      <span style={{ fontSize: 16, fontWeight: 600, lineHeight: 1 }}>
-        {moodByKey[mood].label}
-      </span>
+      <span style={{ fontSize: 16, fontWeight: 600, lineHeight: 1 }}>{moodByKey[mood].label}</span>
     </span>
   );
 }

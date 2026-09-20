@@ -123,7 +123,12 @@ export const PARTS: PartEntry[] = [
     plates: [
       { key: "dropdown", label: "Dropdown", status: "built", Component: DropdownPlate },
       { key: "avatar", label: "Avatar", status: "built", Component: AvatarPlate },
-      { key: "voice-message", label: "VoiceMessage", status: "built", Component: VoiceMessagePlate },
+      {
+        key: "voice-message",
+        label: "VoiceMessage",
+        status: "built",
+        Component: VoiceMessagePlate,
+      },
       { key: "pane", label: "Pane", status: "built", Component: PanePlate },
       { key: "group-tabs", label: "GroupTabs", status: "built", Component: GroupTabsPlate },
       { key: "subject-row", label: "SubjectRow", status: "built", Component: SubjectRowPlate },
