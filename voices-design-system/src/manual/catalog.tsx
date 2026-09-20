@@ -22,6 +22,7 @@ import {
   PulseBarPlate,
   ScoreboardPlate,
 } from "./plates/PulsePlates";
+import { StatusDotPlate } from "./plates/RailPlates";
 
 export type PlateStatus = "built" | "planned";
 
@@ -165,12 +166,7 @@ export const PARTS: PartEntry[] = [
         "column-width: 200px, gap 12; children avoid breaking. Stacks to one column below 980px with the rest of the board.",
         ["children"],
       ),
-      planned(
-        "status-dot",
-        "StatusDot",
-        "8px, an ink ring, the mood's color. On a card it is the thread's loudest mood; an accessible label says so.",
-        ["mood", "label"],
-      ),
+      { key: "status-dot", label: "StatusDot", status: "built", Component: StatusDotPlate },
     ],
   },
   {

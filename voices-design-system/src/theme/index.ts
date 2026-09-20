@@ -51,3 +51,4 @@ export {
   type Stroke,
 } from "./digits";
 export { inkFor } from "./contrast";
+export { StatusDot, type StatusDotProps } from "./StatusDot";
