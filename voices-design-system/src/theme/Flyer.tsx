@@ -24,8 +24,8 @@ import { WORDS } from "./vocab";
 export interface FlyerProps {
   open: boolean;
   onClose: () => void;
-  /** The matchup, read "away at home". */
-  game: { away: string; home: string };
+  /** The matchup, read "away at home"; a bye week has none. */
+  game?: { away: string; home: string } | null;
   counts: { posts: number; comments: number; subjects: number };
   /** The week's top subjects, loudest first. */
   subjects: readonly { label: string; count: number }[];
@@ -104,9 +104,11 @@ export function Flyer({
           {title}
         </h2>
         <DoubleRule />
-        <div className="sv-flyer-match">
-          {game.away} <i>{WORDS.at}</i> {game.home}
-        </div>
+        {game ? (
+          <div className="sv-flyer-match">
+            {game.away} <i>{WORDS.at}</i> {game.home}
+          </div>
+        ) : null}
         <div className="sv-flyer-counts">
           <Numeral value={counts.posts} caption={WORDS.posts} align="center" roll />
           <Numeral value={counts.comments} caption={WORDS.comments} align="center" roll />

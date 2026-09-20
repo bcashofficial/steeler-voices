@@ -46,3 +46,13 @@ test("closes on the link, the scrim and Escape; renders nothing when shut", () =
   );
   expect(screen.queryByRole("dialog")).toBeNull();
 });
+
+test("a bye week has no matchup line", () => {
+  render(
+    <VoicesTheme mode="light">
+      <Flyer open onClose={() => {}} {...props} game={null} />
+    </VoicesTheme>,
+  );
+  expect(screen.getByRole("dialog")).not.toHaveTextContent(" at ");
+  expect(screen.getByText("Posts")).toBeInTheDocument();
+});
