@@ -162,12 +162,7 @@ export function Dropdown<K extends string = string>({
               <span className="sv-dd-mark" aria-hidden="true" />
               <span>{option.label}</span>
               {option.count != null ? (
-                <StencilNumber
-                  value={option.count}
-                  height={12}
-                  offset={0}
-                  color="var(--sv-ink-3)"
-                />
+                <span className="sv-dd-count">{formatCount(option.count)}</span>
               ) : (
                 <span />
               )}
