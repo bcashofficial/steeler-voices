@@ -37,10 +37,12 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: >
+    # Folded YAML: keep every line at the same indent, or the extra-indented
+    # lines keep their newlines and sh chokes on a line starting with &&.
+    command: >-
       sh -c "python manage.py migrate --noinput
-          && python manage.py seed_lookups
-          && gunicorn steeler_voices.wsgi:application --bind 0.0.0.0:8300 --workers 2 --timeout 120"
+      && python manage.py seed_lookups
+      && gunicorn steeler_voices.wsgi:application --bind 0.0.0.0:8300 --workers 2 --timeout 120"
 
   voices-de:
     build: ../voices-de
