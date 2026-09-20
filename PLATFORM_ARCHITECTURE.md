@@ -37,7 +37,7 @@ browser ── voices-fe (Module Federation host, :5300)
 
 | Folder | Layer | Purpose | Stack / port |
 | --- | --- | --- | --- |
-| `voices-be` | BE | The one writer of the database: voices, embeddings, tags, documents, retrieval events, experiments; the LangGraph generator | Django 5.2 · DRF · Python 3.13 · :8300 |
+| `voices-be` | BE | The one writer of the database: voices, embeddings, tags, documents, retrieval events, experiments; the LangGraph generator (`voices-generator` runs it as its own process) | Django 5.2 · DRF · Python 3.13 · :8300 |
 | `voices-de` | DE | Scheduled pipelines: ingest r/steelers, roster, batch LLM tagging, projection, weekly document runs. POSTs to `voices-be` | Python 3.13 · APScheduler · one-shot CLIs with `--dry-run` |
 | `voices-design-system` | DS | Pure Module Federation remote exposing `./theme`: tokens + every primitive the app is composed from | React 19 · TypeScript · Vite · :5301 |
 | `voices-fe` | FE | The app: discussion board, the document, the embedding map, the A/B comparison | React 19 · TypeScript · Vite MF host · :5300 |
@@ -73,11 +73,11 @@ Postgres 5445, Ollama on its default 11434.
 
 Done: the data model, internal API and public reads (`voices-be`), the
 design system (every plate built), the pipelines, scheduler, seed and rig
-(`voices-de`, `infra/`), and `voices-fe` — the board with the flyer, the
+(`voices-de`, `infra/`), `voices-fe` — the board with the flyer, the
 document, the map, the A/B and the pipelines, wired end to end over Module
-Federation and `make dev`. Open, in order:
+Federation and `make dev` — and the generator: one LangGraph graph on a
+Postgres checkpointer writing both arms, scored as an A/B, run by the
+`voices-generator` service. Open, in order:
 
 1. Tag the seed on the rig; commit `seed/readings.jsonl.gz`
-2. The generator graph (LangGraph, Postgres checkpointer) and the A/B rubric —
-   the Document and A/B sections read its rows and show nothing until it runs
-3. `README.md`, `DEMO.md`, `docs/INSIGHTS.md`, CI workflow
+2. `DEMO.md`, `docs/INSIGHTS.md`, CI workflow
