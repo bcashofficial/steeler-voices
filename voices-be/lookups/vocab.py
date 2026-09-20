@@ -81,7 +81,7 @@ PIPELINES = [
     {
         "key": "load_seed",
         "label": "load seed",
-        "description": "The committed capture, into an empty store, once.",
+        "description": "The initial raw capture.",
         "local_schedule": "boot",
         "remote_schedule": "manual",
     },
@@ -95,7 +95,7 @@ PIPELINES = [
     {
         "key": "ingest_rss",
         "label": "ingest (rss)",
-        "description": "The same voices, straight from reddit.com's feeds.",
+        "description": "Voices straight from Reddit feeds.",
         "local_schedule": "*/15 * * * *",
         "remote_schedule": "rate(15 minutes)",
     },
@@ -109,14 +109,14 @@ PIPELINES = [
     {
         "key": "embed",
         "label": "embed",
-        "description": "Vectors for every voice without one.",
+        "description": "Every voice has a vector.",
         "local_schedule": "5,20,35,50 * * * *",
         "remote_schedule": "rate(15 minutes)",
     },
     {
         "key": "tag",
         "label": "tag",
-        "description": "Batch readings: mood, intensity, target, subjects.",
+        "description": "Tags populated from batch pipeline hourly.",
         "local_schedule": "0 * * * *",
         "remote_schedule": "rate(1 hour)",
     },
@@ -130,14 +130,14 @@ PIPELINES = [
     {
         "key": "cluster",
         "label": "cluster",
-        "description": "This week's topics from the vectors.",
+        "description": "Topics derived from vectors.",
         "local_schedule": "15 * * * *",
         "remote_schedule": "rate(1 hour)",
     },
     {
         "key": "generate",
         "label": "generate",
-        "description": "The week's document, both arms.",
+        "description": "Generating this week’s document.",
         "local_schedule": "0 6 * * 2",
         "remote_schedule": "cron(0 10 ? * TUE *)",
     },
