@@ -1,9 +1,13 @@
-"""Tag: the batch reading of every voice without one. Twenty voices go to
+"""Tag: the batch reading of every voice without one. Five voices go to
 the local model at a time with the closed vocabulary from the backend;
 the model answers a JSON schema — mood, intensity, target, sarcasm, a
 one-line gist, the subjects as the community names them — and each answer
 is validated before it is written. A batch that fails to parse is retried
-once, then skipped and counted; the next run picks those voices up."""
+once, then skipped and counted; the next run picks those voices up.
+TAG_WORKERS batches run at once — one on a laptop, more on the rig."""
+
+import os
+from concurrent.futures import ThreadPoolExecutor
 
 from pipelines.shared.services.ollama import OllamaClient
 from pipelines.shared.services.reddit import batched
@@ -11,16 +15,17 @@ from pipelines.shared.services.runner import Context
 
 PROMPT_VERSION = "v1"
 PAGE = 200
-BATCH = 20
+BATCH = 5
 MAX_CHARS = 1200
 
 SYSTEM = (
     "You read posts and comments from r/steelers, the Pittsburgh Steelers community on Reddit. "
     "For each voice, give one reading. Use only the moods and targets you are given. "
     "intensity is 0 to 1: how hard the voice hits. sarcasm is true when the voice means the opposite of what it says. "
-    "gist is one plain sentence of what the voice is saying. subjects are the people or things the voice is about, "
-    "as the community names them, with nicknames expanded to full names where you are sure "
-    "(JPJ is Joey Porter Jr., TJ is T.J. Watt). Answer only with JSON."
+    "gist is what the voice is saying, in at most fifteen plain words. "
+    "subjects are the named people, teams or organizations the voice is about — full names, no generic nouns, "
+    "at most three; expand nicknames you are sure of (JPJ is Joey Porter Jr., TJ is T.J. Watt). "
+    "Answer only with JSON."
 )
 
 
@@ -82,7 +87,7 @@ def validate(answer: dict, batch: list[dict], moods: set[str], targets: set[str]
     return items
 
 
-def tag(context: Context, client: OllamaClient | None = None) -> dict:
+def tag(context: Context, client: OllamaClient | None = None, limit: int = PAGE) -> dict:
     vocab = context.backend.vocab()
     moods = [m["key"] for m in vocab["moods"]]
     targets = [t["key"] for t in vocab["targets"]]
@@ -90,19 +95,21 @@ def tag(context: Context, client: OllamaClient | None = None) -> dict:
     if not client.is_up():
         raise RuntimeError(f"ollama is not reachable at {context.config.ollama_base_url}")
     counts = {"pending": 0, "read": 0, "written": 0, "failed_batches": 0}
-    pending = context.backend.pending("reading", PAGE)
+    pending = context.backend.pending("reading", limit)
     counts["pending"] = len(pending)
-    for batch in batched(pending, BATCH):
-        items = read_batch(client, batch, moods, targets, context)
-        if items is None:
-            counts["failed_batches"] += 1
-            continue
-        counts["read"] += len(items)
-        if not context.dry_run and items:
-            result = context.backend.upsert_readings(
-                context.run_id, context.config.tagging_model, PROMPT_VERSION, items
-            )
-            counts["written"] += result["written"]
+    workers = int(os.environ.get("TAG_WORKERS", "1"))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        results = pool.map(lambda batch: read_batch(client, batch, moods, targets, context), batched(pending, BATCH))
+        for items in results:
+            if items is None:
+                counts["failed_batches"] += 1
+                continue
+            counts["read"] += len(items)
+            context.log.info("read %d of %d", counts["read"], counts["pending"])
+            if not context.dry_run and items:
+                model = context.config.tagging_model
+                result = context.backend.upsert_readings(context.run_id, model, PROMPT_VERSION, items)
+                counts["written"] += result["written"]
     return counts
 
 

@@ -59,3 +59,8 @@ def replace_topics(request):
 def upsert_games(request):
     data = _validated(serializers.UpsertGamesSerializer, request.data)
     return Response(services.upsert_games(data["items"]))
+
+
+@voices_internal_api_view(["GET"])
+def export_readings(_request):
+    return Response({"readings": services.export_readings()})

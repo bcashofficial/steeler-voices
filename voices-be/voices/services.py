@@ -280,3 +280,24 @@ def upsert_games(items: list[dict]) -> dict:
         )
         counts["new" if created else "updated"] += 1
     return dict(counts)
+
+
+def export_readings() -> list[dict]:
+    """Every voice's newest reading, keyed by external id, in the shape the
+    readings endpoint accepts back — the seed's readings file."""
+    latest = {}
+    rows = Reading.objects.select_related("voice", "mood", "target").order_by("voice_id", "-created_at")
+    for reading in rows:
+        if reading.voice_id in latest:
+            continue
+        latest[reading.voice_id] = {
+            "external_id": reading.voice.external_id,
+            "mood": reading.mood.key,
+            "intensity": reading.intensity,
+            "target": reading.target.key,
+            "sarcasm": reading.sarcasm,
+            "gist": reading.gist,
+            "subjects": reading.subjects,
+            "raw": reading.raw,
+        }
+    return list(latest.values())

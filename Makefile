@@ -55,3 +55,12 @@ doctor:
 	@command -v docker >/dev/null || { echo "docker is required: https://docs.docker.com/get-docker/"; exit 1; }
 	@docker compose version >/dev/null 2>&1 || { echo "docker compose v2 is required"; exit 1; }
 	@echo "docker ok"
+
+rig-up:
+	python3 infra/rig/rig.py up
+
+rig-status:
+	python3 infra/rig/rig.py status
+
+rig-down:
+	python3 infra/rig/rig.py down

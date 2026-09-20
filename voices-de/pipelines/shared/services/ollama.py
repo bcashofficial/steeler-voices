@@ -6,6 +6,7 @@ import json
 import requests
 
 TIMEOUT = 600
+USER_AGENT = "Mozilla/5.0 steeler-voices/0.1"  # the rig's proxy rejects bare tool agents
 
 
 class OllamaClient:
@@ -13,6 +14,7 @@ class OllamaClient:
         self.base_url = base_url
         self.model = model
         self.session = session or requests.Session()
+        self.session.headers["User-Agent"] = USER_AGENT
 
     def chat_json(self, system: str, user: str, schema: dict) -> dict:
         body = {

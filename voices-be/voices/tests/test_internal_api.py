@@ -147,6 +147,8 @@ def test_embeddings_projection_and_readings_round_trip(internal_client, seeded):
     )
     assert reading.data["written"] == 1
     assert Reading.objects.get(voice=voice).subjects == ["Joey Porter Jr."]
+    exported = internal_client.get("/api/internal/readings/export/").data["readings"]
+    assert exported[0]["external_id"] == voice.external_id and exported[0]["mood"] == "heated"
 
 
 def test_a_bad_vector_is_rejected(internal_client, seeded):
