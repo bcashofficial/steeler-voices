@@ -185,3 +185,5 @@ def test_a_claimed_run_is_taken_once_and_a_rerun_rewrites_its_document():
         generator.execute_run(run, deps, checkpointer)
         generator.execute_run(run, deps, checkpointer)
     assert Document.objects.filter(generation_run=run).count() == 1
+    assert RetrievalEvent.objects.filter(generation_run=run).count() == 2  # one pass's worth, not two
+    assert Embedding.objects.get(voice__title__startswith="Joey").retrieval_count == 1

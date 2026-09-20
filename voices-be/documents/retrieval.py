@@ -77,3 +77,15 @@ def record(run: GenerationRun, node: str, query: str, hits: list[Hit]) -> None:
     Embedding.objects.filter(voice_id__in=[hit.voice_id for hit in hits]).update(
         retrieval_count=F("retrieval_count") + 1
     )
+
+
+def forget(run: GenerationRun) -> int:
+    """A run executed again retrieves again: its earlier events go, and the
+    counts they added come off their embeddings. Returns how many went."""
+    events = RetrievalEvent.objects.filter(generation_run=run)
+    for voice_id in events.values_list("voice_id", flat=True):
+        Embedding.objects.filter(voice_id=voice_id, retrieval_count__gt=0).update(
+            retrieval_count=F("retrieval_count") - 1
+        )
+    forgotten, _ = events.delete()
+    return forgotten

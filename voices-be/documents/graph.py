@@ -92,6 +92,7 @@ def build_graph(deps: Dependencies, checkpointer: Any):
     def retrieve(state: GenerationState) -> dict:
         run = GenerationRun.objects.get(pk=state["run_id"])
         week = Week.objects.get(starts_on=state["week"])
+        retrieval.forget(run)
         best: dict[str, dict] = {}
         for query in state["queries"]:
             hits = retrieval.nearest(week, deps.embed(query))
