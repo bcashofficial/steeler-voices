@@ -67,3 +67,4 @@ export { Dropdown, type DropdownProps, type DropdownOption } from "./Dropdown";
 export { Football, type FootballProps } from "./Football";
 export { ThemeSwitch, type ThemeSwitchProps } from "./ThemeSwitch";
 export { Masthead, type MastheadProps } from "./Masthead";
+export { SectionMenu, type SectionMenuProps } from "./SectionMenu";

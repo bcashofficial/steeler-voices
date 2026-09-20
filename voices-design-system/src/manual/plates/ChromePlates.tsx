@@ -1,4 +1,13 @@
-import { DoubleRule, Football, Masthead, ThemeSwitch } from "../../theme";
+import { useState } from "react";
+
+import {
+  DoubleRule,
+  Football,
+  Masthead,
+  SectionMenu,
+  ThemeSwitch,
+  type SectionKey,
+} from "../../theme";
 import { Figure } from "./shared";
 
 export function DoubleRulePlate() {
@@ -33,12 +42,25 @@ export function ThemeSwitchPlate() {
   );
 }
 
+const COUNTS = { board: 61, document: 2, map: 4212, ab: 3, pipelines: 8 } as const;
+
 export function MastheadPlate() {
+  const [section, setSection] = useState<SectionKey>("board");
   return (
     <Figure label="Line">
       <Masthead>
+        <SectionMenu current={section} counts={COUNTS} onSelect={setSection} />
         <ThemeSwitch />
       </Masthead>
+    </Figure>
+  );
+}
+
+export function SectionMenuPlate() {
+  const [section, setSection] = useState<SectionKey>("board");
+  return (
+    <Figure label="Sections">
+      <SectionMenu current={section} counts={COUNTS} onSelect={setSection} />
     </Figure>
   );
 }
