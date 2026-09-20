@@ -1,4 +1,4 @@
-import { DoubleRule, Football, ThemeSwitch } from "../../theme";
+import { DoubleRule, Football, Masthead, ThemeSwitch } from "../../theme";
 import { Figure } from "./shared";
 
 export function DoubleRulePlate() {
@@ -29,6 +29,16 @@ export function ThemeSwitchPlate() {
       <div>
         <ThemeSwitch />
       </div>
+    </Figure>
+  );
+}
+
+export function MastheadPlate() {
+  return (
+    <Figure label="Line">
+      <Masthead>
+        <ThemeSwitch />
+      </Masthead>
     </Figure>
   );
 }

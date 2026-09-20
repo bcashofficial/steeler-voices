@@ -30,7 +30,12 @@ import {
   DropdownPlate,
   VoiceMessagePlate,
 } from "./plates/BoardPlates";
-import { DoubleRulePlate, FootballPlate, ThemeSwitchPlate } from "./plates/ChromePlates";
+import {
+  DoubleRulePlate,
+  FootballPlate,
+  MastheadPlate,
+  ThemeSwitchPlate,
+} from "./plates/ChromePlates";
 import { MasonryPlate, PostCardPlate, StatusDotPlate } from "./plates/RailPlates";
 
 export type PlateStatus = "built" | "planned";
@@ -142,12 +147,7 @@ export const PARTS: PartEntry[] = [
     key: "chrome",
     label: "Chrome and the flyer",
     plates: [
-      planned(
-        "masthead",
-        "Masthead",
-        "Steeler Voices in Anton 46 with the gold offset, the Football beside it, a 3px ink rule under the whole line; a right slot for the SectionMenu and ThemeSwitch.",
-        ["onFootball", "children (right slot)"],
-      ),
+      { key: "masthead", label: "Masthead", status: "built", Component: MastheadPlate },
       { key: "football", label: "Football", status: "built", Component: FootballPlate },
       planned(
         "section-menu",
