@@ -75,6 +75,10 @@ One repo, one folder per service, each with its own `README.md`,
 | `voices-fe` | the app, a Module Federation host over the design system |
 | `infra` | `docker-compose.yml`, the optional GPU rig |
 
+## How it was built
+
+`docs/INSIGHTS.md` — the workflow behind the code, and the `/insights` report.
+
 ## Tests
 
 ```bash
