@@ -105,7 +105,14 @@ export interface WeekMap {
   }[];
 }
 
+export interface Claim {
+  text: string;
+  evidence: number[];
+}
+
 export interface Citation {
+  /** The evidence index the claim cited; null when unknown. */
+  evidence: number | null;
   voice_id: string;
   handle: string;
   external_url: string;
@@ -119,7 +126,7 @@ export interface DocumentSection {
   position: number;
   heading: string;
   body: string;
-  claims: unknown[];
+  claims: Claim[];
   citations: Citation[];
 }
 

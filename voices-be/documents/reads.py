@@ -11,8 +11,17 @@ from lookups.models import LKArms
 from voices.models import Week
 
 
-def _citation_payload(citation) -> dict:
+def _cited_indices(section) -> list[int]:
+    """The evidence indices the section's citations were written for, in
+    citation order: the store writes one citation per distinct valid index,
+    ascending, and an invalid index is always past the valid ones."""
+    indices = sorted({i for claim in section.claims for i in claim.get("evidence", [])})
+    return indices[: section.citations.count()]
+
+
+def _citation_payload(citation, evidence_index: int | None) -> dict:
     return {
+        "evidence": evidence_index,
         "voice_id": str(citation.voice_id),
         "handle": citation.voice.author.handle,
         "external_url": citation.voice.external_url,
@@ -29,7 +38,12 @@ def _section_payload(section) -> dict:
         "heading": section.heading,
         "body": section.body,
         "claims": section.claims,
-        "citations": [_citation_payload(c) for c in section.citations.select_related("voice__author")],
+        "citations": [
+            _citation_payload(citation, index)
+            for citation, index in zip(
+                section.citations.select_related("voice__author"), _cited_indices(section), strict=False
+            )
+        ],
     }
 
 

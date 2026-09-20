@@ -7,10 +7,11 @@
 
 import { TextLink } from "design_system/theme";
 
-import type { ArmDocument as ArmDocumentData, DocumentSection } from "../api/types";
+import type { ArmDocument as ArmDocumentData, Citation, DocumentSection } from "../api/types";
 import { Display } from "../Display";
 import { clockFor, dayFor, handleFor } from "../format";
 import { BODY, SMALL, TABULAR, TITLE } from "../text";
+import { citationsFor } from "./claims";
 
 interface ArmDocumentProps {
   document: ArmDocumentData;
@@ -19,19 +20,33 @@ interface ArmDocumentProps {
   heading?: boolean;
 }
 
+function Voices({ citations, platform }: { citations: Citation[]; platform: string }) {
+  if (!citations.length) return null;
+  return (
+    <span style={{ display: "inline-flex", flexWrap: "wrap", gap: "0 8px", marginLeft: 8 }}>
+      {citations.map((citation) => (
+        <TextLink key={citation.voice_id} href={citation.external_url} size="sm">
+          {handleFor(citation.handle, platform)}
+        </TextLink>
+      ))}
+    </span>
+  );
+}
+
 function Section({ section, platform }: { section: DocumentSection; platform: string }) {
   return (
-    <section style={{ display: "grid", gap: 6 }}>
+    <section style={{ display: "grid", gap: 8 }}>
       <h3 style={TITLE}>{section.heading}</h3>
       <p style={{ ...BODY, whiteSpace: "pre-wrap" }}>{section.body}</p>
-      {section.citations.length ? (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px" }}>
-          {section.citations.map((citation) => (
-            <TextLink key={citation.voice_id} href={citation.external_url} size="sm">
-              {handleFor(citation.handle, platform)}
-            </TextLink>
+      {section.claims.length ? (
+        <ul style={{ ...BODY, margin: 0, paddingLeft: 18, display: "grid", gap: 4 }}>
+          {section.claims.map((claim, index) => (
+            <li key={index}>
+              {claim.text}
+              <Voices citations={citationsFor(claim, section.citations)} platform={platform} />
+            </li>
           ))}
-        </div>
+        </ul>
       ) : null}
     </section>
   );

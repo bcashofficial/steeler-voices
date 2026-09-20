@@ -18,7 +18,11 @@ def test_week_documents_one_row_per_arm(api_client):
     published = DocumentFactory(
         generation_run__week=week, generation_run__arm=rag, title="published", is_published=True
     )
-    citation = CitationFactory(section__document=published, quote="Trade him.")
+    citation = CitationFactory(
+        section__document=published,
+        section__claims=[{"text": "Trade him.", "evidence": [4, 99]}],
+        quote="Trade him.",
+    )
     RetrievalEventFactory(generation_run=published.generation_run)
     run = published.generation_run
     run.assignment = AssignmentFactory()
@@ -33,6 +37,7 @@ def test_week_documents_one_row_per_arm(api_client):
     assert rows[0]["title"] == "published" and rows[0]["is_published"] is True
     assert rows[0]["sections"][0]["citations"][0]["quote"] == "Trade him."
     assert rows[0]["sections"][0]["citations"][0]["voice_id"] == str(citation.voice_id)
+    assert rows[0]["sections"][0]["citations"][0]["evidence"] == 4
     assert rows[0]["run"]["retrievals"] == 1
     assert rows[0]["outcomes"] == [{"metric": "groundedness", "label": "groundedness", "unit": "ratio", "value": 0.8}]
     assert rows[1]["title"] is None and rows[1]["run"]["status"] == "failed"
