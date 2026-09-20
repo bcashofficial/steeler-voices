@@ -1,7 +1,7 @@
 import pytest
 from django.core.management import call_command
 
-from lookups.models import LKArms, LKPipelines, LKSources, LKTargets
+from lookups.models import LKArms, LKMoods, LKPipelines, LKSources, LKTargets
 
 
 @pytest.mark.django_db
@@ -11,6 +11,7 @@ def test_seed_is_idempotent():
     assert LKSources.objects.count() == 2
     assert LKTargets.objects.count() == 8
     assert LKPipelines.objects.count() == 8
+    assert LKMoods.objects.count() == 7
 
 
 @pytest.mark.django_db

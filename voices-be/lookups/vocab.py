@@ -1,9 +1,8 @@
 """The words of the platform, in one place. `seed_lookups` writes these rows;
 the design system's `vocab.ts` mirrors them.
 
-MOODS and SECTION_KINDS are intentionally empty until their words are chosen —
-the tagging prompt and the document template both read from these tables, so
-the taxonomy is data, not code.
+SECTION_KINDS is intentionally empty until its words are chosen — the document
+template reads from that table, so the taxonomy is data, not code.
 """
 
 SOURCES = [
@@ -32,7 +31,17 @@ VOICE_TYPES = [
     {"key": "comment", "label": "comment"},
 ]
 
-MOODS: list[dict] = []
+# Mirrors voices-design-system src/theme/vocab.ts MOODS; `color_token` is the
+# design-system mood key whose gradient paints this mood's pulse bar.
+MOODS = [
+    {"key": "hyped", "label": "Hyped", "color_token": "hyped"},
+    {"key": "hopeful", "label": "Hopeful", "color_token": "hopeful"},
+    {"key": "proud", "label": "Proud", "color_token": "proud"},
+    {"key": "level", "label": "Level", "color_token": "level"},
+    {"key": "uneasy", "label": "Uneasy", "color_token": "uneasy"},
+    {"key": "frustrated", "label": "Frustrated", "color_token": "frustrated"},
+    {"key": "heated", "label": "Heated", "color_token": "heated"},
+]
 
 TARGETS = [
     {"key": "player", "label": "player"},
