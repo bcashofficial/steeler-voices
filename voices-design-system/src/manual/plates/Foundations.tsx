@@ -9,7 +9,7 @@ import {
   WORDS,
 } from "../../theme";
 import { Figure, Swatch } from "./shared";
-import { BODY, MICRO, MUTED } from "./text";
+import { BODY, MICRO } from "./text";
 
 export function PalettePlate() {
   return (
@@ -25,22 +25,11 @@ export function PalettePlate() {
         </div>
       </Figure>
       <Figure label="Two grounds">
-        <p style={BODY}>
-          Light is pure white with the ink for text and mist as a tint. Dark is the ink for the
-          ground, {themes.dark.surface} for a lifted surface, mist for text. Ink hierarchy on either
-          ground is three alpha steps of the ink; lines are two.
-        </p>
         <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
           <Swatch hex={themes.light.ground} name="light ground" />
           <Swatch hex={themes.dark.ground} name="dark ground" />
           <Swatch hex={themes.dark.surface} name="dark surface" />
         </div>
-      </Figure>
-      <Figure label="Gold is the accent">
-        <p style={MUTED}>
-          The display offset, the underline, the chip. Blue and olive are component alternates,
-          never the accent.
-        </p>
       </Figure>
     </div>
   );
@@ -78,26 +67,18 @@ export function TypographyPlate() {
           ))}
         </div>
       </Figure>
-      <Figure label="Archivo — everything else">
+      <Figure label="Helvetica Neue">
         <div style={{ display: "grid", gap: 8 }}>
-          <div style={{ fontFamily: typography.body, ...scale.title }}>
-            Title 15 / 600 — Joey Porter Jr leaves steelers practice
-          </div>
+          <div style={{ fontFamily: typography.body, ...scale.title }}>Title 15 / 600</div>
           <div style={{ fontFamily: typography.body, ...scale.body }}>
             Body 14 / 1.45 — Genuinely frustrating to see some of the contracts we have handed out
             but won’t pay him.
           </div>
           <div style={{ fontFamily: typography.body, ...scale.small, color: "var(--sv-ink-2)" }}>
-            Small 12 / 500 — u/swampthingsden · Thu 1:19 PM
+            Small 12 / 500
           </div>
-          <div style={MICRO}>Micro 11 / 600 / 0.1em — Posts</div>
+          <div style={MICRO}>Micro 11 / 600 / 0.1em</div>
         </div>
-      </Figure>
-      <Figure label="Rules">
-        <p style={MUTED}>
-          Regular punctuation and case. Numbers over words: where a count can stand in for a
-          sentence, it does, in Anton. Digits are tabular wherever they line up.
-        </p>
       </Figure>
     </div>
   );
@@ -107,11 +88,6 @@ export function GroundsPlate() {
   return (
     <div style={{ display: "grid", gap: 28 }}>
       <Figure label="Leather">
-        <p style={BODY}>
-          A 64px tile of irregular pebbles from a seeded generator, tinted in the theme's ink, at{" "}
-          {themes.light.leatherOpacity * 100}% on white and {themes.dark.leatherOpacity * 100}% on
-          the ink. It is under this page.
-        </p>
         <div
           style={{
             height: 120,
@@ -121,12 +97,6 @@ export function GroundsPlate() {
             opacity: 0.5,
           }}
         />
-      </Figure>
-      <Figure label="Grain">
-        <p style={BODY}>
-          One film of fractal noise over everything — multiplied on white, screened on the ink. The
-          vintage print. It is over this page.
-        </p>
       </Figure>
     </div>
   );
@@ -145,10 +115,6 @@ export function MotionPlate() {
           ))}
         </tbody>
       </table>
-      <p style={MUTED}>
-        The underline draws in, a container lifts, a number rolls. Everything else holds still;
-        under reduced motion, everything does.
-      </p>
     </Figure>
   );
 }
@@ -168,9 +134,6 @@ export function WordsPlate() {
       <Figure label="Labels">
         <p style={BODY}>{Object.values(WORDS).join(" · ")}</p>
       </Figure>
-      <p style={MUTED}>
-        Mirrored from voices-be lookups/vocab.py. Neither file has a word the other doesn't.
-      </p>
     </div>
   );
 }

@@ -2,7 +2,8 @@
 
 The canonical reference for how Steeler Voices looks, feels and behaves.
 Written from the approved board sheet (`docs/board-sheet.html`, open it in a
-browser) and the type sheet (`docs/type-sheet.html`). Tokens live in
+browser) and the type sheet (`docs/type-sheet.html`; the body face was
+later set to Helvetica Neue). Tokens live in
 `src/theme/tokens.ts`; the words in `src/theme/vocab.ts`. When this document
 and the code disagree, the code wins — then fix this document.
 
@@ -41,13 +42,13 @@ OS, then the choice is remembered.
 
 ## 3. Type
 
-Two faces, both self-hosted (SIL OFL):
+Two faces — Anton self-hosted (SIL OFL), Helvetica Neue from the system:
 
 - **Anton** — display. The masthead, the flyer title, every big number, the
   matchup, the count in a pane's corner. One weight. Its signature is the
   **gold offset** — `text-shadow: 3px 3px 0 gold` (2px at smaller sizes) —
   a print that slipped a hair.
-- **Archivo** — everything else, 400–700. Body 14/1.45; titles 15/600;
+- **Helvetica Neue** — everything else. Body 14/1.45; titles 15/600;
   small 12/500; micro labels 11/600 tracked 0.1em, uppercase.
 
 Regular punctuation and case. Numbers over words: where a count can stand
@@ -141,7 +142,7 @@ Below 980px the grid stacks to one column.
 Shown first, over a dimmed board (55% ink scrim, 2px blur): a 560px sheet
 on `radius.flyer`, halftone fading from the top edge, the name in Anton 58
 with the offset, a double rule (3px + 1px), the matchup in Anton 34 with
-"at" in Archivo, three numbers in Anton 40 over micro caps (Posts ·
+"at" in Helvetica Neue, three numbers in Anton 40 over micro caps (Posts ·
 Comments · Subjects), the top subjects with counts, the double rule again,
 and "Open the board" as a text link. Closes on that link, the backdrop, or
 Esc; the football reopens it.

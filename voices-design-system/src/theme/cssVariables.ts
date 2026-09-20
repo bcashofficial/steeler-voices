@@ -32,7 +32,7 @@ export function buildBaseCss(): string {
   return (
     `:root{${paletteDeclarations()}${light}}` +
     `:root[data-theme="dark"]{${dark}}` +
-    `body{margin:0;background:var(--sv-ground);color:var(--sv-ink);font-family:"Archivo","Helvetica Neue",Arial,sans-serif;font-size:14px;line-height:1.45;}`
+    `body{margin:0;background:var(--sv-ground);color:var(--sv-ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.45;}`
   );
 }
 

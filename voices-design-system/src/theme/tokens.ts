@@ -3,7 +3,7 @@
  * Transcribed from the approved board sheet (DESIGN.md); not opinions.
  *
  * Five colors from the coolors.co scheme, two grounds (pure white, the ink),
- * two faces (Anton for display, Archivo for everything else). Every primitive
+ * two faces (Anton for display, Helvetica Neue for everything else). Every primitive
  * reads these through `VoicesTheme` or the `--sv-*` CSS variables it mounts.
  */
 
@@ -93,7 +93,7 @@ export type SemanticRole = keyof ThemeTokens;
 
 export const typography = {
   display: '"Anton", Impact, "Arial Narrow Bold", sans-serif',
-  body: '"Archivo", "Helvetica Neue", Arial, sans-serif',
+  body: '"Helvetica Neue", Helvetica, Arial, sans-serif',
   /** Anton is one weight; the gold offset is the display face's signature. */
   displayOffset: "3px 3px 0",
   displayOffsetSmall: "2px 2px 0",

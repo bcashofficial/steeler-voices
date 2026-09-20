@@ -1,6 +1,5 @@
 import { LaughSticker, MOODS, PulseBar } from "../../theme";
 import { Figure } from "./shared";
-import { BODY, MUTED } from "./text";
 
 const SAMPLE_YARDS = [72, 58, 91, 38, 66, 83, 74];
 
@@ -27,13 +26,6 @@ export function PulseBarPlate() {
           ))}
         </div>
       </Figure>
-      <Figure label="How it plays">
-        <p style={BODY}>
-          On mount the ticks rise left to right, fourteen milliseconds apart. The head tick breathes
-          on the yard line. Move the cursor across a field and the ticks rise under it. The chip
-          rolls to its yardage. Under reduced motion it simply is.
-        </p>
-      </Figure>
     </div>
   );
 }
@@ -48,10 +40,6 @@ export function LaughStickerPlate() {
           <LaughSticker size={64} />
         </div>
       </Figure>
-      <p style={MUTED}>
-        Sarcasm is a flag, not a mood. The sticker sits at the end of a pulse row; it never replaces
-        the reading.
-      </p>
     </div>
   );
 }

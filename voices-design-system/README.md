@@ -31,7 +31,7 @@ src/
     index.ts                  THE barrel — the one surface MF exposes
     tokens.ts                 palette, both themes, type, spacing, radius, motion, layout
     vocab.ts                  the words (moods, groupings, sections) — mirrors voices-be lookups/vocab.py
-    fonts.ts                  Anton + Archivo, self-hosted, resolved MF-safely
+    fonts.ts                  Anton self-hosted, resolved MF-safely; Helvetica Neue from the system
     ground.ts                 the leather tile and the grain film
     cssVariables.ts           the tokens as --sv-* variables, one block per theme
     VoicesTheme.tsx           the provider: mounts fonts, variables, grounds once; owns light/dark

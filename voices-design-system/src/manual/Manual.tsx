@@ -3,7 +3,7 @@
  *
  * A fixed index on the left: every part, every plate, numbered, text only,
  * the current plate in full ink with the gold underline. The plate on the
- * right with a running head (part · number · name) and its gloss. The
+ * right with a running head (part · number · name). The
  * landing plate is the contents. The plate key rides the URL hash so a
  * link lands on a plate.
  */
@@ -158,7 +158,6 @@ function Plate({ plate }: { plate: NumberedPlate }) {
         >
           {plate.label}
         </h1>
-        <p style={MUTED}>{plate.gloss}</p>
       </header>
       {plate.Component ? <plate.Component /> : plate.spec ? <Planned spec={plate.spec} /> : null}
     </article>
@@ -183,9 +182,6 @@ function Planned({ spec }: { spec: { what: string; props: string[] } }) {
           </ul>
         </div>
       ) : null}
-      <p style={{ ...MUTED, fontSize: 12.5 }}>
-        Built to the board sheet, approved before the next plate.
-      </p>
     </div>
   );
 }
@@ -215,9 +211,6 @@ function Contents({ onSelect }: { onSelect: (key: string) => void }) {
         >
           Every plate
         </h1>
-        <p style={MUTED}>
-          Each primitive the app is composed from, built one at a time to the approved board sheet.
-        </p>
       </header>
       <div style={{ display: "grid", gap: 22 }}>
         {PARTS.map((part, partIndex) => (
@@ -231,14 +224,13 @@ function Contents({ onSelect }: { onSelect: (key: string) => void }) {
                 type="button"
                 className="svm-row"
                 data-planned={plate.status === "planned"}
-                style={{ gridTemplateColumns: "44px 160px 1fr" }}
+                style={{ gridTemplateColumns: "44px 1fr" }}
                 onClick={() => onSelect(plate.key)}
               >
                 <span>
                   {String(partIndex + 1).padStart(2, "0")}.{plateIndex + 1}
                 </span>
                 <span>{plate.label}</span>
-                <span style={{ color: "var(--sv-ink-3)", fontWeight: 400 }}>{plate.gloss}</span>
               </button>
             ))}
           </div>
