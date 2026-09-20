@@ -30,6 +30,7 @@ import {
   TextLinkPlate,
   VoiceMessagePlate,
 } from "./plates/BoardPlates";
+import { DoubleRulePlate } from "./plates/ChromePlates";
 import { MasonryPlate, PostCardPlate, StatusDotPlate } from "./plates/RailPlates";
 
 export type PlateStatus = "built" | "planned";
@@ -171,12 +172,7 @@ export const PARTS: PartEntry[] = [
         "Over a 55% ink scrim with a 2px blur: a 560px sheet on radius 6, halftone fading from the top, the name in Anton 58, a DoubleRule, the matchup in Anton 34 with at in Helvetica Neue, three Numerals over micro caps (Posts · Comments · Subjects), the top subjects with counts, the DoubleRule again, and Open the board as a TextLink. Closes on the link, the backdrop or Esc.",
         ["week", "game", "counts", "subjects", "open", "onClose"],
       ),
-      planned(
-        "double-rule",
-        "DoubleRule",
-        "The flyer's rule: a 3px ink line with a 1px line 5px beneath it.",
-        [],
-      ),
+      { key: "double-rule", label: "DoubleRule", status: "built", Component: DoubleRulePlate },
     ],
   },
 ];

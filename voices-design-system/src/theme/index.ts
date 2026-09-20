@@ -62,3 +62,4 @@ export { VoiceMessage, type VoiceMessageProps, type Voice } from "./VoiceMessage
 export { Pane, PaneBar, type PaneProps, type PaneBarProps } from "./Pane";
 export { GroupTabs, type GroupTabsProps } from "./GroupTabs";
 export { SubjectRow, type SubjectRowProps } from "./SubjectRow";
+export { DoubleRule, type DoubleRuleProps } from "./DoubleRule";
