@@ -62,6 +62,8 @@ services:
     depends_on:
       voices-be:
         condition: service_healthy
+    healthcheck:
+      disable: true # the image's check is the API's; this process serves no port
     command: python manage.py run_generations --watch
 
   voices-de:
