@@ -32,6 +32,7 @@ import {
 } from "./plates/BoardPlates";
 import {
   DoubleRulePlate,
+  FlyerPlate,
   FootballPlate,
   MastheadPlate,
   SectionMenuPlate,
@@ -56,13 +57,6 @@ export interface PartEntry {
   label: string;
   plates: PlateEntry[];
 }
-
-const planned = (key: string, label: string, what: string, props: string[]): PlateEntry => ({
-  key,
-  label,
-  status: "planned",
-  spec: { what, props },
-});
 
 export const PARTS: PartEntry[] = [
   {
@@ -152,12 +146,7 @@ export const PARTS: PartEntry[] = [
       { key: "football", label: "Football", status: "built", Component: FootballPlate },
       { key: "section-menu", label: "SectionMenu", status: "built", Component: SectionMenuPlate },
       { key: "theme-switch", label: "ThemeSwitch", status: "built", Component: ThemeSwitchPlate },
-      planned(
-        "flyer",
-        "Flyer",
-        "Over a 55% ink scrim with a 2px blur: a 560px sheet on radius 6, halftone fading from the top, the name in Anton 58, a DoubleRule, the matchup in Anton 34 with at in Helvetica Neue, three Numerals over micro caps (Posts · Comments · Subjects), the top subjects with counts, the DoubleRule again, and Open the board as a TextLink. Closes on the link, the backdrop or Esc.",
-        ["week", "game", "counts", "subjects", "open", "onClose"],
-      ),
+      { key: "flyer", label: "Flyer", status: "built", Component: FlyerPlate },
       { key: "double-rule", label: "DoubleRule", status: "built", Component: DoubleRulePlate },
     ],
   },

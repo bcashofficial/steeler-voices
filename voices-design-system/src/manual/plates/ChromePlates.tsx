@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import {
   DoubleRule,
+  Flyer,
   Football,
   Masthead,
   SectionMenu,
@@ -61,6 +62,29 @@ export function SectionMenuPlate() {
   return (
     <Figure label="Sections">
       <SectionMenu current={section} counts={COUNTS} onSelect={setSection} />
+    </Figure>
+  );
+}
+
+const WEEK = {
+  game: { away: "Steelers", home: "Patriots" },
+  counts: { posts: 61, comments: 4212, subjects: 7 },
+  subjects: [
+    { label: "Joey Porter Jr.", count: 1204 },
+    { label: "Omar Khan", count: 318 },
+    { label: "Aaron Rodgers", count: 296 },
+    { label: "Pittman", count: 141 },
+  ],
+};
+
+export function FlyerPlate() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Figure label="Open">
+      <div>
+        <Football onClick={() => setOpen(true)} />
+      </div>
+      <Flyer open={open} onClose={() => setOpen(false)} {...WEEK} />
     </Figure>
   );
 }
