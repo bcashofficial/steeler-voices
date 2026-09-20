@@ -139,7 +139,13 @@ def pending_voices(need: str, limit: int, week: date | None = None) -> list[dict
         qs = qs.filter(embedding__isnull=False).filter(Q(embedding__x__isnull=True) | Q(embedding__y__isnull=True))
     qs = qs.exclude(body_text="", title="").order_by("posted_at")[:limit]
     return [
-        {"voice_id": str(v.voice_id), "text": voice_text(v), "posted_at": v.posted_at, "week": v.week.starts_on}
+        {
+            "voice_id": str(v.voice_id),
+            "external_id": v.external_id,
+            "text": voice_text(v),
+            "posted_at": v.posted_at,
+            "week": v.week.starts_on,
+        }
         for v in qs
     ]
 
@@ -161,7 +167,12 @@ def list_embeddings(week: date | None, limit: int, offset: int) -> list[dict]:
     if week is not None:
         qs = qs.filter(voice__week__starts_on=week)
     return [
-        {"voice_id": str(e.voice_id), "vector": list(e.vector), "week": e.voice.week.starts_on}
+        {
+            "voice_id": str(e.voice_id),
+            "vector": list(e.vector),
+            "week": e.voice.week.starts_on,
+            "text": voice_text(e.voice),
+        }
         for e in qs[offset : offset + limit]
     ]
 

@@ -76,6 +76,13 @@ METRICS = [
 # local_schedule is cron (APScheduler); remote_schedule is an EventBridge expression.
 PIPELINES = [
     {
+        "key": "load_seed",
+        "label": "load seed",
+        "description": "The committed capture, into an empty store, once.",
+        "local_schedule": "boot",
+        "remote_schedule": "manual",
+    },
+    {
         "key": "ingest",
         "label": "ingest",
         "description": "New posts and comments from the archive feed.",
