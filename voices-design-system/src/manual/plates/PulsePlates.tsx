@@ -84,13 +84,11 @@ export function MoodMixPlate() {
 
 export function MoodSwatchPlate() {
   return (
-    <Figure label="In a row">
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        {MOODS.map((mood) => (
-          <MoodSwatch key={mood.key} mood={mood.key} on={mood.key === "uneasy"} />
-        ))}
-      </div>
-    </Figure>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+      {MOODS.map((mood) => (
+        <MoodSwatch key={mood.key} mood={mood.key} on={mood.key === "uneasy"} />
+      ))}
+    </div>
   );
 }
 

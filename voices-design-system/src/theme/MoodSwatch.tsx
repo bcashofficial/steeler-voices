@@ -29,8 +29,8 @@ export function MoodSwatch({ mood, on = false, style }: MoodSwatchProps) {
       style={{
         display: "grid",
         gridTemplateRows: "auto 1fr auto",
-        width: 74,
-        height: 46,
+        width: 78,
+        height: 48,
         padding: "5px 7px",
         borderRadius: 4,
         background: `linear-gradient(90deg, ${from}, ${to})`,
@@ -48,7 +48,9 @@ export function MoodSwatch({ mood, on = false, style }: MoodSwatchProps) {
         {WORDS.productName}
       </span>
       <span />
-      <span style={{ fontSize: 10, fontWeight: 500, lineHeight: 1 }}>{moodByKey[mood].label}</span>
+      <span style={{ fontSize: 12.5, fontWeight: 600, lineHeight: 1 }}>
+        {moodByKey[mood].label}
+      </span>
     </span>
   );
 }
