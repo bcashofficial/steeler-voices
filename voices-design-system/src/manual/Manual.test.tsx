@@ -23,13 +23,12 @@ test("opens on the contents and turns to a plate from the index", async () => {
 });
 
 test("a planned plate shows its spec", () => {
-  window.location.hash = "#text-link";
+  window.location.hash = "#double-rule";
   render(
     <VoicesTheme mode="light">
       <Manual />
     </VoicesTheme>,
   );
-  expect(screen.getByRole("heading", { name: "TextLink" })).toBeInTheDocument();
+  expect(screen.getByRole("heading", { name: "DoubleRule" })).toBeInTheDocument();
   expect(screen.getByText("Planned")).toBeInTheDocument();
-  expect(screen.getByText("Props")).toBeInTheDocument();
 });

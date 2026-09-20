@@ -22,6 +22,14 @@ import {
   PulseBarPlate,
   ScoreboardPlate,
 } from "./plates/PulsePlates";
+import {
+  AvatarPlate,
+  GroupTabsPlate,
+  PanePlate,
+  SubjectRowPlate,
+  TextLinkPlate,
+  VoiceMessagePlate,
+} from "./plates/BoardPlates";
 import { MasonryPlate, PostCardPlate, StatusDotPlate } from "./plates/RailPlates";
 
 export type PlateStatus = "built" | "planned";
@@ -112,42 +120,12 @@ export const PARTS: PartEntry[] = [
     key: "board",
     label: "The board",
     plates: [
-      planned(
-        "text-link",
-        "TextLink",
-        "Renders as an anchor or a button. The 3px gold underline draws in from the left on hover and focus; current keeps it and sets the text to full ink at 600. Nothing on the platform looks like a button.",
-        ["as: 'a' | 'button'", "current?: boolean", "children"],
-      ),
-      planned(
-        "avatar",
-        "Avatar",
-        "34px, radius 8, the handle's initial in Anton on gold, blue, olive or ink (chosen by a stable hash of the handle so a fan keeps their color).",
-        ["handle: string", "size?: number"],
-      ),
-      planned(
-        "voice-message",
-        "VoiceMessage",
-        "Avatar, handle 600, time, points right-aligned, the OP tag on the poster, the title for a post, the body, and a sm PulseBar. A reply indents 44px under a rounded connector. Hover and focus report the reading upward so the scoreboard can play it.",
-        ["voice: Voice", "reading: Reading", "reply?: boolean", "onFocusReading?"],
-      ),
-      planned(
-        "pane",
-        "Pane",
-        "No border. Transparent at rest; on hover or focus-within it takes the surface color, lifts on the big shadow, and rises 2px. PaneBar is its title line: a gold caret square, a name, and an optional Numeral in the corner.",
-        ["children", "bar?: { title, count? }"],
-      ),
-      planned(
-        "group-tabs",
-        "GroupTabs",
-        "Three TextLinks as tabs, from vocab.GROUPINGS. The selected one carries the underline.",
-        ["value: GroupingKey", "onChange"],
-      ),
-      planned(
-        "subject-row",
-        "SubjectRow",
-        "Name 600, count in ink3 tabular, a MoodMix across the row. Pressed rows carry a 3px gold bar on the left. Click keeps only that subject's voices in the thread.",
-        ["label", "count", "shares", "pressed?", "onPress"],
-      ),
+      { key: "text-link", label: "TextLink", status: "built", Component: TextLinkPlate },
+      { key: "avatar", label: "Avatar", status: "built", Component: AvatarPlate },
+      { key: "voice-message", label: "VoiceMessage", status: "built", Component: VoiceMessagePlate },
+      { key: "pane", label: "Pane", status: "built", Component: PanePlate },
+      { key: "group-tabs", label: "GroupTabs", status: "built", Component: GroupTabsPlate },
+      { key: "subject-row", label: "SubjectRow", status: "built", Component: SubjectRowPlate },
     ],
   },
   {

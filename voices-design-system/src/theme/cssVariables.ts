@@ -9,7 +9,8 @@ import { moodStops, palette, themes, type ThemeMode, type ThemeTokens } from "./
 
 export const BASE_STYLE_ID = "sv-base";
 
-const kebab = (key: string) => key.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
+const kebab = (key: string) =>
+  key.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`).replace(/([a-z])(\d)/g, "$1-$2");
 
 function declarations(mode: ThemeMode, tokens: ThemeTokens): string {
   const lines = Object.entries(tokens).map(([key, value]) => `--sv-${kebab(key)}:${value};`);

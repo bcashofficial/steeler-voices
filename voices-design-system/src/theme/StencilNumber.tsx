@@ -40,7 +40,7 @@ function Glyphs({ text, height, color }: { text: string; height: number; color: 
                 key={i}
                 d={stroke.d}
                 fill="none"
-                stroke={color}
+                style={{ stroke: color }}
                 strokeWidth={DIGIT_STROKE}
                 strokeLinecap="butt"
                 strokeDasharray={stroke.dash}
