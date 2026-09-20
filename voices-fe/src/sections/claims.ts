@@ -1,4 +1,5 @@
-/** Which cited voices back each claim: the claim's evidence indices, looked up among the section's citations. */
+/** Which cited voices back each claim: the claim's evidence indices looked
+ *  up among the section's citations, one citation per handle. */
 
 import type { Citation, Claim } from "../api/types";
 
