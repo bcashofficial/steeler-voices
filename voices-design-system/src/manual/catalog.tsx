@@ -27,7 +27,7 @@ import {
   GroupTabsPlate,
   PanePlate,
   SubjectRowPlate,
-  TextLinkPlate,
+  DropdownPlate,
   VoiceMessagePlate,
 } from "./plates/BoardPlates";
 import { DoubleRulePlate } from "./plates/ChromePlates";
@@ -121,7 +121,7 @@ export const PARTS: PartEntry[] = [
     key: "board",
     label: "The board",
     plates: [
-      { key: "text-link", label: "TextLink", status: "built", Component: TextLinkPlate },
+      { key: "dropdown", label: "Dropdown", status: "built", Component: DropdownPlate },
       { key: "avatar", label: "Avatar", status: "built", Component: AvatarPlate },
       { key: "voice-message", label: "VoiceMessage", status: "built", Component: VoiceMessagePlate },
       { key: "pane", label: "Pane", status: "built", Component: PanePlate },

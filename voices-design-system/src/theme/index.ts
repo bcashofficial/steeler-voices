@@ -63,3 +63,4 @@ export { Pane, PaneBar, type PaneProps, type PaneBarProps } from "./Pane";
 export { GroupTabs, type GroupTabsProps } from "./GroupTabs";
 export { SubjectRow, type SubjectRowProps } from "./SubjectRow";
 export { DoubleRule, type DoubleRuleProps } from "./DoubleRule";
+export { Dropdown, type DropdownProps, type DropdownOption } from "./Dropdown";

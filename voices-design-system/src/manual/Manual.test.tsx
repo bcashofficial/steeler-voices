@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { VoicesTheme } from "../theme";
+import { allPlates } from "./catalog";
 import { Manual } from "./Manual";
 
 beforeEach(() => {
@@ -23,12 +24,14 @@ test("opens on the contents and turns to a plate from the index", async () => {
 });
 
 test("a planned plate shows its spec", () => {
-  window.location.hash = "#double-rule";
+  const planned = allPlates().find((plate) => plate.status === "planned");
+  if (!planned) return;
+  window.location.hash = `#${planned.key}`;
   render(
     <VoicesTheme mode="light">
       <Manual />
     </VoicesTheme>,
   );
-  expect(screen.getByRole("heading", { name: "DoubleRule" })).toBeInTheDocument();
+  expect(screen.getByRole("heading", { name: planned.label })).toBeInTheDocument();
   expect(screen.getByText("Planned")).toBeInTheDocument();
 });

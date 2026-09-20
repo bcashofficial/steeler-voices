@@ -1,11 +1,11 @@
 /**
- * GroupTabs — By subject · By topic · By mood, as text links; the selected
- * one carries the underline.
+ * GroupTabs — By subject · By topic · By mood, as a dropdown of the three
+ * groupings from the vocab.
  */
 
 import type { CSSProperties } from "react";
 
-import { TextLink } from "./TextLink";
+import { Dropdown } from "./Dropdown";
 import { GROUPINGS, type GroupingKey } from "./vocab";
 
 export interface GroupTabsProps {
@@ -16,19 +16,12 @@ export interface GroupTabsProps {
 
 export function GroupTabs({ value, onChange, style }: GroupTabsProps) {
   return (
-    <div role="tablist" style={{ display: "flex", gap: 2, ...style }}>
-      {GROUPINGS.map((grouping) => (
-        <TextLink
-          key={grouping.key}
-          role="tab"
-          size="sm"
-          aria-selected={grouping.key === value}
-          onClick={() => onChange(grouping.key)}
-          style={{ margin: "0 8px" }}
-        >
-          {grouping.label}
-        </TextLink>
-      ))}
-    </div>
+    <Dropdown<GroupingKey>
+      options={GROUPINGS}
+      value={value}
+      onChange={onChange}
+      size="sm"
+      style={{ width: 160, ...style }}
+    />
   );
 }

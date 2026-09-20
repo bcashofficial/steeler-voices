@@ -2,11 +2,12 @@ import { useState } from "react";
 
 import {
   Avatar,
+  Dropdown,
+  GROUPINGS,
   GroupTabs,
   Pane,
   Scoreboard,
   SubjectRow,
-  TextLink,
   VoiceMessage,
   WORDS,
   type GroupingKey,
@@ -15,28 +16,38 @@ import {
 } from "../../theme";
 import { Figure } from "./shared";
 
-export function TextLinkPlate() {
-  const [current, setCurrent] = useState("board");
+const SECTION_OPTIONS = [
+  { key: "board", label: "Board", count: 61 },
+  { key: "document", label: "Document", count: 2 },
+  { key: "map", label: "Map", count: 4212 },
+  { key: "ab", label: "A/B", count: 3 },
+  { key: "pipelines", label: "Pipelines", count: 8 },
+];
+
+export function DropdownPlate() {
+  const [section, setSection] = useState<string | null>("board");
+  const [grouping, setGrouping] = useState<string | null>(null);
   return (
-    <div style={{ display: "grid", gap: 28 }}>
-      <Figure label="Anchor">
-        <div style={{ display: "flex", gap: 8 }}>
-          <TextLink href="#text-link">Board</TextLink>
-          <TextLink href="#text-link">Document</TextLink>
-          <TextLink href="#text-link">Map</TextLink>
-        </div>
+    <div style={{ display: "grid", gap: 28, maxWidth: 320 }}>
+      <Figure label="With counts">
+        <Dropdown options={SECTION_OPTIONS} value={section} onChange={setSection} />
       </Figure>
-      <Figure label="Current">
-        <div style={{ display: "flex", gap: 8 }}>
-          {["board", "document", "map"].map((key) => (
-            <TextLink key={key} current={current === key} onClick={() => setCurrent(key)}>
-              {key === "board" ? "Board" : key === "document" ? "Document" : "Map"}
-            </TextLink>
-          ))}
-        </div>
+      <Figure label="With a label, empty">
+        <Dropdown
+          label={WORDS.thread}
+          options={GROUPINGS}
+          value={grouping}
+          onChange={setGrouping}
+          placeholder={GROUPINGS[0].label}
+        />
       </Figure>
       <Figure label="sm">
-        <TextLink size="sm">{WORDS.openBoard}</TextLink>
+        <Dropdown
+          options={GROUPINGS}
+          value={grouping ?? "subject"}
+          onChange={setGrouping}
+          size="sm"
+        />
       </Figure>
     </div>
   );
