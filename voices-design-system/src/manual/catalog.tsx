@@ -14,7 +14,14 @@ import {
   TypographyPlate,
   WordsPlate,
 } from "./plates/Foundations";
-import { LaughStickerPlate, PulseBarPlate } from "./plates/PulsePlates";
+import {
+  LaughStickerPlate,
+  MoodMixPlate,
+  MoodSwatchPlate,
+  NumeralPlate,
+  PulseBarPlate,
+  ScoreboardPlate,
+} from "./plates/PulsePlates";
 
 export type PlateStatus = "built" | "planned";
 
@@ -94,30 +101,10 @@ export const PARTS: PartEntry[] = [
         status: "built",
         Component: LaughStickerPlate,
       },
-      planned(
-        "mood-mix",
-        "MoodMix",
-        "A single segmented pill: one segment per mood, sized by its share of the voices, in the mood's gradient. Under a subject row and along the bottom of a post card's cover as the lane strip.",
-        ["shares: { mood, share }[]", "size: 'sm' | 'md'"],
-      ),
-      planned(
-        "mood-swatch",
-        "MoodSwatch",
-        "A short gradient pill and the mood word; `on` gives it the gold underline. Seven of them make the scoreboard's legend.",
-        ["mood", "on?: boolean"],
-      ),
-      planned(
-        "scoreboard",
-        "Scoreboard",
-        "Yardage in Anton 54 with the gold offset over `yards` in micro caps; the mood word and handle; a `lg` PulseBar; G·10·20·30·40·50·40·30·20·10·G beneath in Anton 11; the seven swatches. `play(reading)` rolls the digits, re-fills the field in the new mood, and lights the swatch; `settle()` returns to the resting reading.",
-        ["resting: Reading", "current?: Reading", "onSettle?"],
-      ),
-      planned(
-        "numeral",
-        "Numeral",
-        "Every count on the platform that stands in for a sentence: the flyer's three, a pane's corner, a section's count in the menu. Three sizes; tabular; optional caption in micro caps.",
-        ["value: number", "size: 'sm' | 'md' | 'lg'", "caption?: string", "roll?: boolean"],
-      ),
+      { key: "mood-mix", label: "MoodMix", status: "built", Component: MoodMixPlate },
+      { key: "mood-swatch", label: "MoodSwatch", status: "built", Component: MoodSwatchPlate },
+      { key: "scoreboard", label: "Scoreboard", status: "built", Component: ScoreboardPlate },
+      { key: "numeral", label: "Numeral", status: "built", Component: NumeralPlate },
     ],
   },
   {
@@ -127,7 +114,7 @@ export const PARTS: PartEntry[] = [
       planned(
         "text-link",
         "TextLink",
-        "Renders as an anchor or a button. The 3px gold underline draws in from the left on hover and focus; `current` keeps it and sets the text to full ink at 600. Nothing on the platform looks like a button.",
+        "Renders as an anchor or a button. The 3px gold underline draws in from the left on hover and focus; current keeps it and sets the text to full ink at 600. Nothing on the platform looks like a button.",
         ["as: 'a' | 'button'", "current?: boolean", "children"],
       ),
       planned(
@@ -139,19 +126,19 @@ export const PARTS: PartEntry[] = [
       planned(
         "voice-message",
         "VoiceMessage",
-        "Avatar, handle 600, time, points right-aligned, the OP tag on the poster, the title for a post, the body, and a `sm` PulseBar. A reply indents 44px under a rounded connector. Hover and focus report the reading upward so the scoreboard can play it.",
+        "Avatar, handle 600, time, points right-aligned, the OP tag on the poster, the title for a post, the body, and a sm PulseBar. A reply indents 44px under a rounded connector. Hover and focus report the reading upward so the scoreboard can play it.",
         ["voice: Voice", "reading: Reading", "reply?: boolean", "onFocusReading?"],
       ),
       planned(
         "pane",
         "Pane",
-        "No border. Transparent at rest; on hover or focus-within it takes the surface color, lifts on the big shadow, and rises 2px. `PaneBar` is its title line: a gold caret square, a name, and an optional Numeral in the corner.",
+        "No border. Transparent at rest; on hover or focus-within it takes the surface color, lifts on the big shadow, and rises 2px. PaneBar is its title line: a gold caret square, a name, and an optional Numeral in the corner.",
         ["children", "bar?: { title, count? }"],
       ),
       planned(
         "group-tabs",
         "GroupTabs",
-        "Three TextLinks as tabs, from `vocab.GROUPINGS`. The selected one carries the underline.",
+        "Three TextLinks as tabs, from vocab.GROUPINGS. The selected one carries the underline.",
         ["value: GroupingKey", "onChange"],
       ),
       planned(
@@ -175,7 +162,7 @@ export const PARTS: PartEntry[] = [
       planned(
         "masonry",
         "Masonry",
-        "`column-width: 200px`, gap 12; children avoid breaking. Stacks to one column below 980px with the rest of the board.",
+        "column-width: 200px, gap 12; children avoid breaking. Stacks to one column below 980px with the rest of the board.",
         ["children"],
       ),
       planned(
@@ -205,19 +192,19 @@ export const PARTS: PartEntry[] = [
       planned(
         "section-menu",
         "SectionMenu",
-        "The current section as a TextLink with a chevron; the sheet lists every section from `vocab.SECTIONS` with its count as a Numeral, a hairline before Pipelines, halftone fading from its top edge. Esc and click-away close it.",
+        "The current section as a TextLink with a chevron; the sheet lists every section from vocab.SECTIONS with its count as a Numeral, a hairline before Pipelines, halftone fading from its top edge. Esc and click-away close it.",
         ["current: SectionKey", "counts", "onSelect"],
       ),
       planned(
         "theme-switch",
         "ThemeSwitch",
-        "One icon; click swaps the theme through `useVoicesTheme`. Its accessible name says which way it will switch.",
+        "One icon; click swaps the theme through useVoicesTheme. Its accessible name says which way it will switch.",
         [],
       ),
       planned(
         "flyer",
         "Flyer",
-        "Over a 55% ink scrim with a 2px blur: a 560px sheet on radius 6, halftone fading from the top, the name in Anton 58, a DoubleRule, the matchup in Anton 34 with `at` in Helvetica Neue, three Numerals over micro caps (Posts · Comments · Subjects), the top subjects with counts, the DoubleRule again, and `Open the board` as a TextLink. Closes on the link, the backdrop or Esc.",
+        "Over a 55% ink scrim with a 2px blur: a 560px sheet on radius 6, halftone fading from the top, the name in Anton 58, a DoubleRule, the matchup in Anton 34 with at in Helvetica Neue, three Numerals over micro caps (Posts · Comments · Subjects), the top subjects with counts, the DoubleRule again, and Open the board as a TextLink. Closes on the link, the backdrop or Esc.",
         ["week", "game", "counts", "subjects", "open", "onClose"],
       ),
       planned(

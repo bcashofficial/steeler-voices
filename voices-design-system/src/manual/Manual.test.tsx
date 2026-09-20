@@ -23,13 +23,13 @@ test("opens on the contents and turns to a plate from the index", async () => {
 });
 
 test("a planned plate shows its spec", () => {
-  window.location.hash = "#scoreboard";
+  window.location.hash = "#text-link";
   render(
     <VoicesTheme mode="light">
       <Manual />
     </VoicesTheme>,
   );
-  expect(screen.getByRole("heading", { name: "Scoreboard" })).toBeInTheDocument();
+  expect(screen.getByRole("heading", { name: "TextLink" })).toBeInTheDocument();
   expect(screen.getByText("Planned")).toBeInTheDocument();
   expect(screen.getByText("Props")).toBeInTheDocument();
 });

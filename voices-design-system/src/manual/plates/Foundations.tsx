@@ -39,7 +39,7 @@ export function TypographyPlate() {
   const { scale } = typography;
   return (
     <div style={{ display: "grid", gap: 28 }}>
-      <Figure label="Anton — display, one weight, the gold offset">
+      <Figure label="Anton">
         <div
           style={{
             fontFamily: typography.display,
@@ -70,10 +70,7 @@ export function TypographyPlate() {
       <Figure label="Helvetica Neue">
         <div style={{ display: "grid", gap: 8 }}>
           <div style={{ fontFamily: typography.body, ...scale.title }}>Title 15 / 600</div>
-          <div style={{ fontFamily: typography.body, ...scale.body }}>
-            Body 14 / 1.45 — Genuinely frustrating to see some of the contracts we have handed out
-            but won’t pay him.
-          </div>
+          <div style={{ fontFamily: typography.body, ...scale.body }}>Body 14 / 1.45</div>
           <div style={{ fontFamily: typography.body, ...scale.small, color: "var(--sv-ink-2)" }}>
             Small 12 / 500
           </div>
@@ -104,7 +101,7 @@ export function GroundsPlate() {
 
 export function MotionPlate() {
   return (
-    <Figure label="Three durations">
+    <Figure label="Durations">
       <table style={{ ...BODY, borderCollapse: "collapse" }}>
         <tbody>
           {Object.entries(motion).map(([name, value]) => (

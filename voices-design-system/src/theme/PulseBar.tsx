@@ -7,13 +7,15 @@
  * the line color. Above it: a dot in the mood's color, the mood word
  * tracked in caps, and the yardage in a gold chip that rolls to its value.
  *
- * It plays: on mount the ticks rise in sequence; the head tick breathes on
+ * It plays: on mount, and again whenever the pointer enters it, the ticks
+ * rise in sequence and the chip rolls from zero; the head tick breathes on
  * the yard line; the cursor raises a wave of ticks as it passes over the
- * field. The laughing sticker sits at the end of the row on a voice read
- * as sarcasm. Under reduced motion it simply is.
+ * field. A parent can replay it too by changing `replayKey`. The laughing
+ * sticker sits at the end of the row on a voice read as sarcasm. Under
+ * reduced motion it simply is.
  */
 
-import { useEffect, useId, useRef, type CSSProperties, type MouseEvent } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties, type MouseEvent } from "react";
 
 import { LaughSticker } from "./LaughSticker";
 import { clampYards, filledTicks, tickColor } from "./pulseMath";
@@ -36,6 +38,10 @@ export interface PulseBarProps {
   animate?: boolean;
   /** Replace the mood word with something else (a subject, a handle). */
   label?: string;
+  /** Change it to replay the rise and the roll from a parent. */
+  replayKey?: number;
+  /** Render the dot / word / chip row above the field (default) or the field alone. */
+  head?: boolean;
   className?: string;
   style?: CSSProperties;
 }
@@ -54,6 +60,7 @@ const CSS = `
 .sv-pulse{display:grid;gap:6px;min-width:0}
 .sv-pulse-head{display:flex;align-items:center;gap:8px;min-height:20px}
 .sv-pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--sv-pulse-from);flex:none}
+.sv-pulse-label[data-custom="true"]{text-transform:none;letter-spacing:0}
 .sv-pulse-label{font-family:${typography.body};font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--sv-ink);white-space:nowrap}
 .sv-pulse-chip{font-family:${typography.body};font-weight:600;font-variant-numeric:tabular-nums;background:var(--sv-gold);color:var(--sv-gold-ink);padding:2px 7px;border-radius:4px;line-height:1.3;white-space:nowrap}
 .sv-pulse-field{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--sv-pulse-gap);width:100%;height:var(--sv-pulse-tall);cursor:default}
@@ -76,6 +83,8 @@ export function PulseBar({
   ticks = 50,
   animate = true,
   label,
+  replayKey = 0,
+  head = true,
   className,
   style,
 }: PulseBarProps) {
@@ -84,8 +93,13 @@ export function PulseBar({
   const id = useId();
   const { from, to, label: moodWord } = moodByKey[mood];
   const filled = filledTicks(yards, ticks);
-  const shownYards = useRollingNumber(Math.round(clampYards(yards)));
+  const [hoverPlays, setHoverPlays] = useState(0);
+  const play = replayKey * 1000 + hoverPlays;
+  const shownYards = useRollingNumber(Math.round(clampYards(yards)), 420, animate ? play : 0);
   const dims = SIZES[size];
+  const replay = () => {
+    if (animate) setHoverPlays((n) => n + 1);
+  };
 
   const wave = (event: MouseEvent<HTMLDivElement>) => {
     const field = fieldRef.current;
@@ -118,22 +132,26 @@ export function PulseBar({
       className={["sv-pulse", className].filter(Boolean).join(" ")}
       data-animate={animate}
       style={vars}
+      onMouseEnter={replay}
     >
-      <div className="sv-pulse-head">
-        <span className="sv-pulse-dot" aria-hidden="true" />
-        <span className="sv-pulse-label" id={`${id}-label`}>
-          {label ?? moodWord}
-        </span>
-        <span className="sv-pulse-chip" style={{ fontSize: dims.chip }}>
-          {shownYards} {WORDS.yd}
-        </span>
-        {sarcasm ? <LaughSticker size={size === "lg" ? 36 : 26} /> : null}
-      </div>
+      {head ? (
+        <div className="sv-pulse-head">
+          <span className="sv-pulse-dot" aria-hidden="true" />
+          <span className="sv-pulse-label" id={`${id}-label`} data-custom={label !== undefined}>
+            {label ?? moodWord}
+          </span>
+          <span className="sv-pulse-chip" style={{ fontSize: dims.chip }}>
+            {shownYards} {WORDS.yd}
+          </span>
+          {sarcasm ? <LaughSticker size={size === "lg" ? 36 : 26} /> : null}
+        </div>
+      ) : null}
       <div
         ref={fieldRef}
         className="sv-pulse-field"
         role="meter"
-        aria-labelledby={`${id}-label`}
+        aria-labelledby={head ? `${id}-label` : undefined}
+        aria-label={head ? undefined : (label ?? moodWord)}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={Math.round(clampYards(yards))}
@@ -145,7 +163,7 @@ export function PulseBar({
           const on = index < filled;
           return (
             <span
-              key={index}
+              key={`${play}-${index}`}
               className="sv-pulse-tick"
               data-on={on}
               data-tall={index % 5 === 0 || index === ticks - 1}
