@@ -4,11 +4,14 @@ the token counts it reports.
 """
 
 import json
+import time
 from dataclasses import dataclass
 
 import requests
 
 TIMEOUT = 900  # a whole document from an 8B model on a CPU takes minutes
+ATTEMPTS = 3
+RETRY_SECONDS = 10
 CONTEXT_TOKENS = 16384
 USER_AGENT = "Mozilla/5.0 steeler-voices/0.1"  # the rig's proxy rejects bare tool agents
 
@@ -30,6 +33,20 @@ class OllamaClient:
         self.session.headers["User-Agent"] = USER_AGENT
 
     def chat_json(self, system: str, user: str, schema: dict) -> tuple[dict, Usage]:
+        """One structured answer. A proxy in front of the model (the rig's)
+        cuts long generations at its own ceiling; those come back as 5xx
+        or a dropped connection and are asked again, a few times."""
+        for attempt in range(1, ATTEMPTS + 1):
+            try:
+                return self._chat_json(system, user, schema)
+            except (requests.ConnectionError, requests.Timeout, requests.HTTPError) as error:
+                status = getattr(getattr(error, "response", None), "status_code", None)
+                if attempt == ATTEMPTS or (status is not None and status < 500):
+                    raise
+                time.sleep(RETRY_SECONDS * attempt)
+        raise RuntimeError("unreachable")
+
+    def _chat_json(self, system: str, user: str, schema: dict) -> tuple[dict, Usage]:
         body = {
             "model": self.model,
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
